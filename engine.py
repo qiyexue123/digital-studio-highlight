@@ -36,19 +36,25 @@ REPORT_FILE = BASE_DIR / "data" / "_last_report.md"
 # ──────────────────────────────────────────
 RSS_SOURCES = [
     {
-        "name": "Hacker News · AI Agent",
+        "name": "HN · AI Agent",
         "url": "https://hnrss.org/newest?q=AI+agent&count=20",
         "tags": ["英文", "社区"],
         "weight": 0.9
     },
     {
-        "name": "Hacker News · LLM",
-        "url": "https://hnrss.org/newest?q=LLM+Claude+GPT&count=15",
+        "name": "HN · Claude",
+        "url": "https://hnrss.org/newest?q=Claude&count=15",
         "tags": ["英文", "模型能力"],
-        "weight": 0.85
+        "weight": 1.0
     },
     {
-        "name": "Hacker News · Best",
+        "name": "HN · GPT",
+        "url": "https://hnrss.org/newest?q=GPT&count=10",
+        "tags": ["英文", "模型能力"],
+        "weight": 0.9
+    },
+    {
+        "name": "HN · Best",
         "url": "https://hnrss.org/best?q=AI&count=10",
         "tags": ["英文", "社区"],
         "weight": 1.0
@@ -60,16 +66,10 @@ RSS_SOURCES = [
         "weight": 1.0
     },
     {
-        "name": "MIT Tech Review AI",
+        "name": "MIT Tech Review",
         "url": "https://www.technologyreview.com/feed/",
         "tags": ["英文", "深度"],
         "weight": 0.9
-    },
-    {
-        "name": "VentureBeat AI",
-        "url": "https://venturebeat.com/category/ai/feed/",
-        "tags": ["英文", "产品"],
-        "weight": 0.8
     },
 ]
 
@@ -293,6 +293,12 @@ def update_highlights(new_items: list[dict], max_per_run: int = 5):
     # 加载现有数据
     data = json.loads(DATA_FILE.read_text("utf-8"))
 
+    # 收集已有卡片 id 集合，防止重复插入
+    existing_ids: set[str] = set()
+    for section in data["sections"]:
+        for card in section["items"]:
+            existing_ids.add(card["id"])
+
     # 生成卡片并追加到合适的 section
     added = []
     for item in top_items:
@@ -310,14 +316,15 @@ def update_highlights(new_items: list[dict], max_per_run: int = 5):
         else:
             section_id = "section-products"
 
-        # 找到目标 section 并追加
+        # 找到目标 section 并追加（跳过已存在的 id）
         for section in data["sections"]:
             if section["id"] == section_id:
-                section["items"].insert(0, card)
+                if card["id"] not in existing_ids:
+                    section["items"].insert(0, card)
+                    existing_ids.add(card["id"])
+                    added.append(card)
+                    log(f"  新增卡片: [{score:.0f}分] {item['title'][:50]}...", "OK")
                 break
-
-        added.append(card)
-        log(f"  新增卡片: [{score:.0f}分] {item['title'][:50]}...", "OK")
 
     # 更新 meta
     data["meta"]["date"] = datetime.now().strftime("%Y-%m-%d")

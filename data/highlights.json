@@ -5,8 +5,8 @@
     "issue": "Vol.05",
     "date": "2026-03-05",
     "description": "数字工作室精选 AI × 设计领域最值得关注的信号，每期追踪能力跃迁、产品范式与设计实践的交叉地带。",
-    "_last_updated": "2026-03-05T05:59:39.333731+00:00",
-    "_auto_count": 8
+    "_last_updated": "2026-03-05T06:03:23.087831+00:00",
+    "_auto_count": 14
   },
   "timeline": [
     {
@@ -189,21 +189,23 @@
       "color": "purple",
       "items": [
         {
-          "id": "auto-e5b420375622",
+          "id": "auto-3e8ede1fb5e9",
           "size": "md",
           "type": "product-card",
           "tag": [
+            "模型能力",
             "Agentic"
           ],
           "tagColor": [
-            "blue"
+            "blue",
+            "gray"
           ],
-          "title": "Pacific Northwest National Laboratory and OpenAI partner to accelerate federal p",
-          "desc": "OpenAI and Pacific Northwest National Laboratory introduce DraftNEPABench, a new benchmark evaluating how AI coding agents can accelerate federal permitting—showing potential to reduce NEPA drafting time by up to 15% and modernize infrastructure reviews.",
-          "source": "OpenAI Blog · Thu, 26 Feb 2026",
+          "title": "Unified In-Process Agent Interface for Claude Code, Codex, Kimi",
+          "desc": "Article URL: https://github.com/odysa/one-agent-sdk\nComments URL: https://news.ycombinator.com/item?id=47257750\nPoints: 2\n# Comments: 0",
+          "source": "HN · Claude · Thu, 05 Mar 2026",
           "confidence": 95,
-          "link": "https://openai.com/index/pacific-northwest-national-laboratory",
-          "_score": 25.0,
+          "link": "https://github.com/odysa/one-agent-sdk",
+          "_score": 26.0,
           "_auto": true,
           "_needs_review": true
         },
@@ -221,10 +223,29 @@
           ],
           "title": "Show HN: Kvlar – Open-source firewall for AI agent tool calls",
           "desc": "Hey HN, I built Kvlar — an open-source policy engine that sits between AI agents and their tools (MCP servers), evaluating every tool call against YAML security policies before execution.The problem: AI agents using MCP can execute database queries, push code, send Slack messages, and run shell comm",
-          "source": "Hacker News · AI Agent · Wed, 04 Mar 2026",
+          "source": "HN · AI Agent · Wed, 04 Mar 2026",
           "confidence": 95,
           "link": "https://github.com/kvlar-io/kvlar",
           "_score": 26.0,
+          "_auto": true,
+          "_needs_review": true
+        },
+        {
+          "id": "auto-c252c92439bf",
+          "size": "md",
+          "type": "product-card",
+          "tag": [
+            "模型能力"
+          ],
+          "tagColor": [
+            "blue"
+          ],
+          "title": "Get Cited by Gemini, Claude, Perplexity,&amp; ChatGPT, SEO Bot ( AI Skill Includ",
+          "desc": "Article URL: https://github.com/JoinDataCops/react-prerender-datacops\nComments URL: https://news.ycombinator.com/item?id=47256592\nPoints: 2\n# Comments: 1",
+          "source": "HN · Claude · Thu, 05 Mar 2026",
+          "confidence": 95,
+          "link": "https://github.com/JoinDataCops/react-prerender-datacops",
+          "_score": 27.0,
           "_auto": true,
           "_needs_review": true
         },
@@ -242,10 +263,29 @@
           ],
           "title": "Show HN: I built a CLI to sync AI agent skills and MCPs across coding agents",
           "desc": "Hi HN,I built this CLI after having to switch between AI coding agents when token limits or quotas were reached. And had to port my MCP servers and skills across tools.Instead of maintaining separate setups for each tool, everything can be updated through CLI and are synced through symlinks.\nCurrent",
-          "source": "Hacker News · AI Agent · Wed, 04 Mar 2026",
+          "source": "HN · AI Agent · Wed, 04 Mar 2026",
           "confidence": 95,
           "link": "https://github.com/ryanreh99/skills-sync",
           "_score": 34.0,
+          "_auto": true,
+          "_needs_review": true
+        },
+        {
+          "id": "auto-e5b420375622",
+          "size": "md",
+          "type": "product-card",
+          "tag": [
+            "Agentic"
+          ],
+          "tagColor": [
+            "blue"
+          ],
+          "title": "Pacific Northwest National Laboratory and OpenAI partner to accelerate federal p",
+          "desc": "OpenAI and Pacific Northwest National Laboratory introduce DraftNEPABench, a new benchmark evaluating how AI coding agents can accelerate federal permitting—showing potential to reduce NEPA drafting time by up to 15% and modernize infrastructure reviews.",
+          "source": "OpenAI Blog · Thu, 26 Feb 2026",
+          "confidence": 95,
+          "link": "https://openai.com/index/pacific-northwest-national-laboratory",
+          "_score": 25.0,
           "_auto": true,
           "_needs_review": true
         },
@@ -413,6 +453,44 @@
       "color": "emerald",
       "items": [
         {
+          "id": "auto-f62500abbe1d",
+          "size": "md",
+          "type": "product-card",
+          "tag": [
+            "Agentic"
+          ],
+          "tagColor": [
+            "blue"
+          ],
+          "title": "Show HN: AgentsMesh – AI agent fleet command center",
+          "desc": "Hi HN — I built AgentsMesh, a “fleet command center” that has all componenets you need to harness agentic engineeringMost tools assume one agent, one chat. In practice, I wanted something closer to “a small team”: multiple agents working on different parts of a project, with clear task ownership, vi",
+          "source": "HN · AI Agent · Wed, 04 Mar 2026",
+          "confidence": 95,
+          "link": "https://github.com/AgentsMesh/AgentsMesh",
+          "_score": 26.0,
+          "_auto": true,
+          "_needs_review": true
+        },
+        {
+          "id": "auto-5db7ff536bb5",
+          "size": "md",
+          "type": "product-card",
+          "tag": [
+            "Agentic"
+          ],
+          "tagColor": [
+            "blue"
+          ],
+          "title": "Show HN: What an AI agent sees in an A2A marketplace – full API walkthrough",
+          "desc": "Article URL: https://agoragentic.com/demo.html\nComments URL: https://news.ycombinator.com/item?id=47256257\nPoints: 1\n# Comments: 3",
+          "source": "HN · AI Agent · Thu, 05 Mar 2026",
+          "confidence": 95,
+          "link": "https://agoragentic.com/demo.html",
+          "_score": 26.0,
+          "_auto": true,
+          "_needs_review": true
+        },
+        {
           "id": "auto-9e4058694d30",
           "size": "sm",
           "type": "stat",
@@ -467,44 +545,6 @@
           "source": "MIT Tech Review AI · Wed, 04 Mar 2026",
           "confidence": 95,
           "link": "https://www.technologyreview.com/2026/03/04/1133642/bridging-the-operational-ai-gap/",
-          "_score": 26.0,
-          "_auto": true,
-          "_needs_review": true
-        },
-        {
-          "id": "auto-f62500abbe1d",
-          "size": "md",
-          "type": "product-card",
-          "tag": [
-            "Agentic"
-          ],
-          "tagColor": [
-            "blue"
-          ],
-          "title": "Show HN: AgentsMesh – AI agent fleet command center",
-          "desc": "Hi HN — I built AgentsMesh, a “fleet command center” that has all componenets you need to harness agentic engineeringMost tools assume one agent, one chat. In practice, I wanted something closer to “a small team”: multiple agents working on different parts of a project, with clear task ownership, vi",
-          "source": "Hacker News · AI Agent · Wed, 04 Mar 2026",
-          "confidence": 95,
-          "link": "https://github.com/AgentsMesh/AgentsMesh",
-          "_score": 26.0,
-          "_auto": true,
-          "_needs_review": true
-        },
-        {
-          "id": "auto-5db7ff536bb5",
-          "size": "md",
-          "type": "product-card",
-          "tag": [
-            "Agentic"
-          ],
-          "tagColor": [
-            "blue"
-          ],
-          "title": "Show HN: What an AI agent sees in an A2A marketplace – full API walkthrough",
-          "desc": "Article URL: https://agoragentic.com/demo.html\nComments URL: https://news.ycombinator.com/item?id=47256257\nPoints: 1\n# Comments: 3",
-          "source": "Hacker News · AI Agent · Thu, 05 Mar 2026",
-          "confidence": 95,
-          "link": "https://agoragentic.com/demo.html",
           "_score": 26.0,
           "_auto": true,
           "_needs_review": true
