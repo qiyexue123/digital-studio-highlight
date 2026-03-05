@@ -246,12 +246,15 @@
           <div class="px-3 pt-2 pb-1">
             <a href="#section-models" class="toc-link flex items-center gap-2 px-2 py-1.5 rounded-lg text-xs font-bold text-purple-700 hover:bg-purple-50 transition" data-toc="section-models"><i class="fas fa-brain text-purple-400 w-3"></i>模型</a>
             <div class="ml-4 mt-0.5 space-y-0.5">
-              <a href="#model-01" class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-purple-600 hover:bg-purple-50 transition" data-toc="model-01">Claude Opus 4.6</a>
-              <a href="#model-01b" class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-violet-600 hover:bg-violet-50 transition" data-toc="model-01b">Claude Sonnet 4.6</a>
-              <a href="#model-02" class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-green-600 hover:bg-green-50 transition" data-toc="model-02">GPT-5.3 Codex</a>
-              <a href="#model-03" class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition" data-toc="model-03">Gemini 3.1 Pro</a>
-              <a href="#model-04" class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-pink-600 hover:bg-pink-50 transition" data-toc="model-04">Seedance 2.0</a>
-              <a href="#model-05" class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-gray-600 hover:bg-gray-50 transition" data-toc="model-05">Grok 4.2</a>
+              <a href="#models"       class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-purple-600 hover:bg-purple-50 transition" data-toc="models">Claude Opus 4.6</a>
+              <a href="#sonnet46"     class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-violet-600 hover:bg-violet-50 transition" data-toc="sonnet46">Claude Sonnet 4.6</a>
+              <a href="#openai"       class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-green-600 hover:bg-green-50 transition" data-toc="openai">GPT-5.3 Codex</a>
+              <a href="#google-gemini" class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-blue-600 hover:bg-blue-50 transition" data-toc="google-gemini">Gemini 3.1 Pro</a>
+              <a href="#nano-banana"  class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-yellow-600 hover:bg-yellow-50 transition" data-toc="nano-banana">Nano Banana 2</a>
+              <a href="#xai"          class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-gray-600 hover:bg-gray-50 transition" data-toc="xai">Grok 4.2</a>
+              <a href="#seedance"     class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-cyan-600 hover:bg-cyan-50 transition" data-toc="seedance">Seedance 2.0</a>
+              <a href="#seedream"     class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-pink-600 hover:bg-pink-50 transition" data-toc="seedream">Seedream 5.0</a>
+              <a href="#domestic"     class="toc-link block px-2 py-1 rounded text-xs text-gray-500 hover:text-orange-600 hover:bg-orange-50 transition" data-toc="domestic">国产大模型</a>
             </div>
           </div>
           <div class="px-3 pt-2 pb-1">
@@ -2057,7 +2060,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var SECTIONS = ['timeline','section-agentic','section-models','section-products','openclaw','section-design','section-summary'];
   var DETAIL   = [
     'agentic-01','agentic-02','agentic-03',
-    'model-01','model-01b','model-02','model-03','model-04','model-05',
+    'models','sonnet46','openai','google-gemini','nano-banana','xai','seedance','seedream','domestic',
     'sonnet46','openai','google-gemini','nano-banana','xai','seedance','seedream','domestic',
     'product-01','product-02','product-03','product-04','product-05','product-06',
     'codex-app','google-douyin','teamily','Elys','agents','obsidian-cli','notion','manus',
@@ -2068,8 +2071,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // 子 id → 父 section id
   var PARENT = {
     'agentic-01':'section-agentic','agentic-02':'section-agentic','agentic-03':'section-agentic',
-    'model-01':'section-models','model-01b':'section-models','model-02':'section-models',
-    'model-03':'section-models','model-04':'section-models','model-05':'section-models',
+    'models':'section-models','sonnet46':'section-models','openai':'section-models',
+    'google-gemini':'section-models','nano-banana':'section-models','xai':'section-models',
+    'seedance':'section-models','seedream':'section-models','domestic':'section-models',
     'sonnet46':'section-models','openai':'section-models','google-gemini':'section-models',
     'nano-banana':'section-models','xai':'section-models','seedance':'section-models',
     'seedream':'section-models','domestic':'section-models',
