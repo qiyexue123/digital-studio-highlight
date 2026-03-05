@@ -173,7 +173,7 @@ def fetch_search(source, timeout=20):
         cur = {}
         for line in lines:
             line = line.strip()
-            if re.match(r'^\d+\.', line):       # 新条目标题行
+            if re.match(r'^\d+\.', line):
                 if cur.get("title"):
                     items.append(cur)
                 title = re.sub(r'^\d+\.\s*', '', line).split(' - ')[0].strip()
@@ -182,13 +182,57 @@ def fetch_search(source, timeout=20):
             elif line.startswith("链接:"):
                 cur["url"] = line[3:].strip()
             elif line.startswith("摘要:"):
-                cur["desc"] = line[3:].strip()[:400]
+                raw_desc = line[3:].strip()
+                cur["desc"] = raw_desc[:400]
+                # 从摘要中提取日期
+                extracted = _extract_date_from_text(raw_desc + " " + cur["title"])
+                if extracted:
+                    cur["date"] = extracted
         if cur.get("title"):
             items.append(cur)
-        log(f"  {source['name']}: {len(items)} 条", "OK")
+        log(f"  {source['name']}: {len(items)} 条（含日期: {sum(1 for i in items if i['date'])} 条）", "OK")
     except Exception as e:
         log(f"  {source['name']}: 失败 — {e}", "WARN")
     return items
+
+
+def _extract_date_from_text(text):
+    """从文本中提取发布日期（支持多种中英文格式）"""
+    # 中文：X天前 / X小时前
+    m = re.search(r'(\d+)\s*天前', text)
+    if m:
+        days = int(m.group(1))
+        from datetime import timedelta
+        dt = datetime.now() - timedelta(days=days)
+        return dt.strftime("%Y-%m-%d")
+    m = re.search(r'(\d+)\s*小时前', text)
+    if m:
+        return datetime.now().strftime("%Y-%m-%d")
+    m = re.search(r'(\d+)\s*分钟前|刚刚|今天', text)
+    if m:
+        return datetime.now().strftime("%Y-%m-%d")
+    # YYYY年MM月DD日
+    m = re.search(r'(\d{4})年(\d{1,2})月(\d{1,2})日', text)
+    if m:
+        return f"{m.group(1)}-{m.group(2).zfill(2)}-{m.group(3).zfill(2)}"
+    # YYYY-MM-DD
+    m = re.search(r'(\d{4})-(\d{2})-(\d{2})', text)
+    if m:
+        return f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
+    # MM/DD/YYYY or DD/MM/YYYY
+    m = re.search(r'(\d{1,2})/(\d{1,2})/(\d{4})', text)
+    if m:
+        return f"{m.group(3)}-{m.group(1).zfill(2)}-{m.group(2).zfill(2)}"
+    # "Jan 15, 2026" / "15 Jan 2026"
+    months = {"jan":"01","feb":"02","mar":"03","apr":"04","may":"05","jun":"06",
+              "jul":"07","aug":"08","sep":"09","oct":"10","nov":"11","dec":"12"}
+    m = re.search(r'(\w{3})\s+(\d{1,2})[,\s]+(\d{4})', text, re.I)
+    if m and m.group(1).lower() in months:
+        return f"{m.group(3)}-{months[m.group(1).lower()]}-{m.group(2).zfill(2)}"
+    m = re.search(r'(\d{1,2})\s+(\w{3})[,\s]+(\d{4})', text, re.I)
+    if m and m.group(2).lower() in months:
+        return f"{m.group(3)}-{months[m.group(2).lower()]}-{m.group(1).zfill(2)}"
+    return ""
 
 
 # ──────────────────────────────────────────────────────
@@ -246,17 +290,58 @@ def run_fetch():
 # ──────────────────────────────────────────────────────
 RELEASE_KW = ["发布","上线","推出","宣布","release","launch","announce","发行","开源"]
 
+# ──────────────────────────────────────────────────────
+# 质量过滤：只留真正的"发布事件"，丢弃综述/榜单/趋势文章
+# ──────────────────────────────────────────────────────
+
+# 黑名单词：含这些词的直接丢弃（综述/榜单/趋势文章）
+BLACKLIST_KW = [
+    "盘点","汇总","合集","榜单","趋势","指南","白皮书","全景","总结","回顾","综述",
+    "对比","比较","评测","top10","top 10","最佳","完全指南","全面解析","深度解析",
+    "timeline","tracker","so far","complete list","every major","best ai",
+    "2026年ai","2026 ai","年度","前瞻","展望","未来","入门","教程","学习",
+]
+
+# 必须含有"具体产品/模型名 + 发布动词"，才算发布事件
+PRODUCT_NAMES = [
+    "claude","gpt","gemini","grok","qwen","千问","deepseek","glm","llama",
+    "opus","sonnet","haiku","codex","cursor","copilot","manus","openClaw",
+    "sora","seedance","seedream","midjourney","stable diffusion","flux",
+    "apple","iphone","macbook","pixel","samsung","华为","小米","vivo","oppo",
+    "figma","notion","obsidian","linear","arc","perplexity","mistral",
+    "kimi","moonshot","minimax","baidu","wenxin","文心","讯飞","spark",
+]
+
+def is_real_event(item):
+    """判断是否是真实的具体发布/上线事件（非综述文章）"""
+    title = item["title"].lower()
+    desc  = item.get("desc","").lower()
+    text  = title + " " + desc
+
+    # 1. 黑名单过滤
+    for bw in BLACKLIST_KW:
+        if bw in text:
+            return False
+
+    # 2. 必须含具体产品/模型名
+    has_product = any(p in text for p in PRODUCT_NAMES)
+
+    # 3. 必须含发布动词
+    has_release = any(kw in text for kw in RELEASE_KW)
+
+    # 4. 必须有可解析的近期日期（date 字段非空）
+    has_date = bool(item.get("date","").strip())
+
+    return has_product and has_release and has_date
+
+
 def is_timeline_worthy(item):
     s = score(item)
-    text = (item["title"]+" "+item.get("desc","")).lower()
-    has_release = any(kw in text for kw in RELEASE_KW)
-    # 今日内容降低阈值（45分即可）
-    today = datetime.now().strftime("%Y年%m月%d日")
-    ymd   = datetime.now().strftime("%Y-%m-%d")
-    is_today = today in item.get("date","") or ymd in item.get("date","") or \
-               today[:7] in item.get("title","") or ymd[:7] in item.get("title","")
-    threshold = 45 if is_today else 58
-    return s >= threshold and has_release
+    # 先过质量关
+    if not is_real_event(item):
+        return False
+    # 再过分数关（具体事件阈值可低一些）
+    return s >= 45
 
 
 # ──────────────────────────────────────────────────────
@@ -289,24 +374,41 @@ def make_badge(item):
     return ("AI资讯","bg-blue-100 text-blue-700")
 
 def format_date_label(item):
-    """从 date 字段提取 YYYY.MM.DD 格式"""
-    d = item.get("date","")
+    """从 date 字段提取 YYYY.MM.DD，失败则返回 None（调用方负责过滤）"""
+    d = item.get("date","").strip()
+    if not d:
+        return None
     # 尝试常见格式
-    for fmt in ["%a, %d %b %Y", "%Y-%m-%dT%H:%M", "%Y-%m-%d"]:
+    for fmt in ["%a, %d %b %Y %H:%M:%S %z",
+                "%a, %d %b %Y %H:%M:%S %Z",
+                "%Y-%m-%dT%H:%M:%S%z",
+                "%Y-%m-%dT%H:%M",
+                "%Y-%m-%d"]:
         try:
-            dt = datetime.strptime(d[:16], fmt[:len(d[:16])])
+            dt = datetime.strptime(d[:25], fmt[:len(d[:25])])
             return dt.strftime("%Y.%m.%d")
         except: pass
-    # fallback: 今天
-    return datetime.now().strftime("%Y.%m.%d")
+    # 正则兜底：提取 YYYY-MM-DD
+    m = re.search(r'(\d{4})-(\d{2})-(\d{2})', d)
+    if m:
+        return f"{m.group(1)}.{m.group(2)}.{m.group(3)}"
+    # 兜底：提取 DD Mon YYYY
+    m = re.search(r'(\d{1,2})\s+(\w{3})\s+(\d{4})', d)
+    if m:
+        try:
+            dt = datetime.strptime(f"{m.group(1)} {m.group(2)} {m.group(3)}", "%d %b %Y")
+            return dt.strftime("%Y.%m.%d")
+        except: pass
+    return None  # 无法解析则返回 None
 
 def build_timeline_node(item, node_id):
+    date_label = format_date_label(item)
+    if not date_label:
+        return None   # 日期解析失败，不插入
     dot   = make_dot_color(item)
     badge_text, badge_cls = make_badge(item)
-    date_label = format_date_label(item)
     title = item["title"][:80]
     desc  = item.get("desc","")[:280]
-    src   = item["source"]
     link  = item.get("url","")
     link_html = f'<a href="{link}" target="_blank" class="text-xs text-blue-500 hover:underline mt-2 inline-block"><i class="fas fa-external-link-alt mr-1"></i>查看原文</a>' if link else ""
 
@@ -450,12 +552,20 @@ def main():
             print(f"\n{report}")
             return
 
-        # 3. 生成 HTML 节点
+        # 3. 生成 HTML 节点（跳过日期解析失败的）
         today = datetime.now().strftime("%Y%m%d")
         nodes_html = []
+        valid_worthy = []
         for i, item in enumerate(worthy):
             node_id = f"{today}-{i+1:02d}"
-            nodes_html.append(build_timeline_node(item, node_id))
+            node = build_timeline_node(item, node_id)
+            if node:
+                nodes_html.append(node)
+                valid_worthy.append(item)
+
+        if not nodes_html:
+            log("所有候选条目日期解析失败，不插入", "WARN")
+            return
 
         # 4. 插入 index.html
         ok = insert_timeline_nodes(nodes_html)
@@ -463,8 +573,8 @@ def main():
             log("插入失败，中止", "ERR")
             return
 
-        # 5. 更新缓存
-        new_hashes = [item_hash(i["title"], i["url"]) for i in worthy]
+        # 5. 更新缓存（用 valid_worthy 而非 worthy）
+        new_hashes = [item_hash(i["title"], i["url"]) for i in valid_worthy]
         all_new_hashes = [item_hash(i["title"], i["url"]) for i in new_items]
         cache["seen_hashes"] = list(set(cache.get("seen_hashes",[]) + all_new_hashes))
         cache["timeline_ids"] = list(existing_tl_ids | set(new_hashes))
@@ -472,13 +582,13 @@ def main():
         save_cache(cache)
 
         # 6. Git push
-        titles_short = " / ".join(i["title"][:20] for i in worthy[:3])
-        commit_msg = f"auto: 时间线更新 {datetime.now().strftime('%Y-%m-%d')} ({len(worthy)}条: {titles_short}...)"
+        titles_short = " / ".join(i["title"][:20] for i in valid_worthy[:3])
+        commit_msg = f"auto: 时间线更新 {datetime.now().strftime('%Y-%m-%d')} ({len(valid_worthy)}条: {titles_short}...)"
         git_push(commit_msg)
 
         # 7. 报告
         elapsed = time.time() - ts_start
-        report = generate_report(new_items, worthy)
+        report = generate_report(new_items, valid_worthy)
         log(f"=== 完成，耗时 {elapsed:.1f}s ===", "OK")
         print(f"\n{report}")
 
