@@ -1,0 +1,7 @@
+# .gitignore for digital-studio
+__pycache__/
+*.pyc
+*.pyo
+data/_cache.json
+data/_last_report.md
+.DS_Store

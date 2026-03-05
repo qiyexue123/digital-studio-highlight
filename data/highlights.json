@@ -1,0 +1,679 @@
+{
+  "meta": {
+    "title": "数字工作室 · AI Highlight",
+    "subtitle": "2026 春季版 · 设计 × AI 前沿洞察",
+    "issue": "Vol.05",
+    "date": "2026-03-05",
+    "description": "数字工作室精选 AI × 设计领域最值得关注的信号，每期追踪能力跃迁、产品范式与设计实践的交叉地带。",
+    "_last_updated": "2026-03-05T05:59:39.333731+00:00",
+    "_auto_count": 8
+  },
+  "timeline": [
+    {
+      "id": "tl-01",
+      "date": "2025.11",
+      "title": "多 Agent 协作框架行业标准化",
+      "color": "blue",
+      "tag": "技术里程碑"
+    },
+    {
+      "id": "tl-02",
+      "date": "2026.01",
+      "title": "意图流 UX 交互规范草案发布",
+      "color": "violet",
+      "tag": "设计趋势"
+    },
+    {
+      "id": "tl-03",
+      "date": "2026.02",
+      "title": "Agentic 产品密集爆发·AI春晚",
+      "color": "red",
+      "tag": "现象级"
+    },
+    {
+      "id": "tl-04",
+      "date": "2026.03",
+      "title": "数字工作室春季洞察报告",
+      "color": "green",
+      "tag": "本期"
+    },
+    {
+      "id": "tl-05",
+      "date": "2026.Q2",
+      "title": "全自主工作流商业化预期",
+      "color": "gray",
+      "tag": "预测"
+    }
+  ],
+  "sections": [
+    {
+      "id": "section-agentic",
+      "title": "Agentic UX",
+      "icon": "fas fa-robot",
+      "color": "blue",
+      "items": [
+        {
+          "id": "agentic-01",
+          "size": "xl",
+          "type": "feature",
+          "tag": [
+            "核心洞察",
+            "设计原则"
+          ],
+          "tagColor": [
+            "red",
+            "blue"
+          ],
+          "title": "从点击流到意图流：交互范式的分水岭",
+          "quote": "设计的下一个分水岭，不是更好的界面，而是让用户从「发出指令」进化到「表达意图」——系统自行编排行动序列。",
+          "desc": "2026 年最重要的设计命题：当 AI 能够理解意图并自主编排任务序列，传统的「步骤式 UX」正在失效。数字工作室需要为这一范式转变做好设计语言的准备。",
+          "metrics": [
+            {
+              "label": "任务时长跨度",
+              "from": "1.5h",
+              "to": "5h+",
+              "delta": "+233%"
+            },
+            {
+              "label": "交互步骤减少",
+              "from": "12步",
+              "to": "1句话",
+              "delta": "-92%"
+            }
+          ],
+          "source": "Research Memo Q1'26",
+          "confidence": 83,
+          "drilldown": {
+            "title": "意图流 UX · 设计拆解",
+            "items": [
+              {
+                "label": "⚡ AI 自动决策边界",
+                "title": "任务编排层",
+                "desc": "系统自动拆解用户意图为子任务序列，无需用户逐步确认。适用于文件处理、信息聚合、格式转换等标准化流程。",
+                "boundary": "auto",
+                "boundaryText": "自动执行·无需人工干预"
+              },
+              {
+                "label": "👤 Human-in-the-Loop 边界",
+                "title": "授权反馈层",
+                "desc": "涉及资金操作、外部发布、权限变更时，系统主动暂停并申请授权，以「确认卡片」形式呈现风险摘要。",
+                "boundary": "hitl",
+                "boundaryText": "需要确认·高风险操作"
+              },
+              {
+                "label": "💡 透明度设计",
+                "title": "进度面包屑",
+                "desc": "Agent 执行中途提供「当前步骤/预计耗时/已完成动作」实时面包屑，让用户感知控制感而非焦虑。",
+                "boundary": "collab",
+                "boundaryText": "协同设计·透明可解释"
+              }
+            ]
+          }
+        },
+        {
+          "id": "agentic-02",
+          "size": "md",
+          "type": "compare",
+          "tag": [
+            "范式对比"
+          ],
+          "tagColor": [
+            "violet"
+          ],
+          "title": "点击流 vs 意图流",
+          "compare": {
+            "left": {
+              "label": "2025 · 点击流",
+              "items": [
+                "明确选择每个步骤",
+                "线性、可预期",
+                "用户主导路径",
+                "需要学习产品逻辑"
+              ]
+            },
+            "right": {
+              "label": "2026 · 意图流",
+              "items": [
+                "声明目标即可",
+                "非线性、自适应",
+                "AI 编排执行路径",
+                "AI 适应用户习惯"
+              ]
+            }
+          },
+          "source": "设计研究·UX 趋势报告",
+          "confidence": 91
+        },
+        {
+          "id": "agentic-03",
+          "size": "md",
+          "type": "practice",
+          "tag": [
+            "设计原则",
+            "数字工作室"
+          ],
+          "tagColor": [
+            "emerald",
+            "orange"
+          ],
+          "title": "Agentic UX 三大设计 SOP",
+          "practices": [
+            {
+              "icon": "⚡",
+              "name": "意图捕获设计",
+              "desc": "自然语言意图 → 结构化任务拆解的交互模型",
+              "type": "auto"
+            },
+            {
+              "icon": "🔒",
+              "name": "授权边界设计",
+              "desc": "清晰定义 AI 决策 vs 人工确认的触发阈值",
+              "type": "hitl"
+            },
+            {
+              "icon": "👁️",
+              "name": "进度透明设计",
+              "desc": "Agent 执行路径实时可视，支持随时中断/修正",
+              "type": "collab"
+            }
+          ],
+          "source": "数字工作室·内部设计规范草稿",
+          "confidence": 88
+        }
+      ]
+    },
+    {
+      "id": "section-models",
+      "title": "模型能力",
+      "icon": "fas fa-brain",
+      "color": "purple",
+      "items": [
+        {
+          "id": "auto-e5b420375622",
+          "size": "md",
+          "type": "product-card",
+          "tag": [
+            "Agentic"
+          ],
+          "tagColor": [
+            "blue"
+          ],
+          "title": "Pacific Northwest National Laboratory and OpenAI partner to accelerate federal p",
+          "desc": "OpenAI and Pacific Northwest National Laboratory introduce DraftNEPABench, a new benchmark evaluating how AI coding agents can accelerate federal permitting—showing potential to reduce NEPA drafting time by up to 15% and modernize infrastructure reviews.",
+          "source": "OpenAI Blog · Thu, 26 Feb 2026",
+          "confidence": 95,
+          "link": "https://openai.com/index/pacific-northwest-national-laboratory",
+          "_score": 25.0,
+          "_auto": true,
+          "_needs_review": true
+        },
+        {
+          "id": "auto-9585b02543a8",
+          "size": "md",
+          "type": "product-card",
+          "tag": [
+            "模型能力",
+            "Agentic"
+          ],
+          "tagColor": [
+            "blue",
+            "gray"
+          ],
+          "title": "Show HN: Kvlar – Open-source firewall for AI agent tool calls",
+          "desc": "Hey HN, I built Kvlar — an open-source policy engine that sits between AI agents and their tools (MCP servers), evaluating every tool call against YAML security policies before execution.The problem: AI agents using MCP can execute database queries, push code, send Slack messages, and run shell comm",
+          "source": "Hacker News · AI Agent · Wed, 04 Mar 2026",
+          "confidence": 95,
+          "link": "https://github.com/kvlar-io/kvlar",
+          "_score": 26.0,
+          "_auto": true,
+          "_needs_review": true
+        },
+        {
+          "id": "auto-37a8724c24c1",
+          "size": "md",
+          "type": "product-card",
+          "tag": [
+            "模型能力",
+            "Agentic"
+          ],
+          "tagColor": [
+            "blue",
+            "gray"
+          ],
+          "title": "Show HN: I built a CLI to sync AI agent skills and MCPs across coding agents",
+          "desc": "Hi HN,I built this CLI after having to switch between AI coding agents when token limits or quotas were reached. And had to port my MCP servers and skills across tools.Instead of maintaining separate setups for each tool, everything can be updated through CLI and are synced through symlinks.\nCurrent",
+          "source": "Hacker News · AI Agent · Wed, 04 Mar 2026",
+          "confidence": 95,
+          "link": "https://github.com/ryanreh99/skills-sync",
+          "_score": 34.0,
+          "_auto": true,
+          "_needs_review": true
+        },
+        {
+          "id": "model-01",
+          "size": "lg",
+          "type": "model-card",
+          "tag": [
+            "模型能力",
+            "NEW"
+          ],
+          "tagColor": [
+            "purple",
+            "sky"
+          ],
+          "brand": "Anthropic",
+          "brandColor": "purple",
+          "title": "Claude Opus 4.6 · 知识工作全面入侵",
+          "quote": "今天以前，大家对 Claude 的印象就是编程能力断档性的强。Opus 4.6 冷笑一声，梆梆一拳打破这个印象：俺在更多的领域都很强！",
+          "quoteSource": "量子位",
+          "desc": "100万 Token 超长上下文首次引入 Opus 级别，「大海捞针」得分从 18.5% 跃升至 76%，Agent Teams 并行协作让 16 个 Agent 两周写出 10 万行编译器。",
+          "metrics": [
+            {
+              "value": "100万",
+              "label": "Token 上下文",
+              "color": "purple"
+            },
+            {
+              "value": "76%",
+              "label": "大海捞针得分",
+              "color": "indigo"
+            },
+            {
+              "value": "+144 Elo",
+              "label": "超越 GPT-5.2",
+              "color": "blue"
+            },
+            {
+              "value": "500+",
+              "label": "自发现零日漏洞",
+              "color": "violet"
+            }
+          ],
+          "source": "量子位·技术报告 2026.02.05",
+          "confidence": 96,
+          "link": "https://www.qbitai.com/2026/02/376774.html"
+        },
+        {
+          "id": "model-02",
+          "size": "md",
+          "type": "model-card",
+          "tag": [
+            "模型能力"
+          ],
+          "tagColor": [
+            "green"
+          ],
+          "brand": "OpenAI",
+          "brandColor": "green",
+          "title": "GPT-5.3 Codex · 5分钟反击",
+          "desc": "Anthropic 发布 Opus 4.6 后仅 5 分钟，OpenAI 反手发布 GPT-5.3 Codex。Terminal-Bench 2.0 得分比 Opus 4.6 高出整整 11.9%，首个参与自身开发的 AI 模型。",
+          "metrics": [
+            {
+              "value": "77.3%",
+              "label": "Terminal-Bench 2.0",
+              "color": "green"
+            },
+            {
+              "value": "+25%",
+              "label": "响应速度提升",
+              "color": "emerald"
+            }
+          ],
+          "source": "OpenAI 官方·2026.02.05",
+          "confidence": 95
+        },
+        {
+          "id": "model-03",
+          "size": "md",
+          "type": "model-card",
+          "tag": [
+            "模型能力",
+            "ARC-AGI #1"
+          ],
+          "tagColor": [
+            "blue",
+            "sky"
+          ],
+          "brand": "Google",
+          "brandColor": "blue",
+          "title": "Gemini 3.1 Pro · 推理翻倍",
+          "desc": "ARC-AGI-2 推理性能 77.1%，是上一代 Gemini 3 Pro（31.1%）的 2.5 倍。引入多层「思考级别」（LOW/MEDIUM/HIGH），算力按需分配。",
+          "metrics": [
+            {
+              "value": "77.1%",
+              "label": "ARC-AGI-2 #1",
+              "color": "blue"
+            },
+            {
+              "value": "94.3%",
+              "label": "GPQA Diamond #1",
+              "color": "cyan"
+            }
+          ],
+          "source": "量子位·2026.02.19",
+          "confidence": 94
+        },
+        {
+          "id": "model-04",
+          "size": "sm",
+          "type": "stat",
+          "tag": [
+            "速览"
+          ],
+          "tagColor": [
+            "gray"
+          ],
+          "title": "Claude Sonnet 4.6",
+          "stat": "79.6%",
+          "statLabel": "SWE-Bench Verified",
+          "desc": "以 Sonnet 价格逼近 Opus 智能，70% 用户更偏好",
+          "source": "Anthropic·2026.02.17",
+          "confidence": 95
+        },
+        {
+          "id": "model-05",
+          "size": "sm",
+          "type": "stat",
+          "tag": [
+            "速览"
+          ],
+          "tagColor": [
+            "gray"
+          ],
+          "title": "MiniMax M2.5",
+          "stat": "80.2%",
+          "statLabel": "SWE-Bench Verified",
+          "desc": "超越 Opus 4.6，激活参数仅 10B",
+          "source": "MiniMax·2026.02.12",
+          "confidence": 91
+        },
+        {
+          "id": "model-06",
+          "size": "sm",
+          "type": "stat",
+          "tag": [
+            "速览"
+          ],
+          "tagColor": [
+            "gray"
+          ],
+          "title": "Qwen 3.5",
+          "stat": "87.8",
+          "statLabel": "MMLU-Pro 国产纪录",
+          "desc": "除夕夜发布，3970亿参数 MoE",
+          "source": "阿里·2026.02.16",
+          "confidence": 93
+        }
+      ]
+    },
+    {
+      "id": "section-products",
+      "title": "产品动态",
+      "icon": "fas fa-rocket",
+      "color": "emerald",
+      "items": [
+        {
+          "id": "auto-9e4058694d30",
+          "size": "sm",
+          "type": "stat",
+          "tag": [
+            "Agentic"
+          ],
+          "tagColor": [
+            "blue"
+          ],
+          "title": "Introducing the Stateful Runtime Environment for Agents in Amazon Bedrock",
+          "desc": "Stateful Runtime for Agents in Amazon Bedrock brings persistent orchestration, memory, and secure execution to multi-step AI workflows powered by OpenAI.",
+          "source": "OpenAI Blog · Fri, 27 Feb 2026",
+          "confidence": 95,
+          "link": "https://openai.com/index/introducing-the-stateful-runtime-environment-for-agents-in-amazon-bedrock",
+          "_score": 22.0,
+          "_auto": true,
+          "_needs_review": true
+        },
+        {
+          "id": "auto-ac9f6f947d50",
+          "size": "sm",
+          "type": "stat",
+          "tag": [
+            "Agentic"
+          ],
+          "tagColor": [
+            "blue"
+          ],
+          "title": "OpenAI and Amazon announce strategic partnership",
+          "desc": "OpenAI and Amazon announce a strategic partnership bringing OpenAI’s Frontier platform to AWS, expanding AI infrastructure, custom models, and enterprise AI agents.",
+          "source": "OpenAI Blog · Fri, 27 Feb 2026",
+          "confidence": 95,
+          "link": "https://openai.com/index/amazon-partnership",
+          "_score": 22.0,
+          "_auto": true,
+          "_needs_review": true
+        },
+        {
+          "id": "auto-504e12719e57",
+          "size": "md",
+          "type": "product-card",
+          "tag": [
+            "Agentic",
+            "产品"
+          ],
+          "tagColor": [
+            "blue",
+            "gray"
+          ],
+          "title": "Bridging the operational AI gap",
+          "desc": "The transformational potential of AI is already well established. Enterprise use cases are building momentum and organizations are transitioning from pilot projects to AI in production. Companies are no longer just talking about AI; they are redirecting budgets and resources to make it happen. Many ",
+          "source": "MIT Tech Review AI · Wed, 04 Mar 2026",
+          "confidence": 95,
+          "link": "https://www.technologyreview.com/2026/03/04/1133642/bridging-the-operational-ai-gap/",
+          "_score": 26.0,
+          "_auto": true,
+          "_needs_review": true
+        },
+        {
+          "id": "auto-f62500abbe1d",
+          "size": "md",
+          "type": "product-card",
+          "tag": [
+            "Agentic"
+          ],
+          "tagColor": [
+            "blue"
+          ],
+          "title": "Show HN: AgentsMesh – AI agent fleet command center",
+          "desc": "Hi HN — I built AgentsMesh, a “fleet command center” that has all componenets you need to harness agentic engineeringMost tools assume one agent, one chat. In practice, I wanted something closer to “a small team”: multiple agents working on different parts of a project, with clear task ownership, vi",
+          "source": "Hacker News · AI Agent · Wed, 04 Mar 2026",
+          "confidence": 95,
+          "link": "https://github.com/AgentsMesh/AgentsMesh",
+          "_score": 26.0,
+          "_auto": true,
+          "_needs_review": true
+        },
+        {
+          "id": "auto-5db7ff536bb5",
+          "size": "md",
+          "type": "product-card",
+          "tag": [
+            "Agentic"
+          ],
+          "tagColor": [
+            "blue"
+          ],
+          "title": "Show HN: What an AI agent sees in an A2A marketplace – full API walkthrough",
+          "desc": "Article URL: https://agoragentic.com/demo.html\nComments URL: https://news.ycombinator.com/item?id=47256257\nPoints: 1\n# Comments: 3",
+          "source": "Hacker News · AI Agent · Thu, 05 Mar 2026",
+          "confidence": 95,
+          "link": "https://agoragentic.com/demo.html",
+          "_score": 26.0,
+          "_auto": true,
+          "_needs_review": true
+        },
+        {
+          "id": "product-01",
+          "size": "lg",
+          "type": "product-card",
+          "tag": [
+            "产品",
+            "现象级"
+          ],
+          "tagColor": [
+            "emerald",
+            "red"
+          ],
+          "brand": "OpenClaw",
+          "brandEmoji": "🦞",
+          "brandColor": "red",
+          "title": "OpenClaw · 10万星·AI Agent 走进现实",
+          "desc": "开源个人 AI 助手平台，首日 9,000 Stars，数日破 10 万。真正能「干活」的 AI 代理——管理邮件、控制浏览器、执行脚本。引爆全球对 Agentic AI 的讨论，随即引发改名风波、安全争议、巨头封禁等连锁事件。",
+          "highlights": [
+            "Meta 收购失败后严禁员工使用，违者可能解雇",
+            "微软发布紧急安全警告：视为不受信任代码执行程序",
+            "谷歌封禁接入 OpenClaw 的开发者账号",
+            "创始人最终加入 OpenAI，产品转型独立基金会"
+          ],
+          "metrics": [
+            {
+              "value": "10万+",
+              "label": "GitHub Stars"
+            },
+            {
+              "value": "200万",
+              "label": "单周访客"
+            },
+            {
+              "value": "50+",
+              "label": "平台集成"
+            }
+          ],
+          "source": "综合报道·2026.01-02",
+          "confidence": 99
+        },
+        {
+          "id": "product-02",
+          "size": "md",
+          "type": "product-card",
+          "tag": [
+            "产品"
+          ],
+          "tagColor": [
+            "gray"
+          ],
+          "brand": "Notion",
+          "brandColor": "gray",
+          "title": "Notion Custom Agents · 企业知识工作代理化",
+          "desc": "Custom Agents 正式公开发布，按 Credits 计费。Ramp 两周内 Agent 回答 4,000 个问题，节省 2,000 人时。Ivan Zhao：「如果你的产品不能被 Agent 使用，未来不会乐观。」",
+          "quote": "如果你的产品不能被 Agent 使用，我认为未来不会乐观。",
+          "quoteSource": "Notion CEO Ivan Zhao",
+          "source": "智源社区·2026.02.26",
+          "confidence": 92
+        },
+        {
+          "id": "product-03",
+          "size": "md",
+          "type": "product-card",
+          "tag": [
+            "产品",
+            "趋势"
+          ],
+          "tagColor": [
+            "violet",
+            "amber"
+          ],
+          "brand": "Obsidian",
+          "brandColor": "violet",
+          "title": "Obsidian CLI · 传统应用为 AI Agent 开放接口",
+          "desc": "官方 CLI 将笔记操作全部命令化。这个 CLI 压根不是给人用的，而是给 AI Agent 用的。传统应用都要为 AI Agent 开发一套接口——这将是重要趋势。",
+          "callout": "传统应用都要为 AI Agent 开发一套接口，这将是一个重要趋势。",
+          "source": "Obsidian 官方·2026.02.11",
+          "confidence": 88
+        },
+        {
+          "id": "product-04",
+          "size": "sm",
+          "type": "product-stat",
+          "tag": [
+            "产品"
+          ],
+          "tagColor": [
+            "indigo"
+          ],
+          "brand": "微软",
+          "title": "Copilot Tasks",
+          "desc": "AI 助手向自主代理阶段迈进，自然语言驱动自动化执行",
+          "source": "微软·2026.02.26",
+          "confidence": 90
+        },
+        {
+          "id": "product-05",
+          "size": "sm",
+          "type": "product-stat",
+          "tag": [
+            "产品",
+            "C端新物种"
+          ],
+          "tagColor": [
+            "rose",
+            "pink"
+          ],
+          "brand": "Elys",
+          "title": "Elys · AI 赛博分身",
+          "desc": "首个把 AI 代理层真正跑起来的 C 端社交产品，AI 替你 24 小时完成社交预交互",
+          "source": "极客公园·2026.02.27",
+          "confidence": 85
+        }
+      ]
+    },
+    {
+      "id": "section-design",
+      "title": "设计洞察",
+      "icon": "fas fa-palette",
+      "color": "orange",
+      "items": [
+        {
+          "id": "design-01",
+          "size": "full",
+          "type": "insight",
+          "tag": [
+            "数字工作室出品",
+            "设计洞察"
+          ],
+          "tagColor": [
+            "orange",
+            "amber"
+          ],
+          "title": "给数字工作室设计师的 5 条 Agentic 时代行动指南",
+          "insights": [
+            {
+              "num": "01",
+              "title": "为「意图」而非「步骤」设计",
+              "desc": "不再设计操作流程，而是设计意图捕获入口。用开放式自然语言输入替代传统表单，系统通过追问逐步结构化用户意图。"
+            },
+            {
+              "num": "02",
+              "title": "定义 AI 的决策边界",
+              "desc": "明确哪些操作 AI 可自动执行（低风险），哪些需要用户确认（高风险）。「授权边界」是 Agentic 产品的核心设计决策，不是技术问题。"
+            },
+            {
+              "num": "03",
+              "title": "把进度设计成可视的，而非隐藏的",
+              "desc": "Agent 执行长任务时，用户需要「控制感」。任务面包屑、步骤树、进度指示——不是可有可无的，是信任建立的关键。"
+            },
+            {
+              "num": "04",
+              "title": "为应用开发 Agent 接口",
+              "desc": "Obsidian CLI 的案例说明：你的产品需要一套机器可读的命令接口，让 AI Agent 能直接操控你的应用。这是未来标配，越早布局越好。"
+            },
+            {
+              "num": "05",
+              "title": "重新思考「错误状态」的设计",
+              "desc": "当 AI 失控删邮件时，「停止」按钮的可达性就是产品的安全底线。Agentic UX 中，紧急中断、回滚、解释机制是必须被设计的一等公民。"
+            }
+          ],
+          "source": "数字工作室·设计研究组 2026.03",
+          "confidence": 100
+        }
+      ]
+    }
+  ]
+}
