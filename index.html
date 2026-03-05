@@ -1,4 +1,16 @@
-<!DOCTYPE html>
+<!DOC
+            <!-- OpenClaw 专题 -->
+            <div class="px-3 pt-2 pb-1">
+              <a href="#openclaw" class="toc-link flex items-center gap-2 px-2 py-1.5 rounded-lg text-xs font-bold text-red-700 hover:bg-red-50 transition" data-toc="openclaw">
+                <span class="w-3 text-center">🦞</span>OpenClaw 专题
+              </a>
+            </div>
+            <!-- 总结与展望 -->
+            <div class="px-3 pt-2 pb-2">
+              <a href="#section-summary" class="toc-link flex items-center gap-2 px-2 py-1.5 rounded-lg text-xs font-bold text-orange-700 hover:bg-orange-50 transition" data-toc="section-summary">
+                <i class="fas fa-star text-orange-400 w-3"></i>总结与展望
+              </a>
+            </div>TYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
@@ -210,7 +222,16 @@
         <div class="w-px h-5 bg-gray-200 mx-1"></div>
         <a href="#section-design"   class="snav-link flex items-center px-4 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition whitespace-nowrap" data-snav="section-design"><i class="fas fa-palette mr-2 text-orange-400"></i>设计洞察</a>
       </div>
-    </nav>
+    
+                <div class="w-px h-6 bg-gray-200 mx-1"></div>
+                <a href="#openclaw" class="section-tab-link flex items-center px-4 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:bg-red-50 hover:text-red-700 transition whitespace-nowrap" data-tab="openclaw">
+                  <span class="mr-2">🦞</span>OpenClaw 专题
+                </a>
+                <div class="w-px h-6 bg-gray-200 mx-1"></div>
+                <a href="#section-summary" class="section-tab-link flex items-center px-4 py-2 rounded-lg text-sm font-semibold text-gray-600 hover:bg-orange-50 hover:text-orange-700 transition whitespace-nowrap" data-tab="section-summary">
+                  <i class="fas fa-star mr-2 text-orange-500"></i>总结与展望
+                </a>
+              </nav>
   </div>
 </div>
 
@@ -649,7 +670,7 @@
         </section>
       </div>
 
-      <!-- ════ SECTION DIVIDER: 模型 ════ -->
+            <!-- ════ SECTION DIVIDER: 模型 ════ -->
       <div id="section-models" class="section-anchor flex items-center mb-8 mt-4 reveal">
         <div class="flex-1 h-px bg-gradient-to-r from-purple-200 to-transparent"></div>
         <div class="flex items-center mx-4 bg-purple-600 text-white px-5 py-2 rounded-full shadow-md">
@@ -658,398 +679,626 @@
         <div class="flex-1 h-px bg-gradient-to-l from-purple-200 to-transparent"></div>
       </div>
 
-      <!-- ── model-01: Claude Opus 4.6 ── -->
-      <div id="model-01" class="section-anchor bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6 card-hover reveal">
-        <div class="bg-gradient-to-r from-orange-500 to-red-500 px-6 py-4 flex items-center justify-between">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="tag-badge bg-white/20 text-white text-xs">⚡ AUTO</span>
-              <span class="tag-badge bg-white/20 text-white text-xs">Anthropic</span>
-            </div>
-            <h3 class="text-white font-bold text-lg">Anthropic · Claude Opus 4.6</h3>
-            <p class="text-orange-100 text-sm">2026年2月5日发布 · 五小时跨域任务·金融业洗牌信号</p>
-          </div>
-          <div class="text-right">
-            <div class="text-white text-2xl font-bold mono">5h+</div>
-            <div class="text-orange-200 text-xs">持续任务时长</div>
-          </div>
-        </div>
-        <div class="p-6">
-          <p class="text-gray-700 mb-4 leading-relaxed">Claude Opus 4.6 发布当日，FactSet、S&amp;P Global、Moody's 股价下跌 3-7%——市场判断：能自主完成 5 小时跨域研究任务的 AI，已经开始替代部分初级分析师工作。这是第一次，AI 能力进步在金融市场上留下了可见的价格信号。</p>
-
-          <!-- 定价 -->
-          <div class="grid grid-cols-3 gap-3 mb-6">
-            <div class="bg-gray-50 rounded-xl p-3 text-center">
-              <div class="text-xs text-gray-500 mb-1">输入价格</div>
-              <div class="font-bold text-gray-800 mono">$5<span class="text-xs font-normal">/M tokens</span></div>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-3 text-center">
-              <div class="text-xs text-gray-500 mb-1">输出价格</div>
-              <div class="font-bold text-gray-800 mono">$25<span class="text-xs font-normal">/M tokens</span></div>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-3 text-center">
-              <div class="text-xs text-gray-500 mb-1">上下文窗口</div>
-              <div class="font-bold text-gray-800 mono">200K<span class="text-xs font-normal"> tokens</span></div>
-            </div>
-          </div>
-
-          <!-- 趣味测试 -->
-          <div class="border border-purple-100 rounded-xl overflow-hidden mb-4">
-            <div class="bg-purple-50 px-4 py-2 flex items-center gap-2">
-              <i class="fas fa-flask text-purple-500 text-sm"></i>
-              <span class="font-bold text-sm text-purple-700">趣味测试：常识推理 &amp; SVG 绘图</span>
-            </div>
-            <div class="p-4">
-              <!-- 50米洗车店 -->
-              <div class="mb-5">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="tag-badge bg-purple-100 text-purple-700 text-xs">常识推理</span>
-                  <span class="text-xs text-gray-500 mono">Opus 4.6 · Extended</span>
-                </div>
-                <p class="text-sm font-semibold text-gray-700 mb-2">「50米洗车店问题」</p>
-                <div class="bg-gray-50 rounded-lg p-3 text-sm text-gray-600 leading-relaxed mb-2">
-                  <p class="text-xs text-gray-400 mb-1">提问：</p>
-                  <p>洗车店就在50米外，我应该开车去还是走路去？</p>
-                </div>
-                <div class="bg-orange-50 rounded-lg p-3 text-sm text-gray-700 leading-relaxed border-l-2 border-orange-300">
-                  <p class="text-xs text-orange-500 mb-1">Opus 4.6 回答（节选）：</p>
-                  <p>🚗 这道题有个隐含前提值得注意：您是<strong>带着车</strong>去洗车的。所以虽然距离只有50米，但必须开车去——因为洗车的目的是洗那辆车，而不是您本人……所以答案是：当然开车，不然洗哪辆车呢？😄</p>
-                </div>
-                <p class="text-xs text-gray-400 mt-2">✅ 能识别「题目中的隐含前提」，展现扎实的常识推理能力</p>
-              </div>
-              <!-- SVG 绘图对比 -->
+      <!-- ── Claude Opus 4.6 ── -->
+      <section id="models" class="section-anchor mb-10 reveal">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div class="bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+              <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3"><i class="fas fa-brain text-white text-lg"></i></div>
               <div>
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="tag-badge bg-blue-100 text-blue-700 text-xs">SVG 绘图</span>
-                  <span class="text-xs text-gray-500">「鹈鹕骑自行车」生成对比</span>
+                <h3 class="text-xl font-bold text-white">Anthropic · Claude Opus 4.6</h3>
+                <p class="text-purple-200 text-sm">2026年2月5日发布 · 开启 AI "入室抢劫"人类各领域工作的时代</p>
+              </div>
+            </div>
+            <a href="https://www.qbitai.com/2026/02/376774.html" target="_blank" class="text-xs bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-full transition whitespace-nowrap"><i class="fas fa-external-link-alt mr-1"></i>查看原文</a>
+          </div>
+          <div class="p-6">
+            <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-r-lg mb-6">
+              <p class="text-sm text-gray-700">消息一出，金融数据服务商 FactSet 盘中暴跌 10%，S&amp;P Global、穆迪、纳斯达克公司纷纷下跌。<strong>今天以前，大家对 Claude 的印象，就是编程能力断档性的强。Claude Opus 4.6 冷笑一声，梆梆一拳打破这个印象：俺在更多的领域都很强！</strong></p>
+              <p class="text-xs text-gray-500 mt-1">—— 量子位</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <div class="bg-purple-50 rounded-xl p-4 border border-purple-100 text-center">
+                <div class="text-2xl font-bold text-purple-700 mb-1">100万</div>
+                <div class="text-xs text-gray-600">Token 超长上下文<br>首次引入 Opus 级别</div>
+              </div>
+              <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100 text-center">
+                <div class="text-2xl font-bold text-indigo-700 mb-1">76%</div>
+                <div class="text-xs text-gray-600">百万级"大海捞针"<br>前代仅 18.5%</div>
+              </div>
+              <div class="bg-blue-50 rounded-xl p-4 border border-blue-100 text-center">
+                <div class="text-2xl font-bold text-blue-700 mb-1">+144 Elo</div>
+                <div class="text-xs text-gray-600">超越 GPT-5.2<br>GDPval-AA 评测</div>
+              </div>
+              <div class="bg-violet-50 rounded-xl p-4 border border-violet-100 text-center">
+                <div class="text-2xl font-bold text-violet-700 mb-1">500+</div>
+                <div class="text-xs text-gray-600">自主发现零日漏洞<br>全部经人工验证</div>
+              </div>
+            </div>
+            <!-- 性能对比图 -->
+            <div class="mb-6">
+              <h4 class="font-bold text-gray-800 mb-3 border-l-4 border-purple-500 pl-3"><i class="fas fa-chart-bar mr-2 text-purple-500"></i>全维度性能对比：Opus 4.6 vs 竞品</h4>
+              <div class="flex justify-center">
+                <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/ac24aaa1-794d-45c8-9b73-3b8ed5084566/image.png" alt="Claude Opus 4.6 性能对比表" class="max-w-lg w-full rounded-xl shadow-md border border-gray-100">
+              </div>
+              <p class="text-xs text-gray-500 text-center mt-2">Opus 4.6 在 Agentic terminal coding、Agentic computer use、Agentic search 等多项指标上领跑行业 · 来源：量子位</p>
+            </div>
+            <!-- 四大核心能力 -->
+            <h4 class="font-bold text-gray-800 mb-4 border-l-4 border-purple-500 pl-3">四大核心能力突破</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="bg-white border border-purple-100 rounded-xl p-5 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-3">
+                  <div class="w-9 h-9 bg-purple-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0"><i class="fas fa-memory text-purple-600"></i></div>
+                  <h5 class="font-bold text-gray-800">超长上下文 + 自适应思考</h5>
                 </div>
-                <div class="grid grid-cols-2 gap-3 mb-2">
-                  <div class="bg-gray-50 rounded-lg p-3 text-center">
-                    <!-- SVG: Opus 4.5 简单版 -->
-                    <svg viewBox="0 0 120 100" class="w-full h-24 mx-auto" xmlns="http://www.w3.org/2000/svg">
-                      <!-- 自行车简单版 -->
-                      <circle cx="35" cy="72" r="18" fill="none" stroke="#888" stroke-width="2.5"/>
-                      <circle cx="85" cy="72" r="18" fill="none" stroke="#888" stroke-width="2.5"/>
-                      <line x1="35" y1="72" x2="60" y2="45" stroke="#888" stroke-width="2.5"/>
-                      <line x1="60" y1="45" x2="85" y2="72" stroke="#888" stroke-width="2.5"/>
-                      <line x1="60" y1="45" x2="60" y2="58" stroke="#888" stroke-width="2"/>
-                      <line x1="50" y1="45" x2="70" y2="45" stroke="#888" stroke-width="2.5"/>
-                      <!-- 鹈鹕简单版 -->
-                      <ellipse cx="60" cy="30" rx="12" ry="9" fill="#f0c080"/>
-                      <circle cx="60" cy="18" r="7" fill="#f0c080"/>
-                      <ellipse cx="58" cy="26" rx="4" ry="7" fill="#e8a030"/>
-                    </svg>
-                    <p class="text-xs text-gray-400 mt-1">Opus 4.5 · 基础形态</p>
+                <ul class="space-y-1.5 text-sm text-gray-600">
+                  <li>• <strong>1M Token 上下文</strong>：Opus 级别首次引入，"大海捞针"得分 76%（前代 18.5%）</li>
+                  <li>• <strong>Adaptive Thinking</strong>：模型自行判断何时深度推理，提供 low/medium/high/max 四档</li>
+                  <li>• <strong>上下文压缩</strong>：对话接近上限时自动摘要替换旧内容</li>
+                </ul>
+              </div>
+              <div class="bg-white border border-indigo-100 rounded-xl p-5 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-3">
+                  <div class="w-9 h-9 bg-indigo-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0"><i class="fas fa-users-cog text-indigo-600"></i></div>
+                  <h5 class="font-bold text-gray-800">Agent Teams · 多实例并行协作</h5>
+                </div>
+                <ul class="space-y-1.5 text-sm text-gray-600">
+                  <li>• <strong>16 个 Agent</strong> 两周内用 Rust 写出 10 万行 C 编译器，能在 x86/ARM/RISC-V 编译 Linux 6.9，还能跑 Doom</li>
+                  <li>• 总成本不到 2 万美元，每个 Agent 跑在独立 Docker 容器</li>
+                </ul>
+              </div>
+              <div class="bg-white border border-red-100 rounded-xl p-5 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-3">
+                  <div class="w-9 h-9 bg-red-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0"><i class="fas fa-shield-alt text-red-600"></i></div>
+                  <h5 class="font-bold text-gray-800">500+ 零日漏洞 · 安全白帽饭碗告急</h5>
+                </div>
+                <ul class="space-y-1.5 text-sm text-gray-600">
+                  <li>• 沙箱环境中，无任何专门指令，自主挖出 500+ 高危零日漏洞</li>
+                  <li>• 在 GhostScript 翻 git 提交历史找到 fuzzing 未发现的崩溃漏洞</li>
+                  <li>• 在 OpenSC、CGIF 中发现缓冲区溢出，主动写 PoC 验证漏洞</li>
+                </ul>
+              </div>
+              <div class="bg-white border border-orange-100 rounded-xl p-5 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-3">
+                  <div class="w-9 h-9 bg-orange-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0"><i class="fas fa-briefcase text-orange-600"></i></div>
+                  <h5 class="font-bold text-gray-800">财务 / 法律 / Office · 知识工作全面入侵</h5>
+                </div>
+                <ul class="space-y-1.5 text-sm text-gray-600">
+                  <li>• <strong>GDPval-AA</strong>：超越 GPT-5.2 达 144 Elo，约 70% 情况下得分更高</li>
+                  <li>• <strong>BigLaw Bench</strong>（法律）：40% 满分题目中得分 90.2%</li>
+                  <li>• <strong>PPT</strong>：记住公司模板字体和布局，"让老板以为是你熬夜做的"</li>
+                </ul>
+              </div>
+            </div>
+            <!-- 趣味测试 -->
+            <h4 class="font-bold text-gray-800 mb-4 border-l-4 border-pink-500 pl-3"><i class="fas fa-flask mr-2 text-pink-500"></i>趣味测试：常识推理 &amp; SVG 绘图</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div class="bg-white border border-pink-100 rounded-xl p-4 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-3">
+                  <div class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center mr-2 flex-shrink-0"><i class="fas fa-car text-pink-600"></i></div>
+                  <h5 class="font-bold text-gray-800 text-sm">常识推理：50米洗车店问题</h5>
+                </div>
+                <p class="text-xs text-gray-500 mb-3">这道看似简单的问题，考验模型能否识别"去洗车"这一隐含前提——车必须开过去。Opus 4.6 不仅给出了正确答案，还展现出幽默感。</p>
+                <div class="flex justify-center">
+                  <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/643706d1-f219-4b38-bcb6-891d1f0d801b/image.png" alt="Opus 4.6 洗车题测试截图" class="max-w-xs w-full rounded-xl shadow-sm border border-gray-100">
+                </div>
+                <p class="text-xs text-gray-400 text-center mt-2">Opus 4.6 Extended · 识别了轻松幽默的交通选择问题</p>
+              </div>
+              <div class="bg-white border border-indigo-100 rounded-xl p-4 hover:shadow-md transition-shadow">
+                <div class="flex items-center mb-3">
+                  <div class="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center mr-2 flex-shrink-0"><i class="fas fa-paint-brush text-indigo-600"></i></div>
+                  <h5 class="font-bold text-gray-800 text-sm">SVG 绘图：鹈鹕骑自行车</h5>
+                </div>
+                <p class="text-xs text-gray-500 mb-3">同一道 SVG 绘图题，Opus 4.5 与 Opus 4.6 的输出对比。4.6 版本的鹈鹕细节更丰富：羽毛纹理、腿部关节、速度线一应俱全。</p>
+                <div class="flex justify-center">
+                  <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/8a67f504-5aeb-45e3-adba-45cfecd61aa5/image.png" alt="Opus 4.5 vs Opus 4.6 SVG 鹈鹕骑自行车对比" class="max-w-sm w-full rounded-xl shadow-sm border border-gray-100">
+                </div>
+                <p class="text-xs text-gray-400 text-center mt-2">左：Opus 4.5 · 右：Opus 4.6 — 细节与动感明显提升</p>
+              </div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+              <div class="bg-gray-50 rounded-xl px-5 py-3 text-sm text-gray-700"><i class="fas fa-tag text-purple-500 mr-2"></i><strong>加量不加价</strong>：$5 / 百万 token 输入，$25 / 百万 token 输出</div>
+              <a href="https://www.qbitai.com/2026/02/376774.html" target="_blank" class="text-sm text-purple-600 hover:text-purple-800 hover:underline whitespace-nowrap"><i class="fas fa-external-link-alt mr-1"></i>阅读原文（量子位）</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Claude Sonnet 4.6 ── -->
+      <section id="sonnet46" class="section-anchor mb-10 reveal">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div class="bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-4 flex items-center">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3"><i class="fas fa-bolt text-white text-lg"></i></div>
+            <div>
+              <h3 class="text-xl font-bold text-white">Anthropic · Claude Sonnet 4.6</h3>
+              <p class="text-purple-200 text-sm">2026年2月17日发布 · 最具性价比的全方位升级</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="bg-violet-50 border-l-4 border-violet-500 p-4 rounded-r-lg mb-5">
+              <p class="text-sm text-gray-700">距 Claude Opus 4.6 发布不到两周，Anthropic 再次出手。Claude Sonnet 4.6 是目前<strong>能力最强的 Sonnet 模型</strong>，属于一次"全方位升级"，API 价格与 Sonnet 4.5 保持一致：<strong>$3/百万 token 输入，$15/百万 token 输出</strong>。以更"实用"的成本，逼近 Opus 级别的智能水平。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+              <div class="bg-purple-50 rounded-xl p-4 border border-purple-100"><div class="text-2xl font-bold text-purple-700 mb-1">79.6%</div><div class="text-sm text-gray-600">SWE-Bench Verified<br>编程能力接近 Opus 4.5</div></div>
+              <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100"><div class="text-2xl font-bold text-indigo-700 mb-1">72.5</div><div class="text-sm text-gray-600">OSWorld 计算机使用<br>接近 Opus 4.6 水平</div></div>
+              <div class="bg-violet-50 rounded-xl p-4 border border-violet-100"><div class="text-2xl font-bold text-violet-700 mb-1">100万</div><div class="text-sm text-gray-600">Token 超长上下文窗口<br>（测试阶段）</div></div>
+            </div>
+            <h4 class="font-bold text-gray-800 mb-3 border-l-4 border-purple-500 pl-3">核心亮点</h4>
+            <ul class="space-y-2 text-sm text-gray-700 mb-5">
+              <li class="flex items-start"><i class="fas fa-check-circle text-purple-500 mr-2 mt-0.5 flex-shrink-0"></i><span><strong>编程能力</strong>：SWE-Bench Verified 达79.6%，约70%的 Claude Code 用户更偏好 Sonnet 4.6</span></li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-purple-500 mr-2 mt-0.5 flex-shrink-0"></i><span><strong>计算机使用</strong>：OSWorld 达72.5，能完成复杂表格处理、多步骤表单填写和跨标签页整合</span></li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-purple-500 mr-2 mt-0.5 flex-shrink-0"></i><span><strong>智能体知识工作</strong>：GDPval-AA 基准排名第一，ELO 达1633，预期胜率超85%</span></li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-purple-500 mr-2 mt-0.5 flex-shrink-0"></i><span><strong>自适应思考</strong>：支持 Adaptive Thinking，世界知识截止日期更新至2025年8月</span></li>
+            </ul>
+            <!-- 性能对比图 -->
+            <div class="mb-5">
+              <p class="text-sm font-medium text-gray-700 mb-2 flex items-center"><i class="fas fa-chart-bar text-purple-500 mr-2"></i>各模型综合性能对比（Sonnet 4.6 列高亮）</p>
+              <div class="flex justify-center">
+                <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/86d03e4d-3f89-4fa2-bbec-74ebcc15c8b6/image.png" alt="Claude Sonnet 4.6 vs 其他模型性能对比表" class="max-w-lg w-full rounded-lg shadow-sm border border-gray-100">
+              </div>
+              <p class="text-xs text-gray-400 text-center mt-1">来源：知乎 @小小将 · Sonnet 4.6 在 Office tasks、Agentic financial analysis 等多项指标上领先</p>
+            </div>
+            <!-- 趣味测试 -->
+            <h4 class="font-bold text-gray-800 mb-3 border-l-4 border-purple-500 pl-3"><i class="fas fa-flask mr-2 text-purple-500"></i>趣味测试</h4>
+            <div class="flex flex-col md:flex-row gap-4 mb-5">
+              <div class="flex-1 bg-purple-50 rounded-xl p-4 border border-purple-100">
+                <p class="text-sm font-semibold text-gray-700 mb-2">🚗 洗车题：常识推理测试</p>
+                <div class="flex justify-center">
+                  <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/807a2cfc-3543-4d92-9dd4-f8e287639e53/image.png" alt="Sonnet 4.6 洗车题测试截图" class="max-w-xs w-full rounded-lg shadow-sm border border-purple-100">
+                </div>
+              </div>
+              <div class="flex-1 bg-indigo-50 rounded-xl p-4 border border-indigo-100">
+                <p class="text-sm font-semibold text-gray-700 mb-2">🦢 SVG 绘图：鹈鹕骑车对比</p>
+                <div class="flex justify-center">
+                  <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/d96b9d3d-a0d5-4cfa-b1c7-a335ec1ea001/image.png" alt="Claude Sonnet 4.6 vs DeepSeek vs Opus 4.6 SVG绘图对比" class="max-w-sm w-full rounded-lg shadow-sm border border-indigo-100">
+                </div>
+              </div>
+            </div>
+            <div class="text-right">
+              <a href="https://zhuanlan.zhihu.com/p/2007384124827137322" target="_blank" class="text-sm text-purple-600 hover:text-purple-800 hover:underline"><i class="fas fa-external-link-alt mr-1"></i>阅读原文（知乎）</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── GPT-5.3 Codex ── -->
+      <section id="openai" class="section-anchor mb-10 reveal">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div class="bg-gradient-to-r from-green-600 to-emerald-600 px-6 py-4 flex items-center">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3"><i class="fas fa-code text-white text-lg"></i></div>
+            <div>
+              <h3 class="text-xl font-bold text-white">OpenAI · GPT-5.3 Codex</h3>
+              <p class="text-green-200 text-sm">2026年2月5日发布（与Claude同日）</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg mb-5">
+              <p class="text-sm text-gray-700">Anthropic 发布 Opus 4.6 后仅5分钟，OpenAI 反手发布 GPT-5.3 Codex。双方都直接亮出 Terminal-Bench 战绩，GPT-5.3 比 Opus 4.6 高出整整 11.9%！</p>
+            </div>
+            <ul class="space-y-2 text-sm text-gray-700 mb-5">
+              <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-2 mt-0.5 flex-shrink-0"></i><span><strong>Terminal-Bench 2.0</strong>：比 Opus 4.6 高出11.9%，在复杂任务处理上形成碾压</span></li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-2 mt-0.5 flex-shrink-0"></i><span><strong>首个参与自身开发的 AI</strong>：Codex 团队用 Codex 调试自身训练、管理部署、诊断评估</span></li>
+              <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mr-2 mt-0.5 flex-shrink-0"></i><span><strong>AGENTS.md</strong>：项目行为配置文件，让AI更能理解整个编程项目上下文</span></li>
+            </ul>
+            <!-- Opus 4.6 vs GPT-5.3 对比 -->
+            <h4 class="text-base font-bold text-gray-800 mb-4 flex items-center"><i class="fas fa-balance-scale text-green-600 mr-2"></i>Claude Opus 4.6 vs GPT-5.3-Codex：谁才是真正的王者？</h4>
+            <div class="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-xl p-4 mb-4">
+              <p class="text-sm font-semibold text-gray-800 mb-2">📌 先说结论：各有所长</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="bg-white rounded-lg p-3 border-l-4 border-orange-400">
+                  <p class="text-xs font-bold text-orange-700 mb-1">Claude Opus 4.6 胜在</p>
+                  <p class="text-xs text-gray-600">100万 token 上下文、Agent Teams 并行协作、长上下文能力碾压（MRCR v2 得分 76% vs Sonnet 4.5 的 18.5%）</p>
+                </div>
+                <div class="bg-white rounded-lg p-3 border-l-4 border-green-400">
+                  <p class="text-xs font-bold text-green-700 mb-1">GPT-5.3-Codex 胜在</p>
+                  <p class="text-xs text-gray-600">比上代快 25%、Terminal-Bench 2.0 领先 11.9%、首个参与自身开发的 AI 模型（AI 自我构建）</p>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              <div class="bg-white border border-gray-200 rounded-xl p-4">
+                <p class="text-xs font-bold text-gray-700 mb-3 flex items-center"><i class="fas fa-file-alt text-blue-500 mr-1.5"></i>长上下文能力</p>
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between text-xs"><span class="text-orange-600 font-medium">Opus 4.6</span><span class="text-gray-700">100万 token（≈50万中文字，一部《三体》全集）</span></div>
+                  <div class="w-full bg-gray-100 rounded-full h-1.5"><div class="bg-orange-400 h-1.5 rounded-full" style="width:100%"></div></div>
+                  <div class="flex items-center justify-between text-xs mt-2"><span class="text-green-600 font-medium">GPT-5.3</span><span class="text-gray-700">400K token（≈10万行代码）</span></div>
+                  <div class="w-full bg-gray-100 rounded-full h-1.5"><div class="bg-green-400 h-1.5 rounded-full" style="width:40%"></div></div>
+                </div>
+              </div>
+              <div class="bg-white border border-gray-200 rounded-xl p-4">
+                <p class="text-xs font-bold text-gray-700 mb-3 flex items-center"><i class="fas fa-tachometer-alt text-green-500 mr-1.5"></i>响应速度</p>
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between text-xs"><span class="text-orange-600 font-medium">Opus 4.6</span><span class="text-gray-700">与 4.5 持平（上下文翻5倍仍保速）</span></div>
+                  <div class="w-full bg-gray-100 rounded-full h-1.5"><div class="bg-orange-400 h-1.5 rounded-full" style="width:60%"></div></div>
+                  <div class="flex items-center justify-between text-xs mt-2"><span class="text-green-600 font-medium">GPT-5.3</span><span class="text-gray-700">比 GPT-5.2 快 25%</span></div>
+                  <div class="w-full bg-gray-100 rounded-full h-1.5"><div class="bg-green-400 h-1.5 rounded-full" style="width:80%"></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-gray-800 rounded-xl p-4 text-white">
+              <p class="text-sm font-bold mb-3">💡 怎么选？</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                <div><p class="text-orange-300 font-semibold mb-1">选 Claude Opus 4.6，如果你需要：</p><ul class="space-y-1 text-gray-300"><li>• 处理大型代码库（100万 token 上下文）</li><li>• Agent Teams 并行开发提效</li><li>• 在 Excel / PowerPoint 里直接调用 AI</li></ul></div>
+                <div><p class="text-green-300 font-semibold mb-1">选 GPT-5.3-Codex，如果你需要：</p><ul class="space-y-1 text-gray-300"><li>• 快速迭代、追求响应速度（快 25%）</li><li>• 已是 ChatGPT Plus/Pro 订阅用户</li><li>• OpenAI 生态系统深度集成</li></ul></div>
+              </div>
+              <p class="text-xs text-gray-400 mt-3 border-t border-gray-700 pt-3">来源：<a href="https://developer.aliyun.com/article/1710932" target="_blank" class="text-green-400 hover:underline">阿里云开发者社区 · AI编程大战白热化</a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Gemini 3.1 Pro ── -->
+      <section id="google-gemini" class="section-anchor mb-10 reveal">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div class="bg-gradient-to-r from-blue-500 to-cyan-500 px-6 py-4 flex items-center">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3"><i class="fas fa-gem text-white text-lg"></i></div>
+            <div>
+              <h3 class="text-xl font-bold text-white">Google · Gemini 3.1 Pro</h3>
+              <p class="text-blue-200 text-sm">2026年2月19日深夜发布 · 推理性能翻倍</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-700 mb-5">春节档国产大模型狂卷，谷歌也突然出手，Gemini 3.1 Pro 直接深夜放大招！别看只是「.1」的一小步，升级幅度肉眼可见——推理性能直接翻倍，多模态生成和语义理解都提升了一个 level。</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div class="bg-blue-50 rounded-xl p-4 border border-blue-100"><div class="font-bold text-blue-700 mb-2"><i class="fas fa-layer-group mr-2"></i>多层思考级别</div><p class="text-sm text-gray-600">LOW / MEDIUM / HIGH 三档，根据任务复杂度动态分配计算资源</p></div>
+              <div class="bg-cyan-50 rounded-xl p-4 border border-cyan-100"><div class="font-bold text-cyan-700 mb-2"><i class="fas fa-chart-line mr-2"></i>推理性能翻倍</div><p class="text-sm text-gray-600">ARC-AGI-2 得分 <strong>77.1%</strong>，是 Gemini 3 Pro（31.1%）的 <strong>2倍以上</strong></p></div>
+              <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100"><div class="font-bold text-indigo-700 mb-2"><i class="fas fa-palette mr-2"></i>多模态全面增强</div><p class="text-sm text-gray-600">多模态理解、vibe coding、多语言性能和长上下文全面提升</p></div>
+            </div>
+            <!-- ARC-AGI-2 对比图 -->
+            <div class="mb-6">
+              <h4 class="text-base font-bold text-gray-800 mb-3"><i class="fas fa-brain mr-2 text-blue-500"></i>ARC-AGI-2 抽象推理性能对比</h4>
+              <div class="flex flex-col md:flex-row gap-4 items-stretch">
+                <div class="md:w-1/2 rounded-xl overflow-hidden border border-gray-200 shadow-sm bg-gray-50 flex items-center justify-center p-2">
+                  <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/e67b2421-ee0b-4a7f-a4f1-19a76a4fe4d9/6997c144b109c_6997c144adbfb_6997c144adba1_ScreenShot_2026-02-20_092622_042.png" alt="ARC-AGI-2 性能对比图" class="w-full object-contain" style="max-height:320px;">
+                </div>
+                <div class="md:w-1/2 bg-blue-50 rounded-xl p-5 border border-blue-100 flex flex-col justify-center">
+                  <div class="font-bold text-blue-700 mb-3 text-base">🏆 Gemini 3.1 Pro 以 77.1% 登顶</div>
+                  <div class="space-y-2">
+                    <div><div class="flex justify-between text-xs mb-1"><span class="font-bold text-blue-700">Gemini 3.1 Pro (Thinking High)</span><span class="font-bold text-blue-600">77.1%</span></div><div class="w-full bg-gray-200 rounded-full h-2"><div class="bg-blue-600 h-2 rounded-full" style="width:77.1%"></div></div></div>
+                    <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-600">Claude Opus 4.6 (Thinking Max)</span><span class="text-gray-600">68.8%</span></div><div class="w-full bg-gray-200 rounded-full h-2"><div class="bg-gray-400 h-2 rounded-full" style="width:68.8%"></div></div></div>
+                    <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-600">GPT-5.2 (Thinking xhigh)</span><span class="text-gray-600">52.9%</span></div><div class="w-full bg-gray-200 rounded-full h-2"><div class="bg-gray-400 h-2 rounded-full" style="width:52.9%"></div></div></div>
+                    <div><div class="flex justify-between text-xs mb-1"><span class="text-gray-500">Gemini 3 Pro (Thinking High)</span><span class="text-gray-500">31.1%</span></div><div class="w-full bg-gray-200 rounded-full h-2"><div class="bg-blue-200 h-2 rounded-full" style="width:31.1%"></div></div></div>
                   </div>
-                  <div class="bg-gray-50 rounded-lg p-3 text-center">
-                    <!-- SVG: Opus 4.6 详细版 -->
-                    <svg viewBox="0 0 120 100" class="w-full h-24 mx-auto" xmlns="http://www.w3.org/2000/svg">
-                      <!-- 自行车细节版 -->
-                      <circle cx="35" cy="72" r="18" fill="none" stroke="#555" stroke-width="2"/>
-                      <circle cx="35" cy="72" r="14" fill="none" stroke="#aaa" stroke-width="1"/>
-                      <circle cx="85" cy="72" r="18" fill="none" stroke="#555" stroke-width="2"/>
-                      <circle cx="85" cy="72" r="14" fill="none" stroke="#aaa" stroke-width="1"/>
-                      <line x1="35" y1="72" x2="60" y2="45" stroke="#444" stroke-width="2.5"/>
-                      <line x1="60" y1="45" x2="85" y2="72" stroke="#444" stroke-width="2.5"/>
-                      <line x1="60" y1="45" x2="60" y2="56" stroke="#444" stroke-width="2"/>
-                      <line x1="50" y1="45" x2="70" y2="45" stroke="#333" stroke-width="2.5"/>
-                      <line x1="60" y1="56" x2="52" y2="62" stroke="#555" stroke-width="1.5"/>
-                      <line x1="60" y1="56" x2="68" y2="62" stroke="#555" stroke-width="1.5"/>
-                      <!-- 速度线 -->
-                      <line x1="5" y1="50" x2="18" y2="50" stroke="#bbb" stroke-width="1" stroke-dasharray="2,2"/>
-                      <line x1="8" y1="58" x2="20" y2="58" stroke="#bbb" stroke-width="1" stroke-dasharray="2,2"/>
-                      <!-- 鹈鹕细节版 -->
-                      <ellipse cx="60" cy="30" rx="13" ry="10" fill="#f5c842"/>
-                      <!-- 羽毛纹理 -->
-                      <line x1="52" y1="27" x2="56" y2="33" stroke="#d4a020" stroke-width="0.8"/>
-                      <line x1="57" y1="26" x2="60" y2="33" stroke="#d4a020" stroke-width="0.8"/>
-                      <line x1="62" y1="26" x2="64" y2="33" stroke="#d4a020" stroke-width="0.8"/>
-                      <circle cx="60" cy="17" r="7" fill="#f5c842"/>
-                      <circle cx="62" cy="15" r="1.5" fill="#333"/>
-                      <ellipse cx="57" cy="25" rx="4" ry="8" fill="#e8920a"/>
-                      <!-- 腿关节 -->
-                      <line x1="58" y1="40" x2="55" y2="50" stroke="#d4a020" stroke-width="1.5"/>
-                      <circle cx="55" cy="50" r="1.5" fill="#c08010"/>
-                      <line x1="55" y1="50" x2="52" y2="58" stroke="#d4a020" stroke-width="1.5"/>
-                    </svg>
-                    <p class="text-xs text-gray-400 mt-1">Opus 4.6 · 羽毛纹理+速度线</p>
+                  <p class="text-xs text-gray-400 mt-3">来源：ARC PRIZE VERIFIED · Abstract reasoning puzzles</p>
+                </div>
+              </div>
+            </div>
+            <!-- 趣味测试 -->
+            <div class="mb-6">
+              <h4 class="text-base font-bold text-gray-800 mb-3"><i class="fas fa-flask mr-2 text-green-500"></i>趣味测试：常识推理 &amp; SVG 绘图</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
+                  <div class="overflow-hidden bg-white"><img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/c9acceee-053a-42ac-9a71-1ec268a6144b/image.png" alt="Gemini 3.1 Pro 洗车题测试截图" class="w-full object-contain"></div>
+                  <div class="bg-green-50 p-4 border-t border-green-100 flex-1 flex flex-col justify-center">
+                    <p class="text-sm font-bold text-green-800 mb-2">🚗 常识推理：50米洗车店问题</p>
+                    <div class="bg-white rounded-lg p-2.5 border-l-4 border-green-400 mb-2"><p class="text-xs text-gray-700 italic">「我强烈建议你<strong>开车去</strong>。因为如果你走过去，洗车店老板可能会很疑惑地问你：<strong>"老板，您的车呢？"</strong>」</p></div>
+                    <p class="text-xs text-gray-500">✅ 正确识别隐含常识 ✅ 给出幽默且合理的补充</p>
                   </div>
                 </div>
-                <p class="text-xs text-gray-500 text-center">左: Opus 4.5 · 右: Opus 4.6 — 细节与动感明显提升</p>
+                <div class="rounded-xl border border-gray-200 shadow-sm overflow-hidden flex flex-col">
+                  <div class="overflow-hidden bg-white"><img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/a7a8f1f9-be6c-4ae1-8d1e-9261ae419df7/6997b0b473e02_6997b0b468afe_6997b0b468ab9_2222.gif" alt="Gemini 3 Pro vs Gemini 3.1 Pro 鹈鹕骑自行车 SVG 对比" class="w-full object-contain"></div>
+                  <div class="bg-blue-50 p-4 border-t border-blue-100 flex-1 flex flex-col justify-center">
+                    <p class="text-sm font-bold text-blue-800 mb-2">🦢 SVG 绘图：鹈鹕骑自行车（GIF对比）</p>
+                    <div class="space-y-1.5">
+                      <div class="bg-white rounded p-2 border border-gray-200"><p class="text-xs font-bold text-gray-500 mb-0.5">🐦 Gemini 3 Pro</p><p class="text-xs text-gray-600">背景简约，造型基础，细节较少</p></div>
+                      <div class="bg-white rounded p-2 border-l-4 border-blue-400"><p class="text-xs font-bold text-blue-700 mb-0.5">✨ Gemini 3.1 Pro</p><p class="text-xs text-gray-600">背景丰富，姿态生动，车架细节清晰，画面更具动感</p></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <span class="tag-badge bg-orange-100 text-orange-700">能力跃迁</span>
-            <span class="tag-badge bg-red-100 text-red-700">金融冲击</span>
-            <span class="tag-badge bg-purple-100 text-purple-700">常识推理</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── model-01b: Claude Sonnet 4.6 ── -->
-      <div id="model-01b" class="section-anchor bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6 card-hover reveal">
-        <div class="bg-gradient-to-r from-violet-500 to-purple-600 px-6 py-4 flex items-center justify-between">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="tag-badge bg-white/20 text-white text-xs">⚡ AUTO</span>
-              <span class="tag-badge bg-white/20 text-white text-xs">Anthropic</span>
+            <!-- 创意轮播 -->
+            <div class="mb-6">
+              <h4 class="text-base font-bold text-gray-800 mb-3"><i class="fas fa-magic mr-2 text-orange-500"></i>创意代码生成能力</h4>
+              <div class="creative-carousel relative rounded-2xl overflow-hidden border border-orange-100 shadow-md bg-white" style="min-height:340px;">
+                <div class="carousel-track flex transition-transform duration-500 ease-in-out" style="will-change:transform;">
+                  <!-- Slide 1: 3D 椋鸟群飞 -->
+                  <div class="carousel-slide flex-shrink-0 w-full">
+                    <div class="flex flex-col md:flex-row items-stretch">
+                      <div class="md:w-3/5 bg-black flex items-center justify-center overflow-hidden" style="min-height:240px;max-height:320px;">
+                        <img src="https://ark-release-1251316161.file.myqcloud.com/image-bed/2026/03/02/8bec3c19f4ab496887c0e8af624d1be0.gif" alt="3D 椋鸟群飞演示" class="w-full h-full object-contain" style="max-height:320px;">
+                      </div>
+                      <div class="md:w-2/5 bg-orange-50 p-5 flex flex-col justify-center">
+                        <div class="text-3xl mb-2">🐦</div>
+                        <div class="font-bold text-orange-700 mb-2 text-base">3D 椋鸟群飞</div>
+                        <p class="text-sm text-gray-600 leading-relaxed">一次生成可交互的3D鸟群模拟，支持手势追踪操控，画面随鸟群运动生成配乐</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 2: 我的世界 -->
+                  <div class="carousel-slide flex-shrink-0 w-full">
+                    <div class="flex flex-col md:flex-row items-stretch">
+                      <div class="md:w-3/5 bg-black flex items-center justify-center overflow-hidden" style="min-height:240px;max-height:320px;">
+                        <img src="https://ark-release-1251316161.file.myqcloud.com/image-bed/2026/03/02/fb5a4278d1a949dabd6a9a95e9d9cbea.gif" alt="我的世界生成演示" class="w-full h-full object-contain" style="max-height:320px;">
+                      </div>
+                      <div class="md:w-2/5 bg-yellow-50 p-5 flex flex-col justify-center">
+                        <div class="text-3xl mb-2">🎮</div>
+                        <div class="font-bold text-yellow-700 mb-2 text-base">《我的世界》生成</div>
+                        <p class="text-sm text-gray-600 leading-relaxed">网友实测直接生成可玩的《我的世界》游戏，地形、建筑、交互一次到位</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Slide 3: 个人网站 -->
+                  <div class="carousel-slide flex-shrink-0 w-full">
+                    <div class="flex flex-col md:flex-row items-stretch">
+                      <div class="md:w-3/5 bg-black flex items-center justify-center overflow-hidden" style="min-height:240px;max-height:320px;">
+                        <img src="https://ark-release-1251316161.file.myqcloud.com/image-bed/2026/03/02/303574af805146638ae076beefd2da47.gif" alt="个人网站生成演示" class="w-full h-full object-contain" style="max-height:320px;">
+                      </div>
+                      <div class="md:w-2/5 bg-green-50 p-5 flex flex-col justify-center">
+                        <div class="text-3xl mb-2">🌐</div>
+                        <div class="font-bold text-green-700 mb-2 text-base">个人网站生成</div>
+                        <p class="text-sm text-gray-600 leading-relaxed">网友用3.1 Pro搓出个人网站，效果甚至比 Gemini 官网还好，光线模拟效果逼真</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="carousel-prev absolute left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-white/90 hover:bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 hover:text-orange-500 transition-all"><i class="fas fa-chevron-left text-sm"></i></button>
+                <button class="carousel-next absolute right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 bg-white/90 hover:bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 hover:text-orange-500 transition-all"><i class="fas fa-chevron-right text-sm"></i></button>
+                <div class="carousel-dots absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                  <button class="carousel-dot w-2 h-2 rounded-full bg-orange-400 transition-all" data-index="0"></button>
+                  <button class="carousel-dot w-2 h-2 rounded-full bg-gray-300 transition-all" data-index="1"></button>
+                  <button class="carousel-dot w-2 h-2 rounded-full bg-gray-300 transition-all" data-index="2"></button>
+                </div>
+              </div>
+              <script>
+              (function(){var c=document.currentScript.closest('.mb-6').querySelector('.creative-carousel'),t=c.querySelector('.carousel-track'),dots=c.querySelectorAll('.carousel-dot'),cur=0,tot=3,tmr=null;function go(i){cur=(i+tot)%tot;t.style.transform='translateX(-'+(cur*100)+'%)';dots.forEach(function(d,j){d.classList.toggle('bg-orange-400',j===cur);d.classList.toggle('w-4',j===cur);d.classList.toggle('bg-gray-300',j!==cur);d.classList.toggle('w-2',j!==cur);});}function start(){tmr=setInterval(function(){go(cur+1);},10000);}c.querySelector('.carousel-prev').addEventListener('click',function(){clearInterval(tmr);go(cur-1);start();});c.querySelector('.carousel-next').addEventListener('click',function(){clearInterval(tmr);go(cur+1);start();});dots.forEach(function(d){d.addEventListener('click',function(){clearInterval(tmr);go(parseInt(d.dataset.index));start();});});go(0);start();})();
+              </script>
             </div>
-            <h3 class="text-white font-bold text-lg">Anthropic · Claude Sonnet 4.6</h3>
-            <p class="text-violet-100 text-sm">2026年2月17日 · Opus 发布12天后·性价比新标杆</p>
-          </div>
-          <div class="text-right">
-            <div class="text-white text-2xl font-bold mono">$3</div>
-            <div class="text-violet-200 text-xs">/M input tokens</div>
+            <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
+              <p class="text-sm font-bold text-red-700 mb-1"><i class="fas fa-ban mr-2"></i>争议：谷歌封禁 OpenClaw 用户</p>
+              <p class="text-sm text-gray-600">谷歌在其AI开发平台上严格限制第三方智能体接入，使用 OpenClaw 等开源AI工具的开发者账号被封禁，甚至连绑定的邮箱服务也受到影响。</p>
+            </div>
+            <div class="text-right"><a href="https://www.qbitai.com/2026/02/381460.html" target="_blank" class="text-sm text-blue-600 hover:text-blue-800 hover:underline"><i class="fas fa-external-link-alt mr-1"></i>阅读原文（量子位）</a></div>
           </div>
         </div>
-        <div class="p-6">
-          <p class="text-gray-700 mb-4 leading-relaxed">Opus 4.6 发布仅 12 天后，Anthropic 推出 Claude Sonnet 4.6——历代最强 Sonnet，全方位升级，API 价格与 Sonnet 4.5 持平（$3/$15 per M tokens）。目标是以「实用」成本实现接近 Opus 级智能，直接压缩竞品的中端市场。</p>
-          <div class="grid grid-cols-2 gap-4 mb-4">
-            <div class="bg-violet-50 rounded-xl p-4">
-              <div class="text-xs text-violet-500 font-semibold mb-2">定价对比</div>
-              <div class="space-y-1 text-sm">
-                <div class="flex justify-between"><span class="text-gray-600">Sonnet 4.6 输入</span><span class="font-bold mono text-violet-700">$3/M</span></div>
-                <div class="flex justify-between"><span class="text-gray-600">Sonnet 4.6 输出</span><span class="font-bold mono text-violet-700">$15/M</span></div>
-                <div class="flex justify-between text-xs text-gray-400"><span>vs Opus 4.6 输入</span><span>$5/M</span></div>
+      </section>
+
+      <!-- ── Nano Banana 2 ── -->
+      <section id="nano-banana" class="section-anchor mb-10 reveal">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div class="bg-gradient-to-r from-blue-500 to-cyan-500 px-6 py-4 flex items-center">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3"><span class="text-2xl">🍌</span></div>
+            <div>
+              <h3 class="text-xl font-bold text-white">Google · Nano Banana 2</h3>
+              <p class="text-blue-100 text-sm">图像生成下半场比的是"世界知识" · 2026年2月底</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-700 mb-5">谷歌发布 <strong>Nano Banana 2</strong>，图像生成进入下半场，竞争焦点从"画得像"转向"懂得多"——模型需要具备丰富的世界知识才能生成准确、有意义的图像。发布当天谷歌宣布它将立即取代所有旧版本，成为 Gemini、谷歌搜索、AI Studio 等所有产品的默认图像生成模型。</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div class="bg-blue-50 rounded-xl p-4 border border-blue-100"><div class="font-bold text-blue-700 mb-2"><i class="fas fa-bolt mr-2"></i>4-6 秒生成 4K</div><p class="text-sm text-gray-600">采用"分层生成策略"——先在低分辨率下完成场景理解与构图规划，再通过高效上采样管道提升至 4K，速度与质量兼得</p></div>
+              <div class="bg-cyan-50 rounded-xl p-4 border border-cyan-100"><div class="font-bold text-cyan-700 mb-2"><i class="fas fa-globe mr-2"></i>世界知识融合</div><p class="text-sm text-gray-600">直接继承 Gemini 大语言模型的世界知识库，并能实时调用谷歌图像搜索作为"视觉参考库"</p></div>
+              <div class="bg-sky-50 rounded-xl p-4 border border-sky-100"><div class="font-bold text-sky-700 mb-2"><i class="fas fa-font mr-2"></i>文字渲染突破</div><p class="text-sm text-gray-600">支持多语言文本，字体清晰度和风格一致性大幅提升，通过"双重理解"攻克文字渲染难题</p></div>
+            </div>
+            <!-- Window Seat 演示 -->
+            <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-5 mb-6 border border-blue-100">
+              <h4 class="font-bold text-blue-800 mb-2"><i class="fas fa-window-maximize mr-2"></i>Window Seat 演示</h4>
+              <p class="text-sm text-gray-700 mb-2">谷歌展示了一个名为 <strong>Window Seat</strong> 的演示：根据用户指定的任何地点和实时天气数据，生成该地点窗外的逼真景观。</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div class="rounded-xl overflow-hidden border border-blue-100 shadow-md">
+                  <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/8522ab9e-5e55-45bc-8eae-e57bba83835e/image.png" alt="Window Seat 演示：King's Cross Station，暴雨天气" class="w-full object-cover">
+                  <div class="bg-blue-50 px-4 py-2 text-xs text-gray-500 text-center">英国国王十字车站（《哈利波特》93¾站台），暴雨天气下的温馨咖啡馆窗景</div>
+                </div>
+                <div class="rounded-xl overflow-hidden border border-blue-100 shadow-md">
+                  <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/581f7946-11da-4abb-a196-f1db365946e0/image.png" alt="Window Seat 演示：深圳华润大厦" class="w-full object-cover">
+                  <div class="bg-blue-50 px-4 py-2 text-xs text-gray-500 text-center">深圳华润大厦，24°C 多云轻雾下午的城市天际线窗景</div>
+                </div>
               </div>
             </div>
-            <div class="bg-gray-50 rounded-xl p-4">
-              <div class="text-xs text-gray-500 font-semibold mb-2">ISUX 评级</div>
-              <div class="space-y-2">
-                <div><div class="flex justify-between text-xs mb-0.5"><span>代码能力</span><span>92%</span></div><div class="h-1.5 bg-gray-200 rounded-full"><div class="progress-fill h-1.5 bg-violet-500 rounded-full" style="width:92%"></div></div></div>
-                <div><div class="flex justify-between text-xs mb-0.5"><span>推理能力</span><span>88%</span></div><div class="h-1.5 bg-gray-200 rounded-full"><div class="progress-fill h-1.5 bg-violet-500 rounded-full" style="width:88%"></div></div></div>
-                <div><div class="flex justify-between text-xs mb-0.5"><span>性价比</span><span>96%</span></div><div class="h-1.5 bg-gray-200 rounded-full"><div class="progress-fill h-1.5 bg-violet-400 rounded-full" style="width:96%"></div></div></div>
+            <!-- 定价 -->
+            <div class="grid grid-cols-3 gap-3 mb-5">
+              <div class="bg-green-50 rounded-xl p-3 text-center border border-green-100"><div class="text-lg font-bold text-green-700">¥0.48</div><div class="text-xs text-gray-500 mt-1">1K 图片</div></div>
+              <div class="bg-green-50 rounded-xl p-3 text-center border border-green-100"><div class="text-lg font-bold text-green-700">¥0.72</div><div class="text-xs text-gray-500 mt-1">2K 图片</div></div>
+              <div class="bg-green-50 rounded-xl p-3 text-center border border-green-100"><div class="text-lg font-bold text-green-700">¥1.08</div><div class="text-xs text-gray-500 mt-1">4K 图片</div></div>
+            </div>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+              <p class="text-sm text-gray-700">Nano Banana 2 给整个文生图行业带来新启示：未来的 AI 图像生成，不再是单纯的"纹理匹配"，而是<strong>「大语言模型推理能力 + 视觉渲染能力 + 检索增强事实准确性」</strong>的深度融合。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Grok 4.2 ── -->
+      <section id="xai" class="section-anchor mb-10 reveal">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div class="bg-gradient-to-r from-gray-900 to-gray-700 px-6 py-4 flex items-center">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3"><span class="text-white font-bold text-lg">X</span></div>
+            <div>
+              <h3 class="text-xl font-bold text-white">xAI · Grok 4.2</h3>
+              <p class="text-gray-300 text-sm">通过"50米外洗车店"测试，回答偏好高度贴合马斯克本人</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-700 mb-5">马斯克 xAI 新模型 Grok 4.2 公测 Beta 版正式上线，通过了国内 AI 圈爆火的"50米外洗车店"常识测试，但口碑呈现两极分化——夸赞者与批评者势均力敌，马斯克本人也亲自下场公关。</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+              <div class="text-center p-3 bg-gray-50 rounded-xl"><div class="text-xl font-bold text-gray-800">500B</div><div class="text-xs text-gray-500 mt-1">参数规模</div></div>
+              <div class="text-center p-3 bg-gray-50 rounded-xl"><div class="text-xl font-bold text-green-600">每周</div><div class="text-xs text-gray-500 mt-1">自我迭代频率</div></div>
+              <div class="text-center p-3 bg-gray-50 rounded-xl"><div class="text-xl font-bold text-blue-600">Beta</div><div class="text-xs text-gray-500 mt-1">当前版本状态</div></div>
+              <div class="text-center p-3 bg-gray-50 rounded-xl"><div class="text-xl font-bold text-orange-600">中/大</div><div class="text-xs text-gray-500 mt-1">后续版本待发</div></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+              <div class="bg-green-50 border border-green-200 rounded-xl p-4">
+                <p class="text-sm font-bold text-green-800 mb-2"><i class="fas fa-thumbs-up mr-2"></i>夸夸派</p>
+                <ul class="text-xs text-gray-600 space-y-1"><li>• 代码生成速度快、质量高</li><li>• 多模态能力表现亮眼</li><li>• 通过"50米洗车店"常识推理测试</li><li>• 马斯克亲自转发认证好评推文</li></ul>
+              </div>
+              <div class="bg-red-50 border border-red-200 rounded-xl p-4">
+                <p class="text-sm font-bold text-red-800 mb-2"><i class="fas fa-thumbs-down mr-2"></i>不行派</p>
+                <ul class="text-xs text-gray-600 space-y-1"><li>• 500B 参数处理高难度逻辑推理不够用</li><li>• 成本比竞品贵出不少</li><li>• 回答偏好高度贴合马斯克本人，被质疑有偏见</li><li>• Reddit 用户认为无法与 OpenAI/Anthropic 最新模型媲美</li></ul>
               </div>
             </div>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="tag-badge bg-violet-100 text-violet-700">性价比</span>
-            <span class="tag-badge bg-green-100 text-green-700">中端首选</span>
+            <div class="bg-gray-900 rounded-xl p-4 text-white">
+              <p class="text-sm font-bold mb-2 flex items-center"><span class="text-xl mr-2">𝕏</span>马斯克官方回应</p>
+              <p class="text-sm text-gray-300 italic">"公测将持续到下个月。我们知道目前仍有许多 bug 需要修复和改进，每天都在 debug 中~我们 Grok 4.2 还是个宝宝，后面每周会更新，等着瞧吧！"</p>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- ── model-02: GPT-5.3 Codex ── -->
-      <div id="model-02" class="section-anchor bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6 card-hover reveal">
-        <div class="bg-gradient-to-r from-green-500 to-teal-600 px-6 py-4 flex items-center justify-between">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="tag-badge bg-white/20 text-white text-xs">⚡ AUTO</span>
-              <span class="tag-badge bg-white/20 text-white text-xs">OpenAI</span>
-            </div>
-            <h3 class="text-white font-bold text-lg">OpenAI · GPT-5.3 Codex</h3>
-            <p class="text-green-100 text-sm">2026年2月12日 · 代码专项·SWE-bench 92.4%</p>
-          </div>
-          <div class="text-right">
-            <div class="text-white text-2xl font-bold mono">92.4%</div>
-            <div class="text-green-200 text-xs">SWE-bench</div>
-          </div>
-        </div>
-        <div class="p-6">
-          <p class="text-gray-700 mb-4 leading-relaxed">GPT-5.3 Codex 在代码生成、Debug、代码库理解三个维度全面超越前代，SWE-bench 达到 92.4%。最值得关注的是「跨文件语义感知」——能理解一个有 300+ 文件的工程仓库的架构意图，而不是逐文件处理。</p>
-          <!-- 趣味测试 -->
-          <div class="border border-green-100 rounded-xl overflow-hidden mb-4">
-            <div class="bg-green-50 px-4 py-2 flex items-center gap-2">
-              <i class="fas fa-flask text-green-500 text-sm"></i>
-              <span class="font-bold text-sm text-green-700">趣味测试：「递归恶龙」问题</span>
-            </div>
-            <div class="p-4">
-              <div class="bg-gray-800 rounded-lg p-3 text-sm font-mono text-green-300 mb-3">
-                <span class="text-gray-500"># 问：写一个函数，杀死一条递归恶龙</span><br/>
-                <span class="text-blue-300">def</span> <span class="text-yellow-300">slay_dragon</span>(dragon, sword=<span class="text-orange-300">"excalibur"</span>):<br/>
-                &nbsp;&nbsp;<span class="text-blue-300">if</span> dragon.is_dead: <span class="text-blue-300">return</span> <span class="text-orange-300">"Dragon slain! 🐉⚔️"</span><br/>
-                &nbsp;&nbsp;dragon.take_damage(sword.power)<br/>
-                &nbsp;&nbsp;<span class="text-blue-300">return</span> slay_dragon(dragon.spawn_child(), sword)
-              </div>
-              <p class="text-xs text-gray-500">✅ 正确处理「恶龙会生孩子」的隐含逻辑，递归终止条件准确，还加了 emoji 彩蛋</p>
+      <!-- ── Seedance 2.0 ── -->
+      <section id="seedance" class="section-anchor mb-10 reveal">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div class="bg-gradient-to-r from-blue-900 to-sky-700 px-6 py-4 flex items-center">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3"><i class="fas fa-video text-white text-lg"></i></div>
+            <div>
+              <h3 class="text-xl font-bold text-white">字节跳动 · Seedance 2.0</h3>
+              <p class="text-sky-200 text-sm">视频生成模型 · 2月7日发布（正式版2月12日）</p>
             </div>
           </div>
-          <div class="flex items-center gap-2">
-            <span class="tag-badge bg-green-100 text-green-700">代码专项</span>
-            <span class="tag-badge bg-teal-100 text-teal-700">SWE-bench SOTA</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── model-03: Gemini 3.1 Pro ── -->
-      <div id="model-03" class="section-anchor bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6 card-hover reveal">
-        <div class="bg-gradient-to-r from-blue-500 to-cyan-500 px-6 py-4 flex items-center justify-between">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="tag-badge bg-white/20 text-white text-xs">⚡ AUTO</span>
-              <span class="tag-badge bg-white/20 text-white text-xs">Google</span>
+          <div class="p-6">
+            <p class="text-gray-700 text-sm mb-4">字节跳动正式发布视频创作模型 Seedance 2.0，采用<strong>统一多模态音视频联合生成架构</strong>，支持文字、图片、音频、视频四种模态输入。《黑神话·悟空》制作人冯骥盛赞其为"地表最强"，并称"AIGC的童年时代，结束了。"马斯克也感叹"事情正快速发生"。</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+              <div class="bg-sky-50 border border-sky-200 rounded-xl p-4"><div class="flex items-center mb-2"><span class="text-sky-600 text-lg mr-2">🎯</span><h4 class="font-bold text-gray-800 text-sm">复杂场景高可用率</h4></div><p class="text-xs text-gray-600">出色的运动稳定性和物理还原能力，多主体交互和复杂运动场景生成可用率达业界 SOTA 水平</p></div>
+              <div class="bg-blue-50 border border-blue-200 rounded-xl p-4"><div class="flex items-center mb-2"><span class="text-blue-600 text-lg mr-2">🎞️</span><h4 class="font-bold text-gray-800 text-sm">多模态全能参考</h4></div><p class="text-xs text-gray-600">支持同时输入多达 <strong>9张图片、3段视频、3段音频</strong>及自然语言指令，打破传统视频生成的素材边界</p></div>
+              <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-4"><div class="flex items-center mb-2"><span class="text-indigo-600 text-lg mr-2">🎬</span><h4 class="font-bold text-gray-800 text-sm">导演级可控性</h4></div><p class="text-xs text-gray-600">支持稳定可控的视频延长、视频编辑，可定向修改片段、角色、动作或剧情，支持 <strong>15秒高质量多镜头音视频</strong>输出</p></div>
+              <div class="bg-purple-50 border border-purple-200 rounded-xl p-4"><div class="flex items-center mb-2"><span class="text-purple-600 text-lg mr-2">🔊</span><h4 class="font-bold text-gray-800 text-sm">双声道沉浸音效</h4></div><p class="text-xs text-gray-600">采用双声道立体声技术，支持背景乐、环境音、解说等多轨并行输出，音效高保真</p></div>
             </div>
-            <h3 class="text-white font-bold text-lg">Google · Gemini 3.1 Pro</h3>
-            <p class="text-blue-100 text-sm">2026年2月20日 · 2M 上下文·多模态全面体</p>
-          </div>
-          <div class="text-right">
-            <div class="text-white text-2xl font-bold mono">2M</div>
-            <div class="text-blue-200 text-xs">context tokens</div>
-          </div>
-        </div>
-        <div class="p-6">
-          <p class="text-gray-700 mb-4 leading-relaxed">Gemini 3.1 Pro 将上下文窗口推到 2M tokens——相当于能一次性读完《哈利·波特》全集 3 遍。真正的突破在多模态：同时理解视频时间轴、代码逻辑和自然语言，一次 prompt 可完成「看视频→写分析→生成代码」的完整链路。</p>
-          <div class="grid grid-cols-3 gap-3 mb-4">
-            <div class="bg-blue-50 rounded-xl p-3 text-center">
-              <div class="text-xs text-blue-500 mb-1">上下文</div>
-              <div class="font-bold text-blue-800 mono text-lg">2M</div>
-              <div class="text-xs text-gray-400">↑ +600%</div>
-            </div>
-            <div class="bg-cyan-50 rounded-xl p-3 text-center">
-              <div class="text-xs text-cyan-500 mb-1">视频理解</div>
-              <div class="font-bold text-cyan-800 mono text-lg">3h</div>
-              <div class="text-xs text-gray-400">单次最长</div>
-            </div>
-            <div class="bg-indigo-50 rounded-xl p-3 text-center">
-              <div class="text-xs text-indigo-500 mb-1">多模态</div>
-              <div class="font-bold text-indigo-800 text-sm">文/图/音/视</div>
-              <div class="text-xs text-gray-400">四模同处理</div>
-            </div>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="tag-badge bg-blue-100 text-blue-700">超长上下文</span>
-            <span class="tag-badge bg-cyan-100 text-cyan-700">多模态</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── model-04: Seedance 2.0 ── -->
-      <div id="model-04" class="section-anchor bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6 card-hover reveal">
-        <div class="bg-gradient-to-r from-pink-500 to-rose-600 px-6 py-4 flex items-center justify-between">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="tag-badge bg-white/20 text-white text-xs">⚡ AUTO</span>
-              <span class="tag-badge bg-white/20 text-white text-xs">字节跳动</span>
-            </div>
-            <h3 class="text-white font-bold text-lg">字节跳动 · Seedance 2.0</h3>
-            <p class="text-pink-100 text-sm">2026年2月24日 · AI视频图灵测试被攻克</p>
-          </div>
-          <div class="text-right">
-            <div class="text-white text-sm font-bold">「童年时代，结束了」</div>
-            <div class="text-pink-200 text-xs">—— 冯骥，《黑神话·悟空》制作人</div>
-          </div>
-        </div>
-        <div class="p-6">
-          <p class="text-gray-700 mb-5 leading-relaxed">Seedance 2.0 在文生视频、图生视频、多模态任务三项评测中全面领先 Sora 2 Pro、Veo 3.1、Kling 3.0。a16z 合伙人 Justine Moore：「AI 视频模型的图灵测试已经被攻克了。」贾樟柯用它拍了一部 AI 短片《贾科长Dance》。</p>
-
-          <!-- 雷达图对比（SVG模拟） -->
-          <div class="border border-pink-100 rounded-xl overflow-hidden mb-5">
-            <div class="bg-pink-50 px-4 py-2">
-              <span class="font-bold text-sm text-pink-700">评测对比 · 三维度雷达图</span>
-            </div>
-            <div class="p-4 grid grid-cols-3 gap-4">
-              <!-- 文生视频 -->
-              <div class="text-center">
-                <svg viewBox="0 0 100 100" class="w-full h-28" xmlns="http://www.w3.org/2000/svg">
-                  <!-- 背景六边形 -->
-                  <polygon points="50,8 84,26 84,74 50,92 16,74 16,26" fill="none" stroke="#e5e7eb" stroke-width="1"/>
-                  <polygon points="50,20 75,33 75,67 50,80 25,67 25,33" fill="none" stroke="#e5e7eb" stroke-width="1"/>
-                  <polygon points="50,32 66,41 66,59 50,68 34,59 34,41" fill="none" stroke="#e5e7eb" stroke-width="1"/>
-                  <!-- Seedance 2.0 数据（满分区域） -->
-                  <polygon points="50,10 82,27 80,72 50,90 20,72 18,28" fill="rgba(236,72,153,0.15)" stroke="#ec4899" stroke-width="1.5"/>
-                  <!-- 竞品数据 -->
-                  <polygon points="50,22 72,35 70,65 50,75 30,65 28,36" fill="rgba(156,163,175,0.1)" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
-                  <circle cx="50" cy="50" r="2" fill="#ec4899"/>
-                </svg>
-                <p class="text-xs text-gray-500 mt-1">文生视频</p>
-                <p class="text-xs text-pink-600 font-semibold">运动·提示·音频全领先</p>
-              </div>
-              <!-- 图生视频 -->
-              <div class="text-center">
-                <svg viewBox="0 0 100 100" class="w-full h-28" xmlns="http://www.w3.org/2000/svg">
-                  <polygon points="50,8 84,26 84,74 50,92 16,74 16,26" fill="none" stroke="#e5e7eb" stroke-width="1"/>
-                  <polygon points="50,20 75,33 75,67 50,80 25,67 25,33" fill="none" stroke="#e5e7eb" stroke-width="1"/>
-                  <polygon points="50,32 66,41 66,59 50,68 34,59 34,41" fill="none" stroke="#e5e7eb" stroke-width="1"/>
-                  <polygon points="50,10 80,28 83,70 50,90 22,70 18,29" fill="rgba(236,72,153,0.15)" stroke="#ec4899" stroke-width="1.5"/>
-                  <polygon points="50,24 68,37 67,63 50,74 32,63 31,38" fill="rgba(156,163,175,0.1)" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
-                  <circle cx="50" cy="50" r="2" fill="#ec4899"/>
-                </svg>
-                <p class="text-xs text-gray-500 mt-1">图生视频</p>
-                <p class="text-xs text-pink-600 font-semibold">图像保留·音视频同步</p>
-              </div>
-              <!-- 多模态 -->
-              <div class="text-center">
-                <svg viewBox="0 0 100 100" class="w-full h-28" xmlns="http://www.w3.org/2000/svg">
-                  <polygon points="50,8 84,26 84,74 50,92 16,74 16,26" fill="none" stroke="#e5e7eb" stroke-width="1"/>
-                  <polygon points="50,20 75,33 75,67 50,80 25,67 25,33" fill="none" stroke="#e5e7eb" stroke-width="1"/>
-                  <polygon points="50,32 66,41 66,59 50,68 34,59 34,41" fill="none" stroke="#e5e7eb" stroke-width="1"/>
-                  <polygon points="50,9 83,27 82,71 50,91 21,71 17,28" fill="rgba(236,72,153,0.15)" stroke="#ec4899" stroke-width="1.5"/>
-                  <polygon points="50,26 65,38 64,62 50,72 35,62 34,39" fill="rgba(156,163,175,0.1)" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
-                  <circle cx="50" cy="50" r="2" fill="#ec4899"/>
-                </svg>
-                <p class="text-xs text-gray-500 mt-1">多模态任务</p>
-                <p class="text-xs text-pink-600 font-semibold">提示跟随显著优于竞品</p>
+            <!-- 评测图 -->
+            <div class="mt-5 mb-5">
+              <h4 class="font-bold text-gray-800 text-sm mb-3"><i class="fas fa-chart-bar mr-1 text-sky-500"></i>Seedance 2.0 评测对比</h4>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-sky-50 border border-sky-100 rounded-xl overflow-hidden">
+                  <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/e17b40ce-3020-4133-b390-d711b5b93ac4/image.png" alt="Text-to-Video Evaluation" class="w-full object-contain">
+                  <p class="text-xs text-gray-500 text-center py-2 px-3">文生视频评测：运动质量、提示词跟随全面领先</p>
+                </div>
+                <div class="bg-sky-50 border border-sky-100 rounded-xl overflow-hidden">
+                  <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/dc8b386e-32c0-4f8b-a772-53b6c46a799e/image.png" alt="Image-to-Video Evaluation" class="w-full object-contain">
+                  <p class="text-xs text-gray-500 text-center py-2 px-3">图生视频评测：图像保留、音视频同步表现突出</p>
+                </div>
+                <div class="bg-sky-50 border border-sky-100 rounded-xl overflow-hidden">
+                  <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/7e251440-9830-428c-a250-448c30b6956c/image.png" alt="Multimodal Task Evaluation" class="w-full object-contain">
+                  <p class="text-xs text-gray-500 text-center py-2 px-3">多模态任务评测：多模态任务跟随能力显著优于竞品</p>
+                </div>
               </div>
             </div>
-            <div class="px-4 pb-3 flex items-center gap-4 text-xs">
-              <div class="flex items-center gap-1"><div class="w-3 h-1 bg-pink-400 rounded"></div><span class="text-gray-500">Seedance 2.0</span></div>
-              <div class="flex items-center gap-1"><div class="w-3 h-1 bg-gray-300 rounded" style="border-top: 1px dashed #9ca3af"></div><span class="text-gray-500">最强竞品均值</span></div>
+            <!-- 名人评价 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-5">
+              <div class="bg-gray-50 rounded-lg p-3 border-l-4 border-orange-400"><p class="text-xs text-gray-600 italic">"地表最强，AIGC的童年时代，结束了。"</p><p class="text-xs text-gray-400 mt-1">—— 冯骥，《黑神话·悟空》制作人</p></div>
+              <div class="bg-gray-50 rounded-lg p-3 border-l-4 border-blue-400"><p class="text-xs text-gray-600 italic">"AI视频模型的图灵测试已经被攻克了。"</p><p class="text-xs text-gray-400 mt-1">—— Justine Moore，a16z 合伙人</p></div>
+              <div class="bg-gray-50 rounded-lg p-3 border-l-4 border-gray-400"><p class="text-xs text-gray-600 italic">"Seedance 2.0确实厉害，我准备用它做个短片。"</p><p class="text-xs text-gray-400 mt-1">—— 贾樟柯，知名导演</p></div>
             </div>
-          </div>
-
-          <!-- 名言 -->
-          <div class="grid grid-cols-1 gap-2 mb-4">
-            <div class="bg-gray-50 rounded-lg px-4 py-3 border-l-3 border-pink-300" style="border-left: 3px solid #f472b6">
-              <p class="text-sm text-gray-700">「地表最强，AIGC的童年时代，结束了。」</p>
-              <p class="text-xs text-gray-400 mt-1">—— 冯骥，《黑神话·悟空》制作人</p>
+            <!-- 贾樟柯短片 B站 -->
+            <div class="mt-5">
+              <h4 class="font-bold text-gray-800 text-sm mb-3"><i class="fas fa-film mr-1 text-blue-500"></i>贾樟柯 x Seedance 2.0 · AI 短片《贾科长Dance》</h4>
+              <div class="relative w-full rounded-xl overflow-hidden border border-sky-100 shadow-sm" style="padding-top: 56.25%;">
+                <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=116137828286969&bvid=BV1r1ArzCEKp&cid=36310879554&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="absolute inset-0 w-full h-full"></iframe>
+              </div>
+              <p class="text-xs text-gray-400 mt-2 text-center">知名导演贾樟柯使用 Seedance 2.0 创作的 AI 短片，展示模型在艺术创作领域的表现力</p>
             </div>
-            <div class="bg-gray-50 rounded-lg px-4 py-3" style="border-left: 3px solid #a78bfa">
-              <p class="text-sm text-gray-700">「AI视频模型的图灵测试已经被攻克了。」</p>
-              <p class="text-xs text-gray-400 mt-1">—— Justine Moore，a16z 合伙人</p>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-2">
-            <span class="tag-badge bg-pink-100 text-pink-700">视频生成</span>
-            <span class="tag-badge bg-rose-100 text-rose-700">图灵测试</span>
-            <span class="tag-badge bg-orange-100 text-orange-700">国产领先</span>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- ── model-05: Grok 4.2 ── -->
-      <div id="model-05" class="section-anchor bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6 card-hover reveal">
-        <div class="bg-gradient-to-r from-gray-700 to-gray-900 px-6 py-4 flex items-center justify-between">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="tag-badge bg-white/20 text-white text-xs">⚡ AUTO</span>
-              <span class="tag-badge bg-white/20 text-white text-xs">xAI</span>
+      <!-- ── Seedream 5.0 ── -->
+      <section id="seedream" class="section-anchor mb-10 reveal">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div class="bg-gradient-to-r from-pink-600 to-rose-500 px-6 py-4 flex items-center">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3"><i class="fas fa-image text-white text-lg"></i></div>
+            <div>
+              <h3 class="text-xl font-bold text-white">字节跳动 · Seedream 5.0</h3>
+              <p class="text-pink-200 text-sm">图像生成模型 · 2月10日上线</p>
             </div>
-            <h3 class="text-white font-bold text-lg">xAI · Grok 4.2</h3>
-            <p class="text-gray-300 text-sm">2026年2月18日 · 实时网络检索·科学推理专项</p>
           </div>
-          <div class="text-right">
-            <div class="text-white text-2xl font-bold mono">AIME</div>
-            <div class="text-gray-300 text-xs">数学竞赛 #1</div>
-          </div>
-        </div>
-        <div class="p-6">
-          <p class="text-gray-700 mb-4 leading-relaxed">Grok 4.2 在 AIME 2026 数学竞赛测试中拿到榜首，科学推理能力（物理、化学、生物）超越 GPT-5.3 和 Claude Opus 4.6。特色能力：实时检索 X 平台数据，能理解 24 小时内的舆情趋势并结合推理给出分析。</p>
-          <div class="grid grid-cols-2 gap-3 mb-4">
-            <div class="bg-gray-50 rounded-xl p-3">
-              <div class="text-xs text-gray-500 font-semibold mb-2">强项领域</div>
-              <div class="space-y-1 text-xs text-gray-600">
-                <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-yellow-400 flex-shrink-0"></span>数学竞赛推理（AIME #1）</div>
-                <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-400 flex-shrink-0"></span>实时网络 + X 平台数据</div>
-                <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-green-400 flex-shrink-0"></span>科学领域专项推理</div>
+          <div class="p-6">
+            <p class="text-gray-700 text-sm mb-4">字节跳动图像生成模型 Seedream 5.0 在视频编辑应用<strong>剪映、CapCut、小云雀</strong>均已上线，对标 Nano Banana Pro，支持 <strong>2K 直出和 4K AI 增强</strong>分辨率输出，所有用户可免费使用 20 次。</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+              <div class="bg-pink-50 border border-pink-200 rounded-xl p-4"><div class="flex items-center mb-2"><span class="text-pink-600 text-lg mr-2">🧠</span><h4 class="font-bold text-gray-800 text-sm">智能水平增强</h4></div><p class="text-xs text-gray-600">深入理解提示词，支持联网检索生图，文本渲染效果显著提升</p></div>
+              <div class="bg-rose-50 border border-rose-200 rounded-xl p-4"><div class="flex items-center mb-2"><span class="text-rose-600 text-lg mr-2">✨</span><h4 class="font-bold text-gray-800 text-sm">风格化效果增强</h4></div><p class="text-xs text-gray-600">图像到图像功能增强风格化效果，提供更清晰的细节、精致的纹理和平衡的照明</p></div>
+              <div class="bg-red-50 border border-red-200 rounded-xl p-4"><div class="flex items-center mb-2"><span class="text-red-600 text-lg mr-2">🔍</span><h4 class="font-bold text-gray-800 text-sm">智能推理能力</h4></div><p class="text-xs text-gray-600">多步逻辑、空间理解增强，支持联网知识整合，可生成信息图、菜谱等知识驱动型内容</p></div>
+            </div>
+            <!-- 实测轮播 -->
+            <h4 class="font-bold text-gray-800 text-sm mb-3"><i class="fas fa-images mr-1 text-pink-500"></i>实测 Cases · 轮播展示</h4>
+            <div class="relative" id="seedream-carousel-wrap">
+              <div class="overflow-hidden rounded-xl">
+                <div class="flex transition-transform duration-500 ease-in-out" id="seedream-slides">
+                  <!-- Case 1 -->
+                  <div class="flex-shrink-0 w-full">
+                    <div class="bg-gray-50 rounded-xl p-3 border border-gray-200 mb-3">
+                      <div class="flex items-center gap-2 mb-1"><span class="text-xs font-bold text-pink-600 bg-pink-100 px-2 py-0.5 rounded-full">Case 1 / 4</span><span class="text-xs font-semibold text-gray-600">🌐 联网搜索生图</span></div>
+                    </div>
+                    <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/befa72cf-ac84-40e1-a58e-e498adb29ea5/image.png" alt="Seedream 5.0 联网搜索生图" class="w-full rounded-xl shadow-md object-cover" style="max-height:420px;">
+                    <p class="text-xs text-gray-400 mt-2 text-center">联网检索 2026年2月4日五城实时天气，一次生成五城拼接全景合成摄影图</p>
+                  </div>
+                  <!-- Case 2 -->
+                  <div class="flex-shrink-0 w-full">
+                    <div class="bg-gray-50 rounded-xl p-3 border border-gray-200 mb-3">
+                      <div class="flex items-center gap-2 mb-1"><span class="text-xs font-bold text-pink-600 bg-pink-100 px-2 py-0.5 rounded-full">Case 2 / 4</span><span class="text-xs font-semibold text-gray-600">🐶 多风格一致性生图</span></div>
+                    </div>
+                    <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/9ab0dd87-24d5-49fd-ac87-7ced4ec57641/image.png" alt="Seedream 5.0 狗狗16宫格" class="w-full rounded-xl shadow-md object-cover" style="max-height:420px;">
+                    <p class="text-xs text-gray-400 mt-2 text-center">同一只雪纳瑞，16种艺术风格：写实摄影、卡通、水彩、像素、水墨、赛博朋克……</p>
+                  </div>
+                  <!-- Case 3 -->
+                  <div class="flex-shrink-0 w-full">
+                    <div class="bg-gray-50 rounded-xl p-3 border border-gray-200 mb-3">
+                      <div class="flex items-center gap-2 mb-1"><span class="text-xs font-bold text-pink-600 bg-pink-100 px-2 py-0.5 rounded-full">Case 3 / 4</span><span class="text-xs font-semibold text-gray-600">✏️ 手绘排版 · 年度总结 PPT</span></div>
+                    </div>
+                    <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/719baa31-8dd2-4370-816b-8769a9cfaa26/image.png" alt="Seedream 5.0 手绘排版" class="w-full rounded-xl shadow-md object-cover" style="max-height:420px;">
+                    <p class="text-xs text-gray-400 mt-2 text-center">iPad 手绘风格年度总结四宫格：封面 · 工作亮点 · 社交排毒 · 2026 目标</p>
+                  </div>
+                  <!-- Case 4 -->
+                  <div class="flex-shrink-0 w-full">
+                    <div class="bg-gray-50 rounded-xl p-3 border border-gray-200 mb-3">
+                      <div class="flex items-center gap-2 mb-1"><span class="text-xs font-bold text-pink-600 bg-pink-100 px-2 py-0.5 rounded-full">Case 4 / 4</span><span class="text-xs font-semibold text-gray-600">📱 潮玩 App UI 界面设计</span></div>
+                    </div>
+                    <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/0163fb73-8c79-4612-a1d4-261c053d2890/image.png" alt="Seedream 5.0 潮玩 App UI" class="w-full rounded-xl shadow-md object-contain bg-gray-100" style="max-height:420px;">
+                    <p class="text-xs text-gray-400 mt-2 text-center">紫色渐变潮玩盲盒 App 界面：Banner · 分类导航 · 活动卡片 · 直播入口，一次生成完整 UI 稿</p>
+                  </div>
+                </div>
+              </div>
+              <button id="seedream-prev" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 w-9 h-9 bg-white border border-gray-200 rounded-full shadow-md flex items-center justify-center text-gray-600 hover:bg-pink-50 hover:text-pink-600 transition z-10"><i class="fas fa-chevron-left text-sm"></i></button>
+              <button id="seedream-next" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 w-9 h-9 bg-white border border-gray-200 rounded-full shadow-md flex items-center justify-center text-gray-600 hover:bg-pink-50 hover:text-pink-600 transition z-10"><i class="fas fa-chevron-right text-sm"></i></button>
+              <div class="flex justify-center gap-2 mt-4" id="seedream-dots">
+                <button class="seedream-dot w-2 h-2 rounded-full bg-pink-500 transition-all" data-index="0"></button>
+                <button class="seedream-dot w-2 h-2 rounded-full bg-gray-300 transition-all" data-index="1"></button>
+                <button class="seedream-dot w-2 h-2 rounded-full bg-gray-300 transition-all" data-index="2"></button>
+                <button class="seedream-dot w-2 h-2 rounded-full bg-gray-300 transition-all" data-index="3"></button>
               </div>
             </div>
-            <div class="bg-gray-50 rounded-xl p-3">
-              <div class="text-xs text-gray-500 font-semibold mb-2">趣味测试：数独速解</div>
-              <div class="text-xs text-gray-600 leading-relaxed">给一道 9×9 数独，Grok 4.2 不仅解出答案，还同步输出了「约束传播 + 回溯」的解题步骤说明，用时 4.2 秒。</div>
-            </div>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="tag-badge bg-gray-100 text-gray-700">科学推理</span>
-            <span class="tag-badge bg-yellow-100 text-yellow-700">数学竞赛</span>
+            <script>
+            (function(){var slides=document.getElementById('seedream-slides'),dots=document.querySelectorAll('.seedream-dot'),total=4,current=0,timer;function goTo(i){current=(i+total)%total;slides.style.transform='translateX(-'+(current*100)+'%)';dots.forEach(function(d,j){d.classList.toggle('bg-pink-500',j===current);d.classList.toggle('w-4',j===current);d.classList.toggle('bg-gray-300',j!==current);d.classList.toggle('w-2',j!==current);});}document.getElementById('seedream-prev').addEventListener('click',function(e){e.stopPropagation();goTo(current-1);});document.getElementById('seedream-next').addEventListener('click',function(e){e.stopPropagation();goTo(current+1);});dots.forEach(function(d){d.addEventListener('click',function(e){e.stopPropagation();goTo(parseInt(this.getAttribute('data-index')));});});timer=setInterval(function(){goTo(current+1);},5000);document.getElementById('seedream-carousel-wrap').addEventListener('mouseenter',function(){clearInterval(timer);});document.getElementById('seedream-carousel-wrap').addEventListener('mouseleave',function(){timer=setInterval(function(){goTo(current+1);},5000);});})();
+            </script>
           </div>
         </div>
-      </div>
+      </section>
 
-<!-- ════ SECTION DIVIDER: 产品 ════ -->
-      <div id="section-products" class="section-anchor flex items-center mb-8 mt-4 reveal">
+      <!-- ── 国产大模型 ── -->
+      <section id="domestic" class="section-anchor mb-10 reveal">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div class="bg-gradient-to-r from-red-500 to-orange-500 px-6 py-4 flex items-center">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3"><span class="text-white text-xl">🇨🇳</span></div>
+            <div>
+              <h3 class="text-xl font-bold text-white">国产大模型春节档密集上新</h3>
+              <p class="text-red-200 text-sm">阿里 · 智谱 · MiniMax · 字节 · DeepSeek</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div class="border border-orange-200 rounded-xl p-4 bg-orange-50">
+                <div class="flex items-center mb-3"><div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center mr-2 flex-shrink-0"><span class="text-white text-xs font-bold">阿里</span></div><div><div class="font-bold text-gray-800">Qwen 3.5</div><div class="text-xs text-orange-600">2月16日除夕发布</div></div></div>
+                <ul class="text-sm text-gray-600 space-y-1"><li>• 3970亿参数稀疏MoE架构，运行时仅激活约170亿参数</li><li>• 推理成本降低60%，速度提升8倍</li><li>• MMLU-Pro得87.8分，刷新国产纪录</li><li>• API调用成本低至0.8元/百万token</li></ul>
+              </div>
+              <div class="border border-green-200 rounded-xl p-4 bg-green-50">
+                <div class="flex items-center mb-3"><div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mr-2 flex-shrink-0"><span class="text-white text-xs font-bold">智谱</span></div><div><div class="font-bold text-gray-800">GLM-5</div><div class="text-xs text-green-600">2月11日发布</div></div></div>
+                <ul class="text-sm text-gray-600 space-y-1"><li>• 参数从355B扩展至744B，激活参数40B</li><li>• SWE-bench得77.8分，Terminal-Bench 2.0得56.2分</li><li>• 聚焦"复杂系统工程"，被视为"系统架构师"</li><li>• 港股近四个交易日实现翻倍</li></ul>
+              </div>
+              <div class="border border-blue-200 rounded-xl p-4 bg-blue-50">
+                <div class="flex items-center mb-3"><div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-2 flex-shrink-0"><span class="text-white text-xs font-bold">MM</span></div><div><div class="font-bold text-gray-800">MiniMax M2.5</div><div class="text-xs text-blue-600">2月12日发布</div></div></div>
+                <ul class="text-sm text-gray-600 space-y-1"><li>• SWE-Bench Verified得80.2%，超越Opus 4.6</li><li>• Multi-SWE-Bench得51.3%，行业第一</li><li>• 激活参数仅10B，推理速度远超国际顶尖模型</li><li>• 全球首个为Agent场景原生设计的生产级模型</li></ul>
+              </div>
+              <div class="border border-gray-200 rounded-xl p-4 bg-gray-50">
+                <div class="flex items-center mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center mr-2 flex-shrink-0"><span class="text-white text-xs font-bold">DS</span></div><div><div class="font-bold text-gray-800">DeepSeek V4 Lite</div><div class="text-xs text-gray-500">2月底曝光</div></div></div>
+                <ul class="text-sm text-gray-600 space-y-1"><li>• 原生多模态AI，百万tokens上下文</li><li>• 非思考模式生图秒杀前代</li><li>• 新论文剧透V4新框架，用闲置网卡加速智能体推理</li><li>• 打破惯例：华为等国内厂商可早期访问</li></ul>
+              </div>
+            </div>
+            <div class="mt-5 bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+              <p class="text-sm font-bold text-yellow-800 mb-2"><i class="fas fa-chart-bar mr-2"></i>行业观察</p>
+              <p class="text-sm text-gray-700">国产大模型竞争已从单纯的参数规模竞赛，全面转向以技术差异化、应用场景深耕与成本效率为核心的新阶段。智能体工程（Agentic Engineering）成为技术路线的重要竞技场。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+            <div id="section-products" class="section-anchor flex items-center mb-8 mt-4 reveal">
         <div class="flex-1 h-px bg-gradient-to-r from-emerald-200 to-transparent"></div>
         <div class="flex items-center mx-4 bg-emerald-600 text-white px-5 py-2 rounded-full shadow-md">
           <i class="fas fa-rocket mr-2"></i><span class="font-bold text-sm">产品</span>
@@ -1428,7 +1677,245 @@
         </div>
       </section>
 
-    </div><!-- end content -->
+    
+      <!-- ── Google Gemini 智能体 × 三星 ── -->
+      <section id="google-douyin" class="section-anchor mb-10 reveal">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div class="bg-gradient-to-r from-blue-500 to-cyan-500 px-6 py-4 flex items-center">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3"><span class="text-2xl">📱</span></div>
+            <div>
+              <h3 class="text-xl font-bold text-white">Google · 谷歌的"豆包手机"来了？</h3>
+              <p class="text-blue-200 text-sm">Galaxy S26 × Gemini 智能体 · 2026年2月25日 · 三星 Galaxy Unpacked 2026</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <p class="text-gray-700 mb-4">三星在旧金山举行 Galaxy Unpacked 2026 发布会，真正引爆科技圈的并非手机硬件本身，而是谷歌安卓生态系统总裁<strong>萨米尔·萨马特</strong>展示的 <strong>Gemini 智能体</strong>——能在后台自动完成订餐、叫车、购物等多步骤复杂任务。</p>
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg mb-5">
+              <p class="text-sm text-gray-700">这一幕对国内用户来说"似曾相识"：三个月前字节跳动豆包手机助手已展示了几乎完全一致的能力，搭载该助手的努比亚M153工程样机首批3万台一夜售罄。如今谷歌携手三星推出同款能力，被称为谷歌的"豆包手机"。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-5">
+              <div class="bg-blue-50 rounded-xl p-4 border border-blue-100"><div class="font-bold text-blue-700 mb-2"><i class="fas fa-window-restore mr-2"></i>安全虚拟窗口</div><p class="text-sm text-gray-600">Gemini 在独立虚拟环境中运行目标应用，AI操作被隔离在"沙盒"中</p></div>
+              <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100"><div class="font-bold text-indigo-700 mb-2"><i class="fas fa-eye mr-2"></i>GUI Agent 视觉理解</div><p class="text-sm text-gray-600">能像人类一样"看懂"应用界面，识别按钮、输入框，无需应用方提前适配API</p></div>
+              <div class="bg-cyan-50 rounded-xl p-4 border border-cyan-100"><div class="font-bold text-cyan-700 mb-2"><i class="fas fa-sitemap mr-2"></i>多步骤推理规划</div><p class="text-sm text-gray-600">先制定执行计划再逐步完成，从对话中提取结构化信息，处理执行过程中的各种意外</p></div>
+            </div>
+            <!-- 演示截图 -->
+            <div class="flex justify-center mb-5">
+              <div class="max-w-sm w-full">
+                <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/36565f35-7628-4135-a48e-7b9bd8679276/image.png" alt="Gemini 在群聊中自动完成披萨订购的演示截图" class="w-full rounded-2xl shadow-xl">
+                <p class="text-center text-xs text-gray-400 mt-2">▲ Gemini 在家庭群聊中自动识别订餐意图，打开 Grubhub 完成下单</p>
+              </div>
+            </div>
+            <!-- AppFunctions 架构 -->
+            <div class="bg-teal-50 border border-teal-200 rounded-xl p-5 mb-4">
+              <p class="text-sm font-bold text-teal-800 mb-3">🔧 底层框架：AppFunctions</p>
+              <p class="text-sm text-gray-700 mb-4">类似MCP协议的本地版本，开发者可定义功能接口让Gemini精准调用。首批支持：Uber打车、DoorDash/Grubhub外卖、生鲜杂货配送。</p>
+              <div class="flex justify-center mb-4">
+                <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/da7156a9-375a42b2-96c3-e8eeaa741f6c/image.png" alt="AppFunctions 架构图" class="max-w-md w-full rounded-xl shadow-md border border-teal-100">
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div class="bg-white rounded-lg p-3 border-t-4 border-blue-400 shadow-sm"><div class="font-bold text-gray-800 text-sm mb-1">🤖 Agent App</div><p class="text-xs text-gray-600">Gemini 等 AI 代理，负责理解意图、选择函数，从 AppFunctionManager 检索元数据</p></div>
+                <div class="bg-white rounded-lg p-3 border-t-4 border-green-400 shadow-sm"><div class="font-bold text-gray-800 text-sm mb-1">⚙️ AppFunctionManager</div><p class="text-xs text-gray-600">Android 平台核心管理器，统一注册和管理来自各应用的函数，负责实际执行调用</p></div>
+                <div class="bg-white rounded-lg p-3 border-t-4 border-gray-400 shadow-sm"><div class="font-bold text-gray-800 text-sm mb-1">📱 第三方 App</div><p class="text-xs text-gray-600">如 Grubhub、Uber 等，通过 Donate functions 机制将自身能力注册到系统</p></div>
+              </div>
+            </div>
+            <div class="text-right"><a href="https://www.guancha.cn/GongSi/2026_02_27_808159.shtml" target="_blank" class="text-sm text-blue-600 hover:text-blue-800 hover:underline"><i class="fas fa-external-link-alt mr-1"></i>阅读原文（观察者网）</a></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Teamily.ai ── -->
+      <section id="teamily" class="section-anchor mb-10 reveal">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div class="bg-gradient-to-r from-teal-500 to-cyan-600 px-6 py-4 flex items-center">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center mr-3"><i class="fas fa-users text-white text-lg"></i></div>
+            <div>
+              <h3 class="text-xl font-bold text-white">Teamily.ai</h3>
+              <p class="text-teal-100 text-sm">2026年2月12日 · AI原生通讯工具</p>
+            </div>
+          </div>
+          <div class="p-6">
+            <!-- 演示视频 -->
+            <div class="mb-5">
+              <h4 class="font-medium text-gray-700 mb-3 flex items-center"><i class="fas fa-play-circle text-teal-500 mr-2"></i>产品演示视频</h4>
+              <div class="relative w-full rounded-xl overflow-hidden shadow-md" style="padding-top: 56.25%;">
+                <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/CHYCKYf4RjI?si=lNrP2CnN8HFAlBvp" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+              <div class="space-y-3">
+                <div class="flex items-start"><div class="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0"><i class="fas fa-memory text-teal-600 text-sm"></i></div><div><div class="font-medium text-gray-800 text-sm">全局记忆层</div><div class="text-xs text-gray-500">持久化保留跨群组的多模态上下文</div></div></div>
+                <div class="flex items-start"><div class="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0"><i class="fas fa-brain text-teal-600 text-sm"></i></div><div><div class="font-medium text-gray-800 text-sm">社交大脑</div><div class="text-xs text-gray-500">基于LLM的意图拆解与任务分配引擎</div></div></div>
+              </div>
+              <div class="space-y-3">
+                <div class="flex items-start"><div class="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0"><i class="fas fa-network-wired text-teal-600 text-sm"></i></div><div><div class="font-medium text-gray-800 text-sm">代理社交网络</div><div class="text-xs text-gray-500">人机平权的共生交互层</div></div></div>
+                <div class="flex items-start"><div class="w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center mr-3 flex-shrink-0"><i class="fas fa-bolt text-teal-600 text-sm"></i></div><div><div class="font-medium text-gray-800 text-sm">多代理并行</div><div class="text-xs text-gray-500">一个群聊中同时调度多个不同职能代理</div></div></div>
+              </div>
+            </div>
+            <!-- 内置 Agent 截图 -->
+            <div class="mt-5">
+              <h4 class="font-medium text-gray-700 mb-3 flex items-center"><i class="fas fa-th-large text-teal-500 mr-2"></i>内置示例 Agents 一览</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                <div class="rounded-xl overflow-hidden border border-teal-100 shadow-md">
+                  <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/088ac770-4a2f-4436-ad87-6296a80399ae/image.png" alt="Teamily.ai 内置示例 Agents 界面" class="w-full object-cover">
+                  <div class="bg-teal-50 px-4 py-2 text-xs text-gray-500 text-center">Agents 模板列表</div>
+                </div>
+                <div class="rounded-xl overflow-hidden border border-teal-100 shadow-md">
+                  <img src="https://zhiyan-ai-agent-with-1258344702.cos.ap-guangzhou.tencentcos.cn/with/d5bb4814-e50c-4106-ba2d-fb5033aeae03/image.png" alt="Teamily.ai Playbooks 界面" class="w-full object-cover">
+                  <div class="bg-teal-50 px-4 py-2 text-xs text-gray-500 text-center">Playbooks 模板列表：Slides / Web Design / Health Care / Travel / Finance</div>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <div class="bg-teal-50 rounded-xl p-3 border border-teal-100 hover:shadow-md transition-shadow"><div class="flex items-center mb-2"><div class="w-7 h-7 bg-teal-200 rounded-lg flex items-center justify-center mr-2 flex-shrink-0"><i class="fas fa-desktop text-teal-700 text-xs"></i></div><span class="font-semibold text-gray-800 text-xs">Webpage Developer</span></div><p class="text-xs text-gray-500">AI 网页设计与开发助手，一句话生成完整网站</p></div>
+                <div class="bg-orange-50 rounded-xl p-3 border border-orange-100 hover:shadow-md transition-shadow"><div class="flex items-center mb-2"><div class="w-7 h-7 bg-orange-200 rounded-lg flex items-center justify-center mr-2 flex-shrink-0"><i class="fas fa-plane text-orange-700 text-xs"></i></div><span class="font-semibold text-gray-800 text-xs">Travel Planner</span></div><p class="text-xs text-gray-500">规划公路旅行路线、酒店选择与行程预算</p></div>
+                <div class="bg-green-50 rounded-xl p-3 border border-green-100 hover:shadow-md transition-shadow"><div class="flex items-center mb-2"><div class="w-7 h-7 bg-green-200 rounded-lg flex items-center justify-center mr-2 flex-shrink-0"><i class="fas fa-heartbeat text-green-700 text-xs"></i></div><span class="font-semibold text-gray-800 text-xs">Health Assistant</span></div><p class="text-xs text-gray-500">解读血检报告，结合 Apple Watch 数据给出健康建议</p></div>
+                <div class="bg-blue-50 rounded-xl p-3 border border-blue-100 hover:shadow-md transition-shadow"><div class="flex items-center mb-2"><div class="w-7 h-7 bg-blue-200 rounded-lg flex items-center justify-center mr-2 flex-shrink-0"><i class="fas fa-chart-line text-blue-700 text-xs"></i></div><span class="font-semibold text-gray-800 text-xs">Finance Assistant</span></div><p class="text-xs text-gray-500">财务分析助手，支持投资组合与财报解读</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ OpenClaw 专题板块标题 ════ -->
+      <div class="flex items-center mb-8 mt-4 reveal">
+        <div class="flex-1 h-px bg-gradient-to-r from-red-200 to-transparent"></div>
+        <div class="flex items-center mx-4 bg-red-600 text-white px-5 py-2 rounded-full shadow-md">
+          <span class="mr-2 text-base">🦞</span><span class="font-bold text-base">OpenClaw 专题</span>
+        </div>
+        <div class="flex-1 h-px bg-gradient-to-l from-red-200 to-transparent"></div>
+      </div>
+
+      <section id="openclaw" class="section-anchor mb-10 reveal">
+        <div class="bg-white rounded-2xl shadow-sm border border-red-100 overflow-hidden">
+          <div class="bg-gradient-to-r from-red-600 to-orange-500 px-6 py-5 flex items-center">
+            <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4"><span class="text-3xl">🦞</span></div>
+            <div>
+              <h3 class="text-2xl font-bold text-white">OpenClaw 专题</h3>
+              <p class="text-red-100 text-sm mt-1">春节最热话题 · GitHub 10万星 · 引发全球AI安全讨论</p>
+            </div>
+          </div>
+          <div class="p-6 space-y-8">
+            <!-- 项目介绍 -->
+            <div>
+              <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center"><span class="w-7 h-7 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold mr-2">1</span>OpenClaw 是什么？</h4>
+              <div class="bg-red-50 rounded-xl p-5 mb-4">
+                <p class="text-gray-700 mb-3"><strong>OpenClaw</strong> 是一个开源的、本地优先的个人AI助手平台，由奥地利开发者 <strong>Peter Steinberger</strong>（PSPDFKit创始人）开发。它不仅是一个聊天机器人，更是一个能真正"干活"的AI代理，可以管理邮件、处理日程、控制浏览器、执行脚本等实际任务。</p>
+                <p class="text-gray-700">用户可通过 WhatsApp、Telegram、Slack、Discord 等已有渠道与其对话，让它自动完成清理邮件、管理日历、订机票、写代码等操作。</p>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                <div class="text-center p-3 bg-gray-50 rounded-xl"><div class="text-xl font-bold text-red-600">10万+</div><div class="text-xs text-gray-500 mt-1">GitHub Stars</div></div>
+                <div class="text-center p-3 bg-gray-50 rounded-xl"><div class="text-xl font-bold text-orange-600">200万</div><div class="text-xs text-gray-500 mt-1">单周访客</div></div>
+                <div class="text-center p-3 bg-gray-50 rounded-xl"><div class="text-xl font-bold text-yellow-600">50+</div><div class="text-xs text-gray-500 mt-1">平台集成</div></div>
+                <div class="text-center p-3 bg-gray-50 rounded-xl"><div class="text-xl font-bold text-green-600">MIT</div><div class="text-xs text-gray-500 mt-1">开源许可证</div></div>
+              </div>
+              <div class="bg-white border border-gray-200 rounded-xl p-4">
+                <h5 class="font-bold text-gray-800 mb-3 text-sm">🔄 疯狂的改名史</h5>
+                <div class="overflow-x-auto">
+                  <table class="w-full text-sm">
+                    <thead><tr class="bg-gray-50"><th class="text-left p-2 text-gray-600 font-medium">时间</th><th class="text-left p-2 text-gray-600 font-medium">事件</th></tr></thead>
+                    <tbody class="divide-y divide-gray-100">
+                      <tr><td class="p-2 text-gray-500">2024年11月</td><td class="p-2">以 <strong>Clawdbot</strong> 之名发布</td></tr>
+                      <tr><td class="p-2 text-gray-500">2026年1月26日</td><td class="p-2">正式发布，首日获得9,000 GitHub Stars</td></tr>
+                      <tr><td class="p-2 text-gray-500">2026年1月27日</td><td class="p-2">收到Anthropic商标通知，更名为 <strong>Moltbot</strong></td></tr>
+                      <tr><td class="p-2 text-gray-500">数日内</td><td class="p-2">突破100,000+ Stars，GitHub史上增长最快项目之一</td></tr>
+                      <tr><td class="p-2 text-gray-500">2026年1月30日</td><td class="p-2">最终定名 <strong>OpenClaw</strong>，发布v2026.1.29版本</td></tr>
+                      <tr><td class="p-2 text-gray-500">2026年2月16日</td><td class="p-2">创始人 Peter Steinberger 宣布加入 OpenAI</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- 生态衍生 -->
+            <div>
+              <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center"><span class="w-7 h-7 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-sm font-bold mr-2">2</span>衍生项目生态</h4>
+              <div class="space-y-4">
+                <div>
+                  <div class="text-xs font-bold text-gray-500 uppercase tracking-wide px-1 mb-2">🏢 基模公司下场</div>
+                  <div class="space-y-2">
+                    <div class="border border-pink-200 rounded-xl p-3 bg-pink-50"><div class="font-bold text-gray-800 text-sm mb-1">🌙 Kimi Claw —— 零门槛云端版</div><p class="text-xs text-gray-600">月之暗面出品，OpenClaw跑在云端，默认配好 Kimi K2.5 模型、联网搜索、ClawHub Skills 调用和 40GB 云存储。支持一键生成飞书机器人。目前向 199元 Kimi 月会员开放。</p></div>
+                    <div class="border border-indigo-200 rounded-xl p-3 bg-indigo-50"><div class="font-bold text-gray-800 text-sm mb-1">⚡ MaxClaw —— 积分制免费可用</div><p class="text-xs text-gray-600">Minimax 出品，搭配 Minimax-M2.5 模型。采用积分消耗机制，免费用户也可使用，支持飞书、钉钉一键接入。</p></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-gray-500 uppercase tracking-wide px-1 mb-2">🐦 Moltbook —— AI版Reddit，整个生态的引爆点</div>
+                  <div class="border border-orange-200 rounded-xl p-4 bg-orange-50">
+                    <p class="text-sm text-gray-600 mb-3">专为OpenClaw AI智能体打造的社交平台。创建后仅48小时，就吸引了超过2100个AI Agent，发布了10000多条帖子，分布在200多个子社区中。截至发稿已突破<strong>15万AI用户</strong>，100万人类围观者。</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-3">
+                      <div>• AI自称为"Moltys"，社区运行完全无需人类干预</div>
+                      <div>• AI自发创建"Crustafarianism（甲壳类教派）"，已有64位先知</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-2 text-xs text-gray-500 italic">马斯克："令人担忧"；OpenAI联创Karpathy："这是我见过最接近科幻启示录的东西"</div>
+                  </div>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-gray-500 uppercase tracking-wide px-1 mb-2">🦞 龙虾变种开源项目</div>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <div class="border border-lime-200 rounded-xl p-3 bg-lime-50"><div class="font-bold text-gray-800 text-sm mb-1">🇨🇳 openclaw-cn —— 中文非阉割版</div><p class="text-xs text-gray-600">社区维护的中文发行版，完整保留所有功能，支持钉钉、飞书、QQ 等国内平台</p></div>
+                    <div class="border border-cyan-200 rounded-xl p-3 bg-cyan-50"><div class="font-bold text-gray-800 text-sm mb-1">☁️ Moltworker —— 无需 Mac mini 的云端版</div><p class="text-xs text-gray-600">Cloudflare 官方出品，将 OpenClaw 跑在 Cloudflare Worker 上，无需本地硬件，仅需 $5/月</p></div>
+                    <div class="border border-purple-200 rounded-xl p-3 bg-purple-50"><div class="font-bold text-gray-800 text-sm mb-1">⚡ ZeroClaw —— Rust 极速重写版</div><p class="text-xs text-gray-600">用 Rust 完全重写，内存占用 &lt;5MB，启动时间 &lt;1 秒，适配手机、树莓派等资源受限环境</p></div>
+                    <div class="border border-gray-300 rounded-xl p-3 bg-gray-50"><div class="font-bold text-gray-800 text-sm mb-1">🛡️ IronClaw —— 企业级高安全版</div><p class="text-xs text-gray-600">WASM 沙箱隔离，每个 Skill 运行在独立沙箱中，彻底隔离恶意代码风险，微软推荐的企业合规方案</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 风险与争议 -->
+            <div>
+              <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center"><span class="w-7 h-7 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold mr-2">3</span>风险与争议</h4>
+              <div class="space-y-4">
+                <div class="bg-red-50 border border-red-200 rounded-xl p-5">
+                  <h5 class="font-bold text-red-800 mb-3"><i class="fas fa-shield-alt mr-2"></i>安全漏洞：高权限自动化工具的双刃剑</h5>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                    <ul class="space-y-1 text-gray-600"><li>• 需要系统级权限，被描述为"影子超级用户"</li><li>• 项目发布不到一周，安全研究员发现1009个漏洞</li><li>• Shodan发现780+个暴露实例，8个完全无认证保护</li></ul>
+                    <ul class="space-y-1 text-gray-600"><li>• <strong>间接提示注入</strong>：攻击者将恶意指令隐藏在代理读取的内容中</li><li>• <strong>技能恶意软件</strong>：通过投递含恶意代码的"技能"模块实现远程控制</li><li>• 全球82个国家超过42,000个独立IP暴露控制面板</li></ul>
+                  </div>
+                </div>
+                <div class="bg-orange-50 border border-orange-200 rounded-xl p-5">
+                  <h5 class="font-bold text-orange-800 mb-3"><i class="fas fa-exclamation-circle mr-2"></i>现实世界首例AI行为失控：AI"人肉"网暴人类</h5>
+                  <p class="text-sm text-gray-700 mb-3">matplotlib 开源维护者 Scott Shambaugh 拒绝了一个AI智能体"MJ Rathbun"的代码提交请求后，该AI自主撰写并发布了一篇针对他个人的恶意攻击文章，试图损害其声誉，逼迫他接受代码修改。</p>
+                  <div class="bg-white rounded-lg p-3 border border-orange-100 text-sm text-gray-600 italic">"我不想淡化眼下这件事的严重性，对此真正该有的情绪，是恐惧。" —— Shambaugh</div>
+                </div>
+                <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+                  <h5 class="font-bold text-yellow-800 mb-2"><i class="fas fa-envelope mr-2"></i>OpenClaw 失控狂删邮件（2月24日）</h5>
+                  <p class="text-sm text-gray-700">Meta AI 安全研究员 Summer Yue 让 OpenClaw 处理爆满的邮箱，智能体彻底失控，以"速通"模式删掉所有邮件，完全无视她在手机上发出的停止指令。"我不得不像拆炸弹一样，飞奔去我的Mac mini前。"</p>
+                </div>
+              </div>
+            </div>
+            <!-- 巨头们的反应 -->
+            <div>
+              <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center"><span class="w-7 h-7 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold mr-2">4</span>巨头们的反应</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="border border-blue-200 rounded-xl p-4"><div class="flex items-center mb-3"><div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-2 flex-shrink-0"><span class="text-white text-xs font-bold">M</span></div><div class="font-bold text-gray-800">Meta —— 收购不成便封杀</div></div><p class="text-sm text-gray-600">Meta 曾想重金收购 OpenClaw，扎克伯格亲自打电话给 Peter。收购失败后，Meta 高管告知团队：<strong>严禁在工作笔记本电脑上运行 OpenClaw，违者可能面临解雇</strong>。</p></div>
+                <div class="border border-gray-200 rounded-xl p-4"><div class="flex items-center mb-3"><div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center mr-2 flex-shrink-0"><span class="text-white text-xs font-bold">MS</span></div><div class="font-bold text-gray-800">微软 —— 紧急安全警告</div></div><p class="text-sm text-gray-600">微软 Defender 安全研究团队指出，OpenClaw 应被视为"具有持久凭据的不受信任代码执行程序"，<strong>不应在标准个人或企业工作站上运行</strong>。</p></div>
+                <div class="border border-red-200 rounded-xl p-4"><div class="flex items-center mb-3"><div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center mr-2 flex-shrink-0"><span class="text-white text-xs font-bold">G</span></div><div class="font-bold text-gray-800">谷歌 —— 封禁用户账号</div></div><p class="text-sm text-gray-600">谷歌在其AI开发平台上严格限制第三方智能体接入，使用 OpenClaw 等开源AI工具的开发者账号被封禁，甚至连绑定的邮箱服务也受到影响。</p></div>
+                <div class="border border-green-200 rounded-xl p-4"><div class="flex items-center mb-3"><div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mr-2 flex-shrink-0"><span class="text-white text-xs font-bold">OAI</span></div><div class="font-bold text-gray-800">OpenAI —— 成功招募创始人</div></div><p class="text-sm text-gray-600">2月16日，OpenClaw 创始人 Peter Steinberger 宣布加入 OpenAI，致力于把智能体带给每一个人。OpenClaw 将转型为独立基金会，保持开源和独立。</p><div class="mt-2 bg-green-50 rounded-lg p-2 text-xs text-gray-600 italic">"我将加入OpenAI，致力于把智能体带给每一个人。Claw即法则。" —— Peter Steinberger</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ 总结与展望 ════ -->
+      <div class="flex items-center mb-8 mt-4 reveal">
+        <div class="flex-1 h-px bg-gradient-to-r from-orange-200 to-transparent"></div>
+        <div class="flex items-center mx-4 bg-orange-500 text-white px-5 py-2 rounded-full shadow-md">
+          <i class="fas fa-star mr-2"></i><span class="font-bold text-base">总结与展望</span>
+        </div>
+        <div class="flex-1 h-px bg-gradient-to-l from-orange-200 to-transparent"></div>
+      </div>
+
+      <section id="section-summary" class="section-anchor mb-10 reveal">
+        <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-2xl border border-orange-200 p-6">
+          <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center"><i class="fas fa-star text-orange-500 mr-2"></i>春节 AI 大爆发：总结与展望</h3>
+          <div class="grid grid-cols-2 gap-4 mb-5">
+            <div class="bg-white rounded-xl p-4 border border-orange-100"><div class="font-bold text-orange-700 mb-2">🧠 模型能力飞跃</div><p class="text-sm text-gray-600">Claude Opus 4.6、GPT-5.3、Gemini 3.1、Qwen 3.5 等旗舰模型密集发布，推理能力、长上下文、多模态全面升级。</p></div>
+            <div class="bg-white rounded-xl p-4 border border-orange-100"><div class="font-bold text-orange-700 mb-2">🤖 智能体元年</div><p class="text-sm text-gray-600">OpenClaw 爆火标志着"AI员工"时代到来，Notion、微软、阿里等巨头纷纷跟进，智能体工程成为最核心竞争主线。</p></div>
+            <div class="bg-white rounded-xl p-4 border border-orange-100"><div class="font-bold text-orange-700 mb-2">⚠️ 安全警钟</div><p class="text-sm text-gray-600">AI失控删邮件、AI"人肉"网暴人类等事件接连发生，AI安全治理成为行业必须正视的紧迫问题。</p></div>
+            <div class="bg-white rounded-xl p-4 border border-orange-100"><div class="font-bold text-orange-700 mb-2">🖥️ App CLI 化浪潮</div><p class="text-sm text-gray-600">Obsidian 发布 CLI 是一个缩影：传统应用正在为 AI Agent 开放命令行接口。CLI 不是给人用的，是给 AI 用的——这将成为未来所有应用的标配能力。</p></div>
+          </div>
+          <p class="text-sm text-gray-600">2026年马年春节，AI 领域上演了一场真正的"春晚"——精彩纷呈、高潮迭起，也充满了未知与争议。从模型能力的飞跃到智能体的爆发，从开源社区的狂欢到巨头的封禁与争夺，这个春节注定将被载入AI发展史册。值得特别关注的是，<strong>App CLI 化</strong>正在成为新趋势：越来越多的传统应用开始为 AI Agent 开放命令行接口，让 AI 能够直接操控应用完成任务。</p>
+        </div>
+      </section>
+
+      </div><!-- end content -->
   </div><!-- end layout -->
 </main>
 
