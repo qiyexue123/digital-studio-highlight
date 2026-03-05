@@ -1,6 +1,6 @@
-# 数字工作室 · AI Highlight
+# ISUX AI Highlight
 
-> 数字工作室出品的 AI 前沿洞察页面，追踪 Agentic UX 时代的模型、产品与设计趋势。
+> ISUX出品的 AI 前沿洞察页面，追踪 Agentic UX 时代的模型、产品与设计趋势。
 
 ## 预览
 
@@ -12,7 +12,7 @@
 - **Agentic UX** — 从点击流到意图流的设计范式转变分析
 - **模型** — Claude Opus 4.6 / GPT-5.3 Codex / Gemini 3.1 Pro 深度对比
 - **产品** — OpenClaw、Notion Custom Agents、Obsidian CLI 等产品趋势
-- **设计洞察** — 数字工作室出品的 5 条 Agentic 时代设计行动指南
+- **设计洞察** — ISUX出品的 5 条 Agentic 时代设计行动指南
 
 ## 自动化引擎
 
@@ -42,4 +42,4 @@ python3 -m http.server 9090
 
 ---
 
-*© 2026 数字工作室 · AI Highlight · Vol.05*
+*© 2026 ISUX AI Highlight · Vol.05*

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-数字工作室 AI Highlight 自动化引擎
+ISUX AI Highlight 自动化引擎
 ====================================
 功能：
   1. 从多个 RSS / API 源抓取最新 AI 资讯
@@ -361,8 +361,8 @@ def render_html():
         # 更新页脚时间
         import re
         html = re.sub(
-            r'数字工作室 · AI Highlight · Vol\.\d+ · [\d\.\-]+',
-            f'数字工作室 · AI Highlight · {data["meta"]["issue"]} · {data["meta"]["date"]}',
+            r'ISUX AI Highlight · Vol\.\d+ · [\d\.\-]+',
+            f'ISUX AI Highlight · {data["meta"]["issue"]} · {data["meta"]["date"]}',
             html
         )
         html_file.write_text(html, "utf-8")
@@ -376,7 +376,7 @@ def generate_report(new_items: list[dict] = None) -> str:
     ts = datetime.now().strftime("%Y-%m-%d %H:%M")
 
     lines = [
-        f"# 数字工作室 AI Highlight 自动化报告",
+        f"# ISUX AI Highlight 自动化报告",
         f"",
         f"**生成时间**: {ts}  ",
         f"**本次运行**: {cache.get('last_run', 'N/A')}  ",
@@ -418,7 +418,7 @@ def generate_report(new_items: list[dict] = None) -> str:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="数字工作室 AI Highlight 自动化引擎")
+    parser = argparse.ArgumentParser(description="ISUX AI Highlight 自动化引擎")
     parser.add_argument("--run",    action="store_true", help="完整运行（抓取+摘要+更新+渲染）")
     parser.add_argument("--fetch",  action="store_true", help="只抓取，不写入")
     parser.add_argument("--render", action="store_true", help="只重新渲染 HTML")
@@ -440,7 +440,7 @@ def main():
         print(report)
 
     elif args.run:
-        log("=== 数字工作室 AI Highlight 自动化引擎启动 ===")
+        log("=== ISUX AI Highlight 自动化引擎启动 ===")
         new_items = run_fetch()
         added = update_highlights(new_items, max_per_run=args.max)
         render_html()
