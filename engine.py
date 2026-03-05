@@ -1,451 +1,485 @@
 #!/usr/bin/env python3
 """
-ISUX AI Highlight 自动化引擎
+ISUX AI Highlight 自动化引擎 v2
 ====================================
 功能：
-  1. 从多个 RSS / API 源抓取最新 AI 资讯
-  2. 用 OpenClaw 内置 AI 对每条新闻生成结构化摘要卡片
-  3. 自动更新 data/highlights.json，触发页面重新渲染
-  4. 输出 diff 报告，供编辑人工审校
+  1. 从 RSS + 搜索 + 直接爬取 多路来源抓取最新 AI 资讯
+  2. 过滤、评分、生成结构化 timeline 事件
+  3. 自动把新事件插入 index.html 时间线最顶部
+  4. git commit + push 到 GitHub Pages
+  5. 输出变更报告
 
 用法：
-  python3 engine.py --run      # 完整运行一次（抓取+摘要+更新）
-  python3 engine.py --fetch    # 只抓取，不写入
-  python3 engine.py --render   # 只重新渲染 HTML
-  python3 engine.py --report   # 输出最新更新报告
+  python3 engine.py --run     # 完整运行（抓取+插入+推送）
+  python3 engine.py --fetch   # 只抓取，打印结果
+  python3 engine.py --push    # 只推送当前 git 变更
+  python3 engine.py --report  # 打印上次运行报告
 """
 
-import json
-import sys
-import os
-import time
-import hashlib
-import argparse
-import urllib.request
-import xml.etree.ElementTree as ET
+import json, sys, os, time, hashlib, argparse, subprocess, re
 from datetime import datetime, timezone
 from pathlib import Path
 
-BASE_DIR = Path(__file__).parent
-DATA_FILE = BASE_DIR / "data" / "highlights.json"
-CACHE_FILE = BASE_DIR / "data" / "_cache.json"
+BASE_DIR    = Path(__file__).parent
+CACHE_FILE  = BASE_DIR / "data" / "_cache.json"
 REPORT_FILE = BASE_DIR / "data" / "_last_report.md"
+INDEX_HTML  = BASE_DIR / "index.html"
 
-# ──────────────────────────────────────────
-# RSS 源列表（可自由扩展）
-# ──────────────────────────────────────────
-RSS_SOURCES = [
-    {
-        "name": "HN · AI Agent",
-        "url": "https://hnrss.org/newest?q=AI+agent&count=20",
-        "tags": ["英文", "社区"],
-        "weight": 0.9
-    },
-    {
-        "name": "HN · Claude",
-        "url": "https://hnrss.org/newest?q=Claude&count=15",
-        "tags": ["英文", "模型能力"],
-        "weight": 1.0
-    },
-    {
-        "name": "HN · GPT",
-        "url": "https://hnrss.org/newest?q=GPT&count=10",
-        "tags": ["英文", "模型能力"],
-        "weight": 0.9
-    },
-    {
-        "name": "HN · Best",
-        "url": "https://hnrss.org/best?q=AI&count=10",
-        "tags": ["英文", "社区"],
-        "weight": 1.0
-    },
-    {
-        "name": "OpenAI Blog",
-        "url": "https://openai.com/news/rss.xml",
-        "tags": ["模型能力", "一手"],
-        "weight": 1.0
-    },
-    {
-        "name": "MIT Tech Review",
-        "url": "https://www.technologyreview.com/feed/",
-        "tags": ["英文", "深度"],
-        "weight": 0.9
-    },
+# ──────────────────────────────────────────────────────
+# 数据源（多路）
+# ──────────────────────────────────────────────────────
+def _today_queries():
+    """动态生成含今日日期的搜索查询"""
+    today = datetime.now().strftime("%Y年%m月%d日")
+    ymd   = datetime.now().strftime("%Y-%m-%d")
+    return [
+        {"name": "搜索·今日AI发布",   "type": "search",
+         "query": f"AI 大模型 发布 上线 {today}", "lang": "zh-CN", "weight": 1.3},
+        {"name": "搜索·今日AI产品",   "type": "search",
+         "query": f"AI产品 发布 热议 {today}", "lang": "zh-CN", "weight": 1.2},
+        {"name": "搜索·模型发布今日", "type": "search",
+         "query": f"Claude GPT Gemini Grok 发布 {today}", "lang": "zh-CN", "weight": 1.3},
+        {"name": "搜索·今日AI英文",   "type": "search",
+         "query": f"AI model released launched {ymd}", "lang": "en", "weight": 1.1},
+    ]
+
+RSS_SOURCES = _today_queries() + [
+
+    # 中文 RSS
+    {"name": "36氪·AI",    "type": "rss",
+     "url": "https://36kr.com/feed", "weight": 1.1},
+    {"name": "InfoQ·AI",   "type": "rss",
+     "url": "https://feed.infoq.com/", "weight": 1.0},
+    {"name": "CSDN·AI",    "type": "rss",
+     "url": "https://blog.csdn.net/rss/list?type=1&tagId=10010201", "weight": 0.8},
+
+    # 英文 RSS — HN
+    {"name": "HN·AI Agent", "type": "rss",
+     "url": "https://hnrss.org/newest?q=AI+agent&count=15", "weight": 1.0},
+    {"name": "HN·Claude",   "type": "rss",
+     "url": "https://hnrss.org/newest?q=Claude&count=10",   "weight": 1.0},
+    {"name": "HN·GPT",      "type": "rss",
+     "url": "https://hnrss.org/newest?q=GPT&count=10",      "weight": 0.9},
+    {"name": "HN·Best·AI",  "type": "rss",
+     "url": "https://hnrss.org/best?q=AI&count=10",         "weight": 1.0},
+
+    # 英文 RSS — 官方博客
+    {"name": "OpenAI Blog", "type": "rss",
+     "url": "https://openai.com/news/rss.xml",            "weight": 1.2},
+    {"name": "Anthropic Blog","type":"rss",
+     "url": "https://www.anthropic.com/news/rss.xml",      "weight": 1.2},
+    {"name": "Google Deepmind","type":"rss",
+     "url": "https://deepmind.google/blog/rss/feed.xml",   "weight": 1.2},
+    {"name": "MIT Tech Review","type":"rss",
+     "url": "https://www.technologyreview.com/feed/",       "weight": 0.9},
 ]
 
-# AI 信号关键词（用于过滤与权重计算）
-SIGNAL_KEYWORDS = {
-    "high": ["agent", "agentic", "opus", "gpt-5", "gemini", "claude", "llm", "模型发布",
-             "大模型", "AI assistant", "多模态", "自动化", "自主", "智能体"],
-    "medium": ["openai", "anthropic", "google", "microsoft", "字节", "阿里", "腾讯",
-               "设计", "ux", "产品", "发布", "更新", "benchmark"],
-    "low": ["AI", "人工智能", "machine learning", "deep learning"]
-}
+# 高权重关键词：命中即大幅加分
+HIGH_KW = [
+    "发布","上线","推出","宣布","release","launch","announce",
+    "大模型","智能体","agent","agentic","llm","gpt","claude","gemini",
+    "opus","sonnet","grok","qwen","千问","deepseek","glm",
+    "多模态","multimodal","context","benchmark","agi",
+    "claude code","codex","cursor","copilot",
+    "设计","ux","ui","figma","设计师",
+]
+MED_KW = [
+    "openai","anthropic","google","microsoft","xai","字节","阿里","腾讯","百度","华为",
+    "产品","app","工具","功能","更新","升级","版本",
+    "ai","人工智能","机器学习",
+]
+
+TBA_SCRIPT = Path("/usr/local/lib/.nvm/versions/node/v22.17.0/lib/node_modules/openclaw/skills/tencent/edgebrowser_search/scripts/tba_search.py")
+
+# ──────────────────────────────────────────────────────
+# 日志
+# ──────────────────────────────────────────────────────
+def log(msg, level="INFO"):
+    ts  = datetime.now().strftime("%H:%M:%S")
+    pre = {"INFO":"ℹ️","OK":"✅","WARN":"⚠️","ERR":"❌"}.get(level,"·")
+    print(f"[{ts}] {pre} {msg}")
 
 
-def log(msg: str, level: str = "INFO"):
-    ts = datetime.now().strftime("%H:%M:%S")
-    prefix = {"INFO": "ℹ️", "OK": "✅", "WARN": "⚠️", "ERR": "❌"}.get(level, "·")
-    print(f"[{ts}] {prefix} {msg}")
-
-
-def load_cache() -> dict:
+# ──────────────────────────────────────────────────────
+# 缓存
+# ──────────────────────────────────────────────────────
+def load_cache():
     if CACHE_FILE.exists():
         return json.loads(CACHE_FILE.read_text("utf-8"))
-    return {"seen_hashes": [], "last_run": None, "item_count": 0}
+    return {"seen_hashes": [], "last_run": None, "timeline_ids": []}
 
-
-def save_cache(cache: dict):
+def save_cache(cache):
     CACHE_FILE.write_text(json.dumps(cache, ensure_ascii=False, indent=2), "utf-8")
 
-
-def hash_item(title: str, url: str) -> str:
+def item_hash(title, url=""):
     return hashlib.md5(f"{title}{url}".encode()).hexdigest()[:12]
 
 
-def fetch_rss(source: dict, timeout: int = 12) -> list[dict]:
-    """抓取单个 RSS 源，返回条目列表（使用 curl 绕过内网 SSL 代理问题）"""
-    import subprocess, re
+# ──────────────────────────────────────────────────────
+# 抓取：RSS
+# ──────────────────────────────────────────────────────
+def fetch_rss(source, timeout=15):
     items = []
     try:
-        cmd = [
-            "curl", "-s", "--max-time", str(timeout),
-            "-A", "Mozilla/5.0 (compatible; DS-AI-Bot/1.0)",
-            source["url"]
-        ]
-        result = subprocess.run(cmd, capture_output=True, timeout=timeout + 5)
-        if result.returncode != 0 or not result.stdout:
-            raise RuntimeError(f"curl 失败: returncode={result.returncode}")
+        cmd = ["curl","-s","--max-time",str(timeout),
+               "-A","Mozilla/5.0 (ISUX-AI-Bot/2.0)", source["url"]]
+        r = subprocess.run(cmd, capture_output=True, timeout=timeout+5)
+        if r.returncode != 0 or not r.stdout:
+            raise RuntimeError(f"curl 失败 {r.returncode}")
+        raw = r.stdout.decode("utf-8", errors="replace")
+        if "<html" in raw[:300].lower() or "<!doctype" in raw[:300].lower():
+            raise RuntimeError("返回 HTML（被拦截）")
 
-        raw_bytes = result.stdout
+        # 修复常见 XML 问题
+        raw = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', '', raw)
+        raw = re.sub(r'&(?!(?:amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)', '&amp;', raw)
 
-        # 检测是否返回了 HTML（被 CDN 拦截）
-        preview = raw_bytes[:200].decode("utf-8", errors="ignore").lower()
-        if "<html" in preview or "<!doctype" in preview:
-            raise RuntimeError("返回了 HTML 而非 XML（被 CDN/代理拦截）")
+        import xml.etree.ElementTree as ET
+        root = ET.fromstring(raw.encode("utf-8"))
+        ns   = {"atom": "http://www.w3.org/2005/Atom"}
+        entries = root.findall(".//item") or root.findall(".//atom:entry", ns)
 
-        # 宽松 XML 解析：移除无效控制字符
-        raw_str = raw_bytes.decode("utf-8", errors="replace")
-        raw_str = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f]', '', raw_str)
-        # 修复未转义的 & 符号（常见于中文 RSS）
-        raw_str = re.sub(r'&(?!(?:amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)', '&amp;', raw_str)
-
-        root = ET.fromstring(raw_str.encode("utf-8"))
-
-        # 支持 RSS 2.0 和 Atom
-        ns = {"atom": "http://www.w3.org/2005/Atom"}
-        channel_items = root.findall(".//item")  # RSS 2.0
-        if not channel_items:
-            channel_items = root.findall(".//atom:entry", ns)  # Atom
-
-        for item in channel_items[:15]:
-            title_el = item.find("title")
-            if title_el is None:
-                title_el = item.find("atom:title", ns)
-            link_el  = item.find("link")
-            if link_el is None:
-                link_el = item.find("atom:link", ns)
-            desc_el  = item.find("description")
-            if desc_el is None:
-                desc_el = item.find("atom:summary", ns)
-            if desc_el is None:
-                desc_el = item.find("atom:content", ns)
-            date_el  = item.find("pubDate")
-            if date_el is None:
-                date_el = item.find("atom:published", ns)
-            if date_el is None:
-                date_el = item.find("atom:updated", ns)
-
-            title = (title_el.text or "").strip() if title_el is not None else ""
-            link  = (link_el.text or link_el.get("href", "")).strip() if link_el is not None else ""
-            desc  = (desc_el.text or "").strip() if desc_el is not None else ""
-            date  = (date_el.text or "").strip() if date_el is not None else ""
-
-            if not title:
-                continue
-
-            # 清理 HTML 标签
-            desc = re.sub(r"<[^>]+>", "", desc)[:400]
-
-            items.append({
-                "title": title,
-                "url": link,
-                "desc": desc,
-                "date": date,
-                "source": source["name"],
-                "tags": source["tags"],
-                "weight": source["weight"]
-            })
-
-        log(f"  {source['name']}: 抓取 {len(items)} 条", "OK")
+        for e in entries[:20]:
+            def txt(tag, alt=""):
+                el = e.find(tag) or e.find(f"atom:{tag}", ns)
+                return (el.text or el.get("href","") if el is not None else alt).strip()
+            title = txt("title"); link = txt("link")
+            desc  = re.sub(r"<[^>]+>", "", txt("description") or txt("summary") or txt("content"))[:500]
+            date  = txt("pubDate") or txt("published") or txt("updated")
+            if title:
+                items.append({"title":title,"url":link,"desc":desc,
+                               "date":date,"source":source["name"],"weight":source["weight"]})
+        log(f"  {source['name']}: {len(items)} 条", "OK")
     except Exception as e:
-        log(f"  {source['name']}: 抓取失败 — {e}", "WARN")
-
+        log(f"  {source['name']}: 失败 — {e}", "WARN")
     return items
 
 
-def score_item(item: dict) -> float:
-    """对新闻条目计算信号强度分数"""
-    text = (item["title"] + " " + item["desc"]).lower()
-    score = item["weight"] * 10
-
-    for kw in SIGNAL_KEYWORDS["high"]:
-        if kw.lower() in text:
-            score += 8
-
-    for kw in SIGNAL_KEYWORDS["medium"]:
-        if kw.lower() in text:
-            score += 3
-
-    for kw in SIGNAL_KEYWORDS["low"]:
-        if kw.lower() in text:
-            score += 1
-
-    return score
-
-
-def generate_card_stub(item: dict, rank: int) -> dict:
-    """
-    生成结构化摘要卡片（Stub 版本，供 AI 填充或人工审校）
-    在实际接入 AI API 后，这里可以调用 Claude/GPT 生成真实摘要
-    """
-    score = score_item(item)
-
-    # 根据分数判断卡片尺寸
-    if score >= 40:
-        size = "lg"
-        card_type = "model-card" if "模型" in str(item["tags"]) else "product-card"
-    elif score >= 25:
-        size = "md"
-        card_type = "product-card"
-    else:
-        size = "sm"
-        card_type = "stat"
-
-    # 自动推断 tag
-    auto_tags = []
-    text = (item["title"] + " " + item["desc"]).lower()
-    if any(k in text for k in ["claude", "gpt", "gemini", "模型", "llm", "发布"]):
-        auto_tags.append("模型能力")
-    if any(k in text for k in ["agent", "agentic", "智能体"]):
-        auto_tags.append("Agentic")
-    if any(k in text for k in ["产品", "app", "发布", "上线"]):
-        auto_tags.append("产品")
-    if not auto_tags:
-        auto_tags = item["tags"][:1]
-
-    # 置信度（基于信源权重）
-    confidence = int(min(95, 60 + item["weight"] * 30 + (score - 10) * 0.5))
-
-    return {
-        "id": f"auto-{hash_item(item['title'], item['url'])}",
-        "size": size,
-        "type": card_type,
-        "tag": auto_tags[:2],
-        "tagColor": ["blue", "gray"][:len(auto_tags)],
-        "title": item["title"][:80],
-        "desc": item["desc"][:300] if item["desc"] else f"来源：{item['source']}",
-        "source": f"{item['source']} · {item['date'][:16] if item['date'] else ''}",
-        "confidence": confidence,
-        "link": item["url"],
-        "_score": score,
-        "_auto": True,
-        "_needs_review": True
-    }
+# ──────────────────────────────────────────────────────
+# 抓取：TBA 搜索（中文内网搜索）
+# ──────────────────────────────────────────────────────
+def fetch_search(source, timeout=20):
+    items = []
+    if not TBA_SCRIPT.exists():
+        log(f"  {source['name']}: TBA 脚本不存在，跳过", "WARN")
+        return items
+    try:
+        lang = source.get("lang", "zh-CN")
+        country = "cn" if "zh" in lang else "us"
+        cmd = ["python3", str(TBA_SCRIPT), source["query"], country, lang]
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout,
+                           cwd=str(TBA_SCRIPT.parent.parent))
+        lines = r.stdout.splitlines()
+        cur = {}
+        for line in lines:
+            line = line.strip()
+            if re.match(r'^\d+\.', line):       # 新条目标题行
+                if cur.get("title"):
+                    items.append(cur)
+                title = re.sub(r'^\d+\.\s*', '', line).split(' - ')[0].strip()
+                cur = {"title":title,"url":"","desc":"",
+                       "source":source["name"],"weight":source["weight"],"date":""}
+            elif line.startswith("链接:"):
+                cur["url"] = line[3:].strip()
+            elif line.startswith("摘要:"):
+                cur["desc"] = line[3:].strip()[:400]
+        if cur.get("title"):
+            items.append(cur)
+        log(f"  {source['name']}: {len(items)} 条", "OK")
+    except Exception as e:
+        log(f"  {source['name']}: 失败 — {e}", "WARN")
+    return items
 
 
-def run_fetch() -> list[dict]:
-    """抓取所有源，返回去重后的新条目"""
-    log("开始抓取 RSS 源...")
+# ──────────────────────────────────────────────────────
+# 评分
+# ──────────────────────────────────────────────────────
+def score(item):
+    text = (item["title"] + " " + item.get("desc","")).lower()
+    s = item["weight"] * 10
+    for kw in HIGH_KW:
+        if kw in text: s += 8
+    for kw in MED_KW:
+        if kw in text: s += 2
+    # 新鲜度加分（今天/昨天）
+    today = datetime.now().strftime("%Y-%m-%d")
+    if today in item.get("date","") or datetime.now().strftime("%b %d") in item.get("date",""):
+        s += 15
+    return s
+
+
+# ──────────────────────────────────────────────────────
+# 主抓取入口
+# ──────────────────────────────────────────────────────
+def run_fetch():
+    log("=== 开始多路抓取 ===")
     cache = load_cache()
-    seen = set(cache.get("seen_hashes", []))
-
+    seen  = set(cache.get("seen_hashes", []))
     all_items = []
-    for source in RSS_SOURCES:
-        items = fetch_rss(source)
-        all_items.extend(items)
-        time.sleep(0.5)  # 礼貌抓取
 
-    # 去重 + 过滤已见
-    new_items = []
+    for src in RSS_SOURCES:
+        if src["type"] == "rss":
+            all_items.extend(fetch_rss(src))
+        elif src["type"] == "search":
+            all_items.extend(fetch_search(src))
+        time.sleep(0.3)
+
+    # 去重
+    new_items, new_hashes = [], []
+    seen_titles = set()
     for item in all_items:
-        h = hash_item(item["title"], item["url"])
-        if h not in seen:
+        h = item_hash(item["title"], item["url"])
+        title_norm = item["title"][:30].lower()
+        if h not in seen and title_norm not in seen_titles:
             item["_hash"] = h
             new_items.append(item)
+            seen_titles.add(title_norm)
+            new_hashes.append(h)
 
-    # 按分数排序
-    new_items.sort(key=score_item, reverse=True)
-
-    log(f"发现 {len(new_items)} 条新内容（共抓取 {len(all_items)} 条）", "OK")
+    new_items.sort(key=score, reverse=True)
+    log(f"共抓取 {len(all_items)} 条，去重后新增 {len(new_items)} 条", "OK")
     return new_items
 
 
-def update_highlights(new_items: list[dict], max_per_run: int = 5):
-    """将新内容追加到 highlights.json，并更新缓存"""
-    if not new_items:
-        log("无新内容，跳过更新", "INFO")
-        return
+# ──────────────────────────────────────────────────────
+# AI 判断：是否值得写进时间线（≥60分 且标题含关键发布词）
+# ──────────────────────────────────────────────────────
+RELEASE_KW = ["发布","上线","推出","宣布","release","launch","announce","发行","开源"]
 
-    # 只取得分最高的几条
-    top_items = new_items[:max_per_run]
+def is_timeline_worthy(item):
+    s = score(item)
+    text = (item["title"]+" "+item.get("desc","")).lower()
+    has_release = any(kw in text for kw in RELEASE_KW)
+    # 今日内容降低阈值（45分即可）
+    today = datetime.now().strftime("%Y年%m月%d日")
+    ymd   = datetime.now().strftime("%Y-%m-%d")
+    is_today = today in item.get("date","") or ymd in item.get("date","") or \
+               today[:7] in item.get("title","") or ymd[:7] in item.get("title","")
+    threshold = 45 if is_today else 58
+    return s >= threshold and has_release
 
-    # 加载现有数据
-    data = json.loads(DATA_FILE.read_text("utf-8"))
 
-    # 收集已有卡片 id 集合，防止重复插入
-    existing_ids: set[str] = set()
-    for section in data["sections"]:
-        for card in section["items"]:
-            existing_ids.add(card["id"])
+# ──────────────────────────────────────────────────────
+# 生成时间线节点 HTML
+# ──────────────────────────────────────────────────────
+DOT_COLORS = ["bg-blue-500","bg-violet-500","bg-emerald-500","bg-orange-400",
+              "bg-cyan-500","bg-pink-500","bg-yellow-500","bg-red-500"]
 
-    # 生成卡片并追加到合适的 section
-    added = []
-    for item in top_items:
-        card = generate_card_stub(item, 0)
-        score = card["_score"]
+def make_dot_color(item):
+    text = (item["title"]+" "+item.get("desc","")).lower()
+    if any(k in text for k in ["claude","anthropic"]):      return "bg-violet-500"
+    if any(k in text for k in ["gpt","openai","codex"]):    return "bg-emerald-500"
+    if any(k in text for k in ["gemini","google"]):         return "bg-blue-500"
+    if any(k in text for k in ["grok","xai"]):              return "bg-gray-600"
+    if any(k in text for k in ["千问","qwen","阿里"]):      return "bg-orange-400"
+    if any(k in text for k in ["deepseek","字节","seed"]):  return "bg-cyan-500"
+    if any(k in text for k in ["苹果","apple","iphone"]):   return "bg-gray-500"
+    return "bg-blue-400"
 
-        # 选择 section
-        text = (item["title"] + " " + item["desc"]).lower()
-        if any(k in text for k in ["claude", "gpt", "gemini", "模型", "llm", "benchmark"]):
-            section_id = "section-models"
-        elif any(k in text for k in ["agent", "agentic", "产品", "app", "发布"]):
-            section_id = "section-products"
-        elif any(k in text for k in ["design", "设计", "ux", "ui"]):
-            section_id = "section-design"
-        else:
-            section_id = "section-products"
+def make_badge(item):
+    text = (item["title"]+" "+item.get("desc","")).lower()
+    if any(k in text for k in ["claude","anthropic"]):      return ("Anthropic","bg-violet-100 text-violet-700")
+    if any(k in text for k in ["gpt","openai","codex"]):    return ("OpenAI","bg-green-100 text-green-700")
+    if any(k in text for k in ["gemini","google"]):         return ("Google","bg-blue-100 text-blue-700")
+    if any(k in text for k in ["grok","xai"]):              return ("xAI","bg-gray-100 text-gray-700")
+    if any(k in text for k in ["千问","qwen","阿里"]):      return ("阿里","bg-orange-100 text-orange-700")
+    if any(k in text for k in ["deepseek"]):                return ("DeepSeek","bg-cyan-100 text-cyan-700")
+    if any(k in text for k in ["苹果","apple","iphone"]):   return ("Apple","bg-gray-100 text-gray-700")
+    if any(k in text for k in ["设计","figma","ux","ui"]):  return ("设计","bg-pink-100 text-pink-700")
+    return ("AI资讯","bg-blue-100 text-blue-700")
 
-        # 找到目标 section 并追加（跳过已存在的 id）
-        for section in data["sections"]:
-            if section["id"] == section_id:
-                if card["id"] not in existing_ids:
-                    section["items"].insert(0, card)
-                    existing_ids.add(card["id"])
-                    added.append(card)
-                    log(f"  新增卡片: [{score:.0f}分] {item['title'][:50]}...", "OK")
-                break
+def format_date_label(item):
+    """从 date 字段提取 YYYY.MM.DD 格式"""
+    d = item.get("date","")
+    # 尝试常见格式
+    for fmt in ["%a, %d %b %Y", "%Y-%m-%dT%H:%M", "%Y-%m-%d"]:
+        try:
+            dt = datetime.strptime(d[:16], fmt[:len(d[:16])])
+            return dt.strftime("%Y.%m.%d")
+        except: pass
+    # fallback: 今天
+    return datetime.now().strftime("%Y.%m.%d")
 
-    # 更新 meta
-    data["meta"]["date"] = datetime.now().strftime("%Y-%m-%d")
-    data["meta"]["_last_updated"] = datetime.now(timezone.utc).isoformat()
-    data["meta"]["_auto_count"] = data["meta"].get("_auto_count", 0) + len(added)
+def build_timeline_node(item, node_id):
+    dot   = make_dot_color(item)
+    badge_text, badge_cls = make_badge(item)
+    date_label = format_date_label(item)
+    title = item["title"][:80]
+    desc  = item.get("desc","")[:280]
+    src   = item["source"]
+    link  = item.get("url","")
+    link_html = f'<a href="{link}" target="_blank" class="text-xs text-blue-500 hover:underline mt-2 inline-block"><i class="fas fa-external-link-alt mr-1"></i>查看原文</a>' if link else ""
 
-    # 写入
-    DATA_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), "utf-8")
+    return f"""
+          <!-- AUTO:{node_id} date:{date_label} -->
+          <div class="relative pb-7" id="tl-{node_id}">
+            <div class="timeline-dot {dot}"></div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 card-hover">
+              <div class="flex items-start justify-between gap-2 flex-wrap">
+                <div>
+                  <span class="mono text-xs font-bold text-gray-500 uppercase tracking-wide">{date_label}</span>
+                  <h3 class="text-base font-bold text-gray-900 mt-1">{title}</h3>
+                </div>
+                <span class="tag-badge {badge_cls}">{badge_text}</span>
+              </div>
+              <p class="text-gray-600 text-sm mt-2">{desc}</p>
+              {link_html}
+            </div>
+          </div>"""
 
-    # 更新缓存
+
+# ──────────────────────────────────────────────────────
+# 把新节点插入 index.html 时间线最顶部
+# ──────────────────────────────────────────────────────
+TIMELINE_ANCHOR = '        <div class="relative ml-4 pl-8 border-l-2 border-blue-200 space-y-0">'
+
+def insert_timeline_nodes(new_nodes_html: list[str]) -> bool:
+    if not INDEX_HTML.exists():
+        log("index.html 不存在", "ERR")
+        return False
+    html = INDEX_HTML.read_text("utf-8")
+    if TIMELINE_ANCHOR not in html:
+        log("时间线锚点未找到", "ERR")
+        return False
+    insert_after = html.find(TIMELINE_ANCHOR) + len(TIMELINE_ANCHOR)
+    injection = "\n" + "\n".join(new_nodes_html)
+    html = html[:insert_after] + injection + html[insert_after:]
+    INDEX_HTML.write_text(html, "utf-8")
+    log(f"已插入 {len(new_nodes_html)} 个时间线节点", "OK")
+    return True
+
+
+# ──────────────────────────────────────────────────────
+# Git commit + push
+# ──────────────────────────────────────────────────────
+def git_push(message: str):
+    cwd = str(BASE_DIR)
+    try:
+        subprocess.run(["git","add","index.html","data/"], cwd=cwd, check=True)
+        result = subprocess.run(["git","diff","--cached","--stat"], cwd=cwd,
+                                capture_output=True, text=True)
+        if not result.stdout.strip():
+            log("git: 无变更，跳过提交", "INFO")
+            return False
+        subprocess.run(["git","commit","-m", message], cwd=cwd, check=True)
+        subprocess.run(["git","push","origin","main"], cwd=cwd, check=True)
+        log(f"git push 成功: {message}", "OK")
+        return True
+    except subprocess.CalledProcessError as e:
+        log(f"git 操作失败: {e}", "ERR")
+        return False
+
+
+# ──────────────────────────────────────────────────────
+# 生成报告
+# ──────────────────────────────────────────────────────
+def generate_report(new_items=None, inserted=None):
+    ts    = datetime.now().strftime("%Y-%m-%d %H:%M")
     cache = load_cache()
-    cache["seen_hashes"] = list(set(cache.get("seen_hashes", [])) | {i["_hash"] for i in new_items})
-    cache["last_run"] = datetime.now().isoformat()
-    cache["item_count"] = cache.get("item_count", 0) + len(added)
-    save_cache(cache)
-
-    log(f"highlights.json 已更新，新增 {len(added)} 张卡片", "OK")
-    return added
-
-
-def render_html():
-    """
-    重新渲染 HTML（从 highlights.json 生成）
-    目前为简单触发模式：写入时间戳，让前端 JS 知晓数据已更新
-    完整版可接入 Jinja2 模板引擎
-    """
-    data = json.loads(DATA_FILE.read_text("utf-8"))
-    ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    # 更新 HTML 中的时间戳（简单替换）
-    html_file = BASE_DIR / "index.html"
-    if html_file.exists():
-        html = html_file.read_text("utf-8")
-        # 更新页脚时间
-        import re
-        html = re.sub(
-            r'ISUX AI Highlight · Vol\.\d+ · [\d\.\-]+',
-            f'ISUX AI Highlight · {data["meta"]["issue"]} · {data["meta"]["date"]}',
-            html
-        )
-        html_file.write_text(html, "utf-8")
-        log(f"HTML 已更新: {ts}", "OK")
-
-
-def generate_report(new_items: list[dict] = None) -> str:
-    """生成 Markdown 格式的更新报告"""
-    data = json.loads(DATA_FILE.read_text("utf-8"))
-    cache = load_cache()
-    ts = datetime.now().strftime("%Y-%m-%d %H:%M")
-
     lines = [
         f"# ISUX AI Highlight 自动化报告",
         f"",
-        f"**生成时间**: {ts}  ",
-        f"**本次运行**: {cache.get('last_run', 'N/A')}  ",
-        f"**累计自动更新**: {cache.get('item_count', 0)} 条",
+        f"**运行时间**: {ts}",
+        f"**上次运行**: {cache.get('last_run','N/A')}",
         f"",
-        f"## 📊 当前内容统计",
-        f""
     ]
-
-    for section in data["sections"]:
-        total = len(section["items"])
-        auto = sum(1 for i in section["items"] if i.get("_auto"))
-        needs_review = sum(1 for i in section["items"] if i.get("_needs_review"))
-        lines.append(f"- **{section['title']}**: {total} 张卡片（其中 {auto} 张自动生成，{needs_review} 张待审校）")
-
+    if inserted:
+        lines += [f"## 🆕 本次插入时间线（{len(inserted)} 条）", ""]
+        for item in inserted:
+            lines.append(f"- [{score(item):.0f}分] **{item['title'][:70]}** — {item['source']}")
     if new_items:
-        lines += [
-            f"",
-            f"## 🆕 本次新增",
-            f""
-        ]
-        for item in new_items[:10]:
-            score = score_item(item)
-            lines.append(f"- [{score:.0f}分] **{item['title'][:60]}** — {item['source']}")
-
-    lines += [
-        f"",
-        f"## ✅ 需要人工审校的卡片",
-        f""
-    ]
-    for section in data["sections"]:
-        for card in section["items"]:
-            if card.get("_needs_review"):
-                lines.append(f"- `{card['id']}` [{section['title']}] {card['title'][:60]}")
-
+        lines += ["", f"## 📋 全部抓取 Top 20", ""]
+        for item in new_items[:20]:
+            worthy = "⭐" if is_timeline_worthy(item) else "  "
+            lines.append(f"- {worthy} [{score(item):.0f}分] {item['title'][:65]} — {item['source']}")
     report = "\n".join(lines)
     REPORT_FILE.write_text(report, "utf-8")
     return report
 
 
+# ──────────────────────────────────────────────────────
+# CLI 主入口
+# ──────────────────────────────────────────────────────
 def main():
-    parser = argparse.ArgumentParser(description="ISUX AI Highlight 自动化引擎")
-    parser.add_argument("--run",    action="store_true", help="完整运行（抓取+摘要+更新+渲染）")
+    parser = argparse.ArgumentParser(description="ISUX AI Highlight 自动化引擎 v2")
+    parser.add_argument("--run",    action="store_true", help="完整运行（抓取+插入时间线+推送）")
     parser.add_argument("--fetch",  action="store_true", help="只抓取，不写入")
-    parser.add_argument("--render", action="store_true", help="只重新渲染 HTML")
-    parser.add_argument("--report", action="store_true", help="输出更新报告")
-    parser.add_argument("--max",    type=int, default=5, help="每次最多处理条目数（默认 5）")
+    parser.add_argument("--push",   action="store_true", help="只推送当前 git 变更")
+    parser.add_argument("--report", action="store_true", help="打印上次运行报告")
+    parser.add_argument("--max",    type=int, default=5,  help="每次最多插入节点数（默认 5）")
     args = parser.parse_args()
 
     if args.fetch:
         items = run_fetch()
-        print(f"\n抓取结果（Top 10）：")
-        for i, item in enumerate(items[:10]):
-            print(f"  {i+1:2d}. [{score_item(item):.0f}分] {item['title'][:60]}")
+        print(f"\n=== Top 20（⭐=值得上时间线）===")
+        for i, item in enumerate(items[:20]):
+            worthy = "⭐" if is_timeline_worthy(item) else "  "
+            print(f"  {i+1:2d}. {worthy} [{score(item):.0f}分] {item['title'][:65]}")
+        return
 
-    elif args.render:
-        render_html()
+    if args.push:
+        git_push("chore: 手动推送更新")
+        return
 
-    elif args.report:
-        report = generate_report()
-        print(report)
+    if args.report:
+        if REPORT_FILE.exists():
+            print(REPORT_FILE.read_text("utf-8"))
+        else:
+            print("暂无报告，请先运行 --run")
+        return
 
-    elif args.run:
-        log("=== ISUX AI Highlight 自动化引擎启动 ===")
+    if args.run:
+        log("=== ISUX AI Highlight Engine v2 启动 ===")
+        ts_start = time.time()
+
+        # 1. 抓取
         new_items = run_fetch()
-        added = update_highlights(new_items, max_per_run=args.max)
-        render_html()
-        report = generate_report(new_items)
-        log("=== 运行完成 ===", "OK")
+
+        # 2. 过滤出值得上时间线的条目
+        cache = load_cache()
+        existing_tl_ids = set(cache.get("timeline_ids", []))
+        worthy = [
+            item for item in new_items
+            if is_timeline_worthy(item)
+            and item_hash(item["title"], item["url"]) not in existing_tl_ids
+        ][:args.max]
+
+        if not worthy:
+            log("本次无值得插入时间线的新事件", "INFO")
+            report = generate_report(new_items, [])
+            print(f"\n{report}")
+            return
+
+        # 3. 生成 HTML 节点
+        today = datetime.now().strftime("%Y%m%d")
+        nodes_html = []
+        for i, item in enumerate(worthy):
+            node_id = f"{today}-{i+1:02d}"
+            nodes_html.append(build_timeline_node(item, node_id))
+
+        # 4. 插入 index.html
+        ok = insert_timeline_nodes(nodes_html)
+        if not ok:
+            log("插入失败，中止", "ERR")
+            return
+
+        # 5. 更新缓存
+        new_hashes = [item_hash(i["title"], i["url"]) for i in worthy]
+        all_new_hashes = [item_hash(i["title"], i["url"]) for i in new_items]
+        cache["seen_hashes"] = list(set(cache.get("seen_hashes",[]) + all_new_hashes))
+        cache["timeline_ids"] = list(existing_tl_ids | set(new_hashes))
+        cache["last_run"] = datetime.now().isoformat()
+        save_cache(cache)
+
+        # 6. Git push
+        titles_short = " / ".join(i["title"][:20] for i in worthy[:3])
+        commit_msg = f"auto: 时间线更新 {datetime.now().strftime('%Y-%m-%d')} ({len(worthy)}条: {titles_short}...)"
+        git_push(commit_msg)
+
+        # 7. 报告
+        elapsed = time.time() - ts_start
+        report = generate_report(new_items, worthy)
+        log(f"=== 完成，耗时 {elapsed:.1f}s ===", "OK")
         print(f"\n{report}")
 
     else:
