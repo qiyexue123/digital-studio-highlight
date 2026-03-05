@@ -88,9 +88,7 @@
     .section-divider::before, .section-divider::after {
       content: ''; flex: 1; height: 1px; background: #e5e7eb;
     }
-    /* ── active nav ── */
-    .nav-active { color: #2563eb !important; background: #eff6ff; }
-    .toc-active { color: #2563eb; background: #eff6ff; }
+
   /* ── 导航 active 状态 ── */
   /* 顶部主导航激活 */
   .section-tab-link.tab-active {
@@ -1088,190 +1086,158 @@
 
 <script>
 // ═══════════════════════════════════════════════════════
-// ISUX AI Highlight — Navigation & Scroll JS
+// ISUX AI Highlight — Navigation JS
 // ═══════════════════════════════════════════════════════
 
-// ── 获取双层 sticky 导航的总高度 ──
-function getNavOffset() {
-  const h1 = document.getElementById('main-nav')?.offsetHeight || 64;
-  const h2 = document.getElementById('section-nav')?.offsetHeight || 48;
-  return h1 + h2 + 8;
-}
+// 等 DOM 加载完毕再绑定
+document.addEventListener('DOMContentLoaded', function() {
 
-// ── 平滑滚动（精确补偿双层 sticky 高度）──
-function smoothScrollTo(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const offset = getNavOffset();
-  const top = el.getBoundingClientRect().top + window.pageYOffset - offset;
-  window.scrollTo({ top, behavior: 'smooth' });
-}
-
-// 拦截所有锚点 <a href="#..."> 的默认跳转
-document.addEventListener('click', e => {
-  const a = e.target.closest('a[href^="#"]');
-  if (!a) return;
-  const id = a.getAttribute('href').slice(1);
-  if (!id) return;
-  e.preventDefault();
-  smoothScrollTo(id);
-});
-
-// ── 滚动高亮：顶部主导航 + 二级 sticky nav + 左侧 TOC ──
-(function() {
-  // section id → 各导航激活 id 的映射
-  const SECTION_IDS = [
-    'timeline',
-    'section-agentic', 'agentic-01', 'agentic-02', 'agentic-03',
-    'section-models',  'model-01',   'model-02',   'model-03',
-    'section-products','product-01', 'product-02', 'product-03',
-    'section-design',  'design-insights'
-  ];
-
-  // 子元素 → 所属父 section 的映射
-  const TO_SECTION = {
-    'timeline':        'timeline',
-    'section-agentic': 'section-agentic',
-    'agentic-01':      'section-agentic',
-    'agentic-02':      'section-agentic',
-    'agentic-03':      'section-agentic',
-    'section-models':  'section-models',
-    'model-01':        'section-models',
-    'model-02':        'section-models',
-    'model-03':        'section-models',
-    'section-products':'section-products',
-    'product-01':      'section-products',
-    'product-02':      'section-products',
-    'product-03':      'section-products',
-    'section-design':  'section-design',
-    'design-insights': 'section-design'
-  };
-
-  let activeId = '';
-
-  function setActive(id) {
-    if (id === activeId) return;
-    activeId = id;
-    const sectionId = TO_SECTION[id] || id;
-
-    // 1. 顶部主导航（section-tab-link）
-    document.querySelectorAll('.section-tab-link').forEach(l => {
-      const href = l.getAttribute('href')?.slice(1);
-      const isActive = (href === id || href === sectionId);
-      l.classList.toggle('tab-active', isActive);
-    });
-
-    // 2. 二级 sticky nav（snav-link）
-    document.querySelectorAll('.snav-link').forEach(l => {
-      const isActive = l.dataset.snav === sectionId;
-      l.classList.toggle('nav-active', isActive);
-    });
-
-    // 3. 左侧 TOC（toc-link）
-    document.querySelectorAll('.toc-link').forEach(l => {
-      const isActive = l.dataset.toc === id || l.dataset.toc === sectionId;
-      l.classList.toggle('toc-active', isActive);
-    });
+  // ── 平滑滚动：补偿双层 sticky 导航 ──
+  function navHeight() {
+    var n1 = document.getElementById('main-nav');
+    var n2 = document.getElementById('section-nav');
+    return (n1 ? n1.offsetHeight : 64) + (n2 ? n2.offsetHeight : 48) + 8;
   }
 
-  // 用 scroll 事件做高亮（比 IntersectionObserver 更稳定，适合多 sticky 层）
-  function onScroll() {
-    const offset = getNavOffset() + 24;  // 额外 24px 缓冲
-    let current = SECTION_IDS[0];
-    for (const id of SECTION_IDS) {
-      const el = document.getElementById(id);
-      if (!el) continue;
-      if (el.getBoundingClientRect().top <= offset) {
-        current = id;
-      }
+  function goTo(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var y = el.getBoundingClientRect().top + window.pageYOffset - navHeight();
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+
+  // 绑定所有锚点链接
+  var anchors = document.querySelectorAll('a[href^="#"]');
+  for (var i = 0; i < anchors.length; i++) {
+    (function(a) {
+      a.addEventListener('click', function(e) {
+        var id = a.getAttribute('href').replace('#', '');
+        if (!id) return;
+        e.preventDefault();
+        goTo(id);
+      });
+    })(anchors[i]);
+  }
+
+  // ── 滚动联动高亮 ──
+  var SECTIONS = ['timeline','section-agentic','section-models','section-products','section-design'];
+  var DETAIL   = ['agentic-01','agentic-02','agentic-03','model-01','model-02','model-03',
+                  'product-01','product-02','product-03','design-insights'];
+  var ALL_IDS  = SECTIONS.concat(DETAIL);
+
+  // 子 id → 父 section id
+  var PARENT = {
+    'agentic-01':'section-agentic','agentic-02':'section-agentic','agentic-03':'section-agentic',
+    'model-01':'section-models',  'model-02':'section-models',  'model-03':'section-models',
+    'product-01':'section-products','product-02':'section-products','product-03':'section-products',
+    'design-insights':'section-design'
+  };
+
+  function activate(id) {
+    var sectionId = PARENT[id] || id;
+
+    // 顶部 nav
+    var tabs = document.querySelectorAll('.section-tab-link');
+    for (var i = 0; i < tabs.length; i++) {
+      var href = tabs[i].getAttribute('href').replace('#','');
+      tabs[i].classList.toggle('tab-active', href === sectionId);
     }
-    setActive(current);
+    // 二级 sticky nav
+    var snavs = document.querySelectorAll('.snav-link');
+    for (var i = 0; i < snavs.length; i++) {
+      snavs[i].classList.toggle('nav-active', snavs[i].dataset.snav === sectionId);
+    }
+    // 左侧 TOC
+    var tocs = document.querySelectorAll('.toc-link');
+    for (var i = 0; i < tocs.length; i++) {
+      var tocId = tocs[i].dataset.toc;
+      tocs[i].classList.toggle('toc-active', tocId === id || tocId === sectionId);
+    }
+  }
+
+  function onScroll() {
+    var offset = navHeight() + 20;
+    var cur = ALL_IDS[0];
+    for (var i = 0; i < ALL_IDS.length; i++) {
+      var el = document.getElementById(ALL_IDS[i]);
+      if (el && el.getBoundingClientRect().top <= offset) cur = ALL_IDS[i];
+    }
+    activate(cur);
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  // 页面加载时立刻执行一次
-  setTimeout(onScroll, 100);
-})();
+  onScroll(); // 初始化
 
-// ── 语义下钻面板 ──
-document.querySelectorAll('[data-drill]').forEach(card => {
-  card.addEventListener('click', () => {
-    const id = card.dataset.drill;
-    const panel = document.getElementById('drill-' + id);
-    if (!panel) return;
-    const isOpen = panel.classList.contains('open');
-    document.querySelectorAll('.drill-panel.open').forEach(p => p.classList.remove('open'));
-    if (!isOpen) {
-      panel.classList.add('open');
-      setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
-    }
-  });
-});
-function closeDrill(id) {
-  event.stopPropagation();
-  document.getElementById('drill-' + id)?.classList.remove('open');
-}
+  // ── 语义下钻 ──
+  var drillCards = document.querySelectorAll('[data-drill]');
+  for (var i = 0; i < drillCards.length; i++) {
+    (function(card) {
+      card.addEventListener('click', function() {
+        var id    = card.dataset.drill;
+        var panel = document.getElementById('drill-' + id);
+        if (!panel) return;
+        var isOpen = panel.classList.contains('open');
+        var allPanels = document.querySelectorAll('.drill-panel.open');
+        for (var j = 0; j < allPanels.length; j++) allPanels[j].classList.remove('open');
+        if (!isOpen) {
+          panel.classList.add('open');
+          setTimeout(function(){ panel.scrollIntoView({ behavior:'smooth', block:'nearest' }); }, 100);
+        }
+      });
+    })(drillCards[i]);
+  }
 
-// ── TOC 折叠/展开 ──
-(function() {
-  const toggle = document.getElementById('toc-toggle');
-  const body   = document.getElementById('toc-body');
-  const chev   = document.getElementById('toc-chevron');
-  let collapsed = false;
-  toggle?.addEventListener('click', () => {
+  // ── TOC 折叠 ──
+  var toggle = document.getElementById('toc-toggle');
+  var body   = document.getElementById('toc-body');
+  var chev   = document.getElementById('toc-chevron');
+  var collapsed = false;
+  if (toggle) toggle.addEventListener('click', function() {
     collapsed = !collapsed;
     body.style.maxHeight  = collapsed ? '0' : '75vh';
     body.style.overflow   = collapsed ? 'hidden' : 'auto';
-    body.style.paddingTop = body.style.paddingBottom = collapsed ? '0' : '';
-    chev.style.transform  = collapsed ? 'rotate(180deg)' : 'rotate(0deg)';
+    chev.style.transform  = collapsed ? 'rotate(180deg)' : '';
   });
-})();
 
-// ── reveal 入场动画（稳健版）──
-(function() {
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      el.classList.add('visible');  // 已在视口内直接显示
-    } else {
-      io.observe(el);
+  // ── reveal 入场动画 ──
+  var revEls = document.querySelectorAll('.reveal');
+  function checkReveal() {
+    var wh = window.innerHeight;
+    for (var i = 0; i < revEls.length; i++) {
+      if (revEls[i].getBoundingClientRect().top < wh + 60)
+        revEls[i].classList.add('visible');
     }
-  });
+  }
+  window.addEventListener('scroll', checkReveal, { passive: true });
+  checkReveal();
+  setTimeout(function(){ 
+    for(var i=0;i<revEls.length;i++) revEls[i].classList.add('visible');
+  }, 2500);
 
-  // scroll 兜底
-  window.addEventListener('scroll', function fallback() {
-    document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
-      if (el.getBoundingClientRect().top < window.innerHeight + 100)
-        el.classList.add('visible');
-    });
-  }, { passive: true });
-
-  // 3s 终极兜底
-  setTimeout(() => {
-    document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
-  }, 3000);
-})();
-
-// ── 进度条动画 ──
-(function() {
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
+  // ── 进度条动画 ──
+  var cards = document.querySelectorAll('.bg-white.rounded-2xl');
+  var barObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
       if (e.isIntersecting) {
-        e.target.querySelectorAll('.progress-fill').forEach(bar => {
-          const w = bar.style.width;
-          bar.style.width = '0';
-          setTimeout(() => { bar.style.width = w; }, 150);
+        var bars = e.target.querySelectorAll('.progress-fill');
+        bars.forEach(function(bar) {
+          var w = bar.style.width; bar.style.width = '0';
+          setTimeout(function(){ bar.style.width = w; }, 150);
         });
-        io.unobserve(e.target);
+        barObs.unobserve(e.target);
       }
     });
   }, { threshold: 0.05 });
-  document.querySelectorAll('.bg-white.rounded-2xl').forEach(el => io.observe(el));
-})();
+  cards.forEach(function(el){ barObs.observe(el); });
+
+}); // end DOMContentLoaded
+
+// closeDrill 全局函数（inline onclick 用）
+function closeDrill(id) {
+  event.stopPropagation();
+  var p = document.getElementById('drill-' + id);
+  if (p) p.classList.remove('open');
+}
 </script>
 </body>
 </html>
